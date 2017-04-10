@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.hsd.rm.system.mapping.UserMapper">
+	<!-- 根据用户登录名查询 -->
+	<select id="findUserByLoginName" parameterType="java.lang.String" 
+	resultType="com.cn.hsd.rm.system.model.User">
+		SELECT
+			u.USER_ID userId,
+			u.LOGIN_NAME loginName,
+			u.USER_NAME userName,
+			u.PASSWORD password,
+			u.EMAIL email,
+			u.MOBILE iphone,
+			u.CREATE_TIME createTime,
+			u.UPDATE_TIME updateTime
+		FROM USER u
+		WHERE BINARY LOGIN_NAME = #{loginName}
+	</select>
+</mapper>  

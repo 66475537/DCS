@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<nav class="navbar-default navbar-static-side" role="navigation" id="navigation">
+	<div class="sidebar-collapse">
+     	<div>
+     		<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+     	</div>
+		<ul class="nav metismenu" id="side-menu">
+		    <li>
+		        <a href="${ctx}/index.do" style="white-space:nowrap;display: inline;">
+		    		<i class="fa fa-home"></i><abbr>首页</abbr>
+			    </a>
+			</li>
+			
+			<li>
+		        <a href="${ctx}/quota/toManagePage.do?riskId=e05f2a95f25911e6aff100ffd1ccb5b6" style="white-space:nowrap;display: inline;">
+		    		<i class="fa fa-tree"></i><abbr>终端</abbr>
+			    </a>
+			</li>
+			<li>
+		        <a href="${ctx}/result/toNewTree.do?fltNo=G54949" style="white-space:nowrap;display: inline;">
+		    		<i class="fa fa-tree"></i><abbr>TREE</abbr>
+			    </a>
+			</li>
+			<li>
+		        <a href="${ctx}/notice/redirectAddNoticeMessagePage.do" style="white-space:nowrap;display: inline;">
+		    		<i class="fa fa-file-audio-o"></i><abbr>通知报文</abbr>
+			    </a>
+			</li>
+			<li>
+		        <a href="${ctx}/notice/redirectAddWeatherMessagePage.do" style="white-space:nowrap;display: inline;">
+		    		<i class="fa fa-cloud"></i><abbr>天气报文</abbr>
+			    </a>
+			</li>
+			<li>
+		        <a href="${ctx}/terminal/displayTerminalTree.do" style="white-space:nowrap;display: inline;">
+		    		<i class="fa fa-sliders"></i><abbr>终端要素</abbr>
+			    </a>
+			</li>
+			<li>
+			    <a href="${ctx}/flight/queryFlightNo.do" style="white-space:nowrap;display: inline;">
+			    	<i class="fa fa-fighter-jet"></i><abbr>航班列表</abbr>
+			    </a>
+			</li>
+			<li>
+			    <a href="${ctx}/list-table.do" style="white-space:nowrap;display: inline;">
+			    	<i class="fa fa-list"></i><abbr>刷新</abbr>
+				</a>
+			</li>
+			<li>
+     			<a href="${ctx}/logout.do" style="white-space:nowrap;display: inline;">
+                	<i class="fa fa-power-off"></i><abbr>注销</abbr>
+            	</a>
+       		</li>
+		</ul>
+     </div>
+</nav>

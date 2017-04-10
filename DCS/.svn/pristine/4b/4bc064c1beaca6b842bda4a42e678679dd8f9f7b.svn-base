@@ -1,0 +1,22 @@
+package com.cn.hsd.rm.formula.service;
+
+import java.util.List;
+
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+
+public interface QuotaService {
+	/**
+	 * 查询终端因素定义分类
+	 * @param terminalType
+	 * @return
+	 */
+	public List<BiTerminalType> findBiTerminalTypeByWhere(BiTerminalType terminalType);
+
+	/**
+	 * 查询指标公式定义
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public BiFormulaDef findBiFormulaDefByID(BiFormulaDef biFormulaDef);
+}

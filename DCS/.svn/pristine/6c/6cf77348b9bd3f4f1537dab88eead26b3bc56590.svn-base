@@ -1,0 +1,40 @@
+package com.cn.hsd.rm.result.mapping;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cn.hsd.rm.factors.model.BiRiskFactors;
+import com.cn.hsd.rm.result.model.BiResultData;
+import com.cn.hsd.rm.result.model.NodeTree;
+
+
+public interface BiResultDataMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(BiResultData record);
+
+    int insertSelective(BiResultData record);
+
+    BiResultData selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(BiResultData record);
+
+    int updateByPrimaryKey(BiResultData record);
+    
+    List<BiResultData> getListByRiskIdsAndFltNoAndDepartDate(@Param(value = "ids") List<BiRiskFactors> ids, @Param(value = "fltNo") String fltNo, @Param(value = "departDate") String departDate);
+
+    void deleteDataByFltNo(@Param(value = "fltNo") String fltNo);
+    
+    List<BiResultData> getTree();
+    List<NodeTree> newTree(@Param(value = "fltNo") String fltNo);
+
+    /**
+     * 更新信息
+     */
+    void updateRiskResultInfo();
+
+	void updateNoticeMessageRiskResultInfo();
+
+    void updateTserminalVal(@Param(value = "val") String val);
+}

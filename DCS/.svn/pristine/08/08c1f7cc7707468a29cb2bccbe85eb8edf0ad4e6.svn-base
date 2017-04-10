@@ -1,0 +1,9 @@
+package com.cn.hsd.rm.system.service;
+
+import com.cn.hsd.rm.system.model.User;
+
+
+public interface UserServcie {
+
+	public User findUserByLoginName(String loginName);
+}

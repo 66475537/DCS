@@ -17,7 +17,7 @@
     <bean id="aircraftInfoJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"><!-- 定义 Job 何时执行 -->
         <property name="jobDetail" ref="aircraftInfoJobDetail" />
         <!--表达式，我的是每 3s 执行一次-->
-        <property name="cronExpression" value="0/30 * * * * ?" /><!-- “ 0 0 12 * * ? ”会在每天中午 12 点触发 执行；“ 0 15 10 ? * 6L ”会在每个月的最后一个星期五的早上 10:15 触发 Job 执行 -->
+        <property name="cronExpression" value="0/50 * * * * ?" /><!-- “ 0 0 12 * * ? ”会在每天中午 12 点触发 执行；“ 0 15 10 ? * 6L ”会在每个月的最后一个星期五的早上 10:15 触发 Job 执行 -->
     </bean>
     
     
@@ -31,7 +31,7 @@
     <bean id="syncCityPairTimeJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"><!-- 定义 Job 何时执行 -->
         <property name="jobDetail" ref="syncCityPairTimeJobDetail" />
         <!--表达式，我的是每 3s 执行一次-->
-        <property name="cronExpression" value="0/40 * * * * ?" /><!-- “ 0 0 12 * * ? ”会在每天中午 12 点触发 执行；“ 0 15 10 ? * 6L ”会在每个月的最后一个星期五的早上 10:15 触发 Job 执行 -->
+        <property name="cronExpression" value="0 35 21 * * ?" /><!-- “ 0 0 12 * * ? ”会在每天中午 12 点触发 执行；“ 0 15 10 ? * 6L ”会在每个月的最后一个星期五的早上 10:15 触发 Job 执行 -->
     </bean>
     
     
@@ -71,9 +71,9 @@
         <property name="triggers">
             <list>
                 <!--作业调度器,list下可加入其他的调度器-->
-                <ref bean="aircraftInfoJobTrigger" />
-                <ref bean="syncCityPairTimeJobTrigger" />
-                <ref bean="syncAirportJobTrigger" />
+<!--                 <ref bean="aircraftInfoJobTrigger" /> -->
+<!--                 <ref bean="syncCityPairTimeJobTrigger" /> -->
+<!--                 <ref bean="syncAirportJobTrigger" /> -->
                 <ref bean="syncAirlineInfoJobTrigger" />
             </list>
         </property>

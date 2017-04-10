@@ -1,0 +1,346 @@
+package com.cn.hsd.rm.factors.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cn.hsd.rm.factors.mapping.BiRiskFactorsMapper;
+import com.cn.hsd.rm.factors.model.BiRiskFactors;
+import com.cn.hsd.rm.factors.service.IBiRiskFactorsService;
+import com.cn.hsd.rm.level.mapping.BiRiskFactorsLevelMapper;
+import com.cn.hsd.rm.level.model.BiRiskFactorsLevel;
+import com.cn.hsd.rm.matrix.mapping.MatrixMapper;
+import com.cn.hsd.rm.result.mapping.BiResultDataMapper;
+import com.cn.hsd.rm.result.model.BiResultData;
+import com.cn.hsd.rm.util.DateUtil;
+import com.cn.hsd.rm.util.UUIDTool;
+
+@Service
+public class BiRiskFactorsServiceImpl implements IBiRiskFactorsService{
+
+    @Autowired
+    private BiRiskFactorsMapper dao;
+    
+    @Autowired
+    private BiResultDataMapper resultDataMapper;
+    
+    @Autowired
+    private MatrixMapper matrixMapper;
+    
+    @Autowired
+    private BiRiskFactorsLevelMapper factorsLevelMapper;
+    
+    @Transactional
+    @Override
+    public void treeNode(String fltNo, String departDate) {
+        
+        /** 删除当前航班的计算结果数据 */
+        this.resultDataMapper.deleteDataByFltNo(fltNo);
+        
+        
+        List<BiRiskFactors> allData = this.dao.getAllData();
+        BiRiskFactors rootNode = this.dao.rootNode();
+        
+        List<BiRiskFactors> targetNode = new ArrayList<BiRiskFactors>();
+        targetNode.add(rootNode);
+        
+        
+        List<BiRiskFactors> treeData = new ArrayList<BiRiskFactors>();
+        
+        /** 递归 */
+        List<BiRiskFactors> finalNode = recursion(allData, targetNode, treeData);
+        
+        /** 计算 */
+        calculate(finalNode, finalNode, fltNo, departDate);
+        
+    }
+
+    private void calculate(List<BiRiskFactors> finalNode, List<BiRiskFactors> allNode, String fltNo, String departDate) {
+        /** 取消递归 */
+        if (null == finalNode || finalNode.size() <=0) return ;
+        
+        /** 下一次需要被循环的list */
+        List<BiRiskFactors> nextFinalNode = new ArrayList<BiRiskFactors>(finalNode);
+        
+        for (BiRiskFactors d : finalNode) {
+            if (null != d.getChildList() && d.getChildList().size() >= 1) {
+                
+                /** d节点的子节点集合 */
+                List<BiRiskFactors> ids = new ArrayList<BiRiskFactors>();
+                
+                String id = d.getRiskId();
+                
+                for (BiRiskFactors c : allNode) {
+                    if (c.getPid().equals(id)){
+                        ids.add(c);
+                    }
+                }
+                
+                /** 查询当前节点所有的子节点在“风险等级结果表”中是否有记录 */
+                List<BiResultData> resultList = this.resultDataMapper.getListByRiskIdsAndFltNoAndDepartDate(ids, fltNo, departDate);
+                
+                /** 如何查询到的子节点在“风险等级结果表”中的记录和d节点的子节点个数一致,说明每个子节点都有了低或中或高的一个结果 */
+                if (resultList.size() == d.getChildNodeNumber()){
+                    
+                    /** 当子节点个数只有一个的时候, 一维矩阵 */
+                    if (d.getChildNodeNumber() == 1) {
+                        
+                        /** 获取子节点是低/中/高  中的哪一项, 根据不同的结果判断确定矩阵的坐标, 从而获取对应的值 */
+                        String riskGrade = resultList.get(0).getRiskGrade();
+                        String coordX = null;
+                        
+                        /** 判断坐标 */
+                        coordX = judgeCoord(riskGrade,1);
+                        
+                        
+                        /** 要计算的节点的ID */
+                        String currNodeId = d.getRiskId();
+                        
+                        /** 获取计算节点在矩阵中的值 */
+                        int coordVal = this.matrixMapper.getCoordVal(currNodeId, coordX, null);
+                        
+                        /** 根据矩阵中的值, 判断当前节点是低/中/高   中的哪一项 */
+                        String judgetLevel = judgetTMB(coordVal, currNodeId);
+                        
+                        /** 保存当前节点的计算结果 */
+                        saveResult(fltNo, departDate, currNodeId, coordVal, judgetLevel);
+                        
+                    } else if (resultList.size() == 2){
+                        /** 当子节点个数有两个的时候, 二维矩阵 */
+                        
+                        /** 获取子节点是低/中/高  中的哪一项, 根据不同的结果判断确定矩阵的坐标, 从而获取对应的值 */
+                        BiResultData data1 = resultList.get(0);
+                        BiResultData data2 = resultList.get(1);
+                        
+                        /** 横纵坐标ID */
+                        String coord_x_id = null;
+                        
+                        for (BiRiskFactors b : d.getChildList()){
+                            if (b.getNodeIndex() == 1) coord_x_id = b.getRiskId();
+                        }
+                        
+                        
+                        String coord_x = null;
+                        String coord_y = null;
+                        
+                        /** 确定谁是横坐标, 谁是纵坐标 */
+                        if (data1.getRiskId().equals(coord_x_id)) {
+                            coord_x = judgeCoord(data1.getRiskGrade(), 1);
+                            coord_y = judgeCoord(data2.getRiskGrade(), 2);
+                        } else {
+                            coord_y = judgeCoord(data1.getRiskGrade(), 2);
+                            coord_x = judgeCoord(data2.getRiskGrade(), 1);
+                        }
+                        
+                        /** 要计算的节点的ID */
+                        String currNodeId = d.getRiskId();
+                        
+                        /** 根据横纵坐标到矩阵中查找当前节点的分值 */
+                        int coordVal = this.matrixMapper.getCoordVal(currNodeId, coord_x + coord_y, null);
+                        
+                        /** 根据矩阵中的值, 判断当前节点是低/中/高   中的哪一项 */
+                        String judgetLevel = judgetTMB(coordVal, currNodeId);
+                        
+                        /** 保存当前节点的计算结果 */
+                        saveResult(fltNo, departDate, currNodeId, coordVal, judgetLevel);
+                        
+                        
+                    } else {
+                        /** 当子节点个数有三个的时候, 三维矩阵 */
+                        
+                        /** 获取子节点是低/中/高  中的哪一项, 根据不同的结果判断确定矩阵的坐标, 从而获取对应的值 */
+                        BiResultData data1 = resultList.get(0);
+                        BiResultData data2 = resultList.get(1);
+                        BiResultData data3 = resultList.get(2);
+                        
+                        /** 横纵坐标ID */
+                        String coord_x_id = null;
+                        
+                        /** 参考坐标ID */
+                        String reference_coord_id = null;
+                        
+                        for (BiRiskFactors b : d.getChildList()){
+                            if (b.getNodeIndex() == 1) reference_coord_id = b.getRiskId();
+                            if (b.getNodeIndex() == 2) coord_x_id = b.getRiskId();
+                        }
+                        
+                        String coord_x = null;
+                        String coord_y = null;
+                        String reference_coord_val = null;
+                        
+                        /** 确定谁是横坐标, 谁是纵坐标 */
+                        if (data1.getRiskId().equals(coord_x_id)) {
+                            coord_x = judgeCoord(data1.getRiskGrade(), 1);
+                            if (data2.getRiskId().equals(reference_coord_id)) {
+                                reference_coord_val = reference_coord_val(data2.getRiskGrade());
+                                coord_y = judgeCoord(data3.getRiskGrade(), 2);
+                            }else {
+                                reference_coord_val = reference_coord_val(data3.getRiskGrade());
+                                coord_y = judgeCoord(data2.getRiskGrade(), 2);
+                            }
+                        } else {
+                            if (data1.getRiskId().equals(reference_coord_id)) {
+                                reference_coord_val = reference_coord_val(data1.getRiskGrade());
+                                if (data2.getRiskId().equals(coord_x_id)) {
+                                    coord_x = judgeCoord(data2.getRiskGrade(), 1);
+                                    coord_y = judgeCoord(data3.getRiskGrade(), 2);
+                                } else {
+                                    coord_y = judgeCoord(data2.getRiskGrade(), 2);
+                                    coord_x = judgeCoord(data3.getRiskGrade(), 1);
+                                }
+                            } else {
+                                coord_y = judgeCoord(data1.getRiskGrade(), 2);
+                                
+                                if (data2.getRiskId().equals(coord_x_id)) {
+                                    coord_x = judgeCoord(data2.getRiskGrade(), 1);
+                                    reference_coord_val = reference_coord_val(data3.getRiskGrade());
+                                } else {
+                                    coord_x = judgeCoord(data3.getRiskGrade(), 1);
+                                    reference_coord_val = reference_coord_val(data2.getRiskGrade());
+                                }
+                                
+                            }
+                        }
+                        
+                        
+                        /** 要计算的节点的ID */
+                        String currNodeId = d.getRiskId();
+                        
+                        /** 根据横纵坐标到矩阵中查找当前节点的分值 */
+                        int coordVal = this.matrixMapper.getCoordVal(currNodeId, coord_x + coord_y, Integer.valueOf(reference_coord_val));
+                        
+                        /** 根据矩阵中的值, 判断当前节点是低/中/高   中的哪一项 */
+                        String judgetLevel = judgetTMB(coordVal, currNodeId);
+                        
+                        /** 保存当前节点的计算结果 */
+                        saveResult(fltNo, departDate, currNodeId, coordVal, judgetLevel);
+                        
+                    }
+                    
+                    /** 移除子节点 */
+                    for (BiRiskFactors removeId : ids) {
+                        nextFinalNode.remove(removeId);
+                    }
+                    /** 移除当前节点 */
+                    nextFinalNode.remove(d);
+                }
+                
+            } 
+            
+        }
+
+        
+        calculate(nextFinalNode, allNode, fltNo, departDate);
+        
+        
+    }
+
+    private String reference_coord_val(String riskGrade) {
+        return "低".equals(riskGrade) ? "1" : "中".equals(riskGrade) ? "2" : "3";
+    }
+
+    private void saveResult(String fltNo, String departDate, String currNodeId, int coordVal, String judgetLevel) {
+        /** 保存当前节点的计算结果 */
+        BiResultData currNodeResultData = new BiResultData();
+        currNodeResultData.setId(UUIDTool.getUUID());
+        currNodeResultData.setFltNo(fltNo);
+        currNodeResultData.setCreateTime(DateUtil.getNowTime());
+        currNodeResultData.setReckonDate(departDate);
+        currNodeResultData.setRiskId(currNodeId);
+        currNodeResultData.setResult(coordVal+"");
+        currNodeResultData.setRiskGrade(judgetLevel);
+        this.resultDataMapper.insert(currNodeResultData);
+    }
+
+    private String judgetTMB(int coordVal, String currNodeId) {
+        
+        String judgetLevel = null;
+        
+        /** 根据矩阵中的值, 判断当前节点是低/中/高   中的哪一项 */
+        List<BiRiskFactorsLevel> levelList = this.factorsLevelMapper.getListByRiskId(currNodeId);
+        Double levelValueTop = levelList.get(0).getLevelValue();
+        Double levelValueMid = levelList.get(1).getLevelValue();
+        Double levelValueBut = levelList.get(2).getLevelValue();
+        
+        if (coordVal <= levelValueTop || (coordVal >= levelValueTop && coordVal < levelValueMid)){
+            judgetLevel = "低";
+        } else if (coordVal >= levelValueMid && coordVal < levelValueBut) {
+            judgetLevel = "中";
+        } else {
+            judgetLevel = "高";
+        }
+        
+        return judgetLevel;
+        
+    }
+
+    /**  
+     * @param riskGrade
+     * @param coordFlag 1:x还是2:y
+     * @return  
+     * @功能描述:
+     * @Author:曹颖桐
+     * @date:2017-2-16  下午6:24:44
+     * @Version:1.1.0  
+     */
+    private String judgeCoord(String riskGrade, int coordFlag) {
+        String coord = null;
+        if(coordFlag == 1){
+            if("低".equals(riskGrade)){
+                coord = "X1";
+            }else if ("中".equals(riskGrade)) {
+                coord = "X2";
+            }else {
+                coord = "X3";
+            }
+        }else{
+            if("低".equals(riskGrade)){
+                coord = "Y1";
+            }else if ("中".equals(riskGrade)) {
+                coord = "Y2";
+            }else {
+                coord = "Y3";
+            }
+        }
+        
+        return coord;
+        
+    }
+
+    /**  
+     * @param allData 所有数据
+     * @param targetNode 要查找子节点的数据
+     * @功能描述:
+     * @Author:曹颖桐
+     * @date:2017-2-15  下午5:20:13
+     * @Version:1.1.0  
+     */
+    private List<BiRiskFactors> recursion(List<BiRiskFactors> allData, List<BiRiskFactors> targetNode, List<BiRiskFactors> finalNode){
+        if (allData.size() == finalNode.size()) return finalNode;
+        
+        List<BiRiskFactors> nextTargetNode = new ArrayList<BiRiskFactors>();
+        
+        for (BiRiskFactors target : targetNode) {
+            List<BiRiskFactors> childList = new ArrayList<BiRiskFactors>();
+            if(null == target.getChildList() || target.getChildList().size() <= 0){
+                for (BiRiskFactors all : allData) {
+                    if (target.getRiskId().equals(all.getPid())) {
+                        childList.add(all);
+                        nextTargetNode.add(all);
+                    }
+                }
+                
+                target.setChildList(childList);
+                finalNode.add(target);
+            }
+            
+        }
+        
+        return recursion(allData, nextTargetNode, finalNode);
+    }
+}
+

@@ -1,0 +1,41 @@
+package com.cn.hsd.rm.formula.mapping;
+
+import java.util.List;
+
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiQuotaDef;
+import com.cn.hsd.rm.formula.model.BiRiskFactors;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+
+public interface QuotaMapper {
+	public void save(BiQuotaDef quotaDef);
+	
+	/**
+	 * 查询指标模型定义
+	 * @param quotaDef
+	 * @return
+	 */
+	public List<BiQuotaDef> findQuotaDefByWhere(BiQuotaDef quotaDef);
+	
+	/**
+	 * 查询终端因素
+	 * @param riskFactors
+	 * @return
+	 */
+	public List<BiRiskFactors> findRiskFactorsByWhere(BiRiskFactors riskFactors);
+	
+	/**
+	 * 查询终端因素定义分类
+	 * @param terminalType
+	 * @return
+	 */
+	public List<BiTerminalType> findBiTerminalTypeByWhere(BiTerminalType terminalType);
+	
+	
+	/**
+	 * 查询指标公式定义
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public BiFormulaDef findBiFormulaDefByID(BiFormulaDef biFormulaDef);
+}

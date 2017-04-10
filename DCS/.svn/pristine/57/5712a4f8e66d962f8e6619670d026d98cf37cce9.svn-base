@@ -1,0 +1,212 @@
+package com.cn.hsd.rm.formula.service.impl;
+
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+import javax.script.ScriptException;
+import javax.transaction.Transactional;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.cn.hsd.rm.formula.mapping.QuotaMapper;
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiFormulaDefRule;
+import com.cn.hsd.rm.formula.model.BiQuotaDef;
+import com.cn.hsd.rm.formula.model.BiQuotaType;
+import com.cn.hsd.rm.formula.model.BiResultData;
+import com.cn.hsd.rm.formula.model.BiRiskFactors;
+import com.cn.hsd.rm.formula.model.BiRiskRules;
+import com.cn.hsd.rm.formula.model.BiScreeningResults;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+import com.cn.hsd.rm.formula.model.Script;
+import com.cn.hsd.rm.formula.service.QuotaService;
+import com.cn.hsd.rm.util.UUIDTool;
+
+
+@Service("quotaService")
+public class QuotaServiceImpl implements QuotaService {
+	@Resource
+	private QuotaMapper quotaMapper;
+	
+	private static final Logger logger = LoggerFactory.getLogger(QuotaServiceImpl.class);
+	
+	/**
+	 * 查询终端因素定义分类
+	 * @param terminalType
+	 * @return
+	 */
+	public List<BiTerminalType> findBiTerminalTypeByWhere(BiTerminalType terminalType){
+		List<BiRiskFactors> brfList = quotaMapper.findRiskFactorsByWhere(new BiRiskFactors());
+		List<BiTerminalType> list = quotaMapper.findBiTerminalTypeByWhere(terminalType);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < brfList.size(); j++) {
+				if(list.get(i).getTerminalTypeId().equals(brfList.get(j).getTypeId())){
+					list.get(i).addRiskFactors(brfList.get(j));
+				}
+			}
+		}
+		return BiTerminalType.buildTree(list);
+	}
+	
+	/**
+	 * 查询类别
+	 * @param qt
+	 * @return
+	 */
+	public List<BiQuotaType> findQuotaType(BiQuotaType qt){
+		return this.quotaMapper.findQuotaType(qt);
+	}
+	
+	/**
+	 * 查询定义
+	 */
+	@Override
+	public List<BiQuotaDef> findQuotaDef(BiQuotaDef quotaDef) {
+		return this.quotaMapper.findQuotaDef(quotaDef);
+	}
+	
+	
+	/**
+	 * 保存风险识别规则
+	 * @param biRiskRules
+	 */
+	public void saveBiRiskRules(BiRiskRules biRiskRules){
+		//解析MIN,MAX
+		if(StringUtils.isEmpty(biRiskRules.getRulesId())){//保存
+			biRiskRules.setRulesId(UUIDTool.getUUID());
+			this.quotaMapper.saveBiRiskRules(biRiskRules);
+			for (int i = 0; i < biRiskRules.getScreeningResultsList().size(); i++) {
+				BiScreeningResults sr =  biRiskRules.getScreeningResultsList().get(i);
+				sr.setItemId(UUIDTool.getUUID());
+				sr.setRulesId(biRiskRules.getRulesId());
+				this.quotaMapper.saveScreeningResults(sr);
+			}
+		}else{
+			this.quotaMapper.updateBiRiskRules(biRiskRules);
+			for (int i = 0; i < biRiskRules.getScreeningResultsList().size(); i++) {
+				BiScreeningResults sr =  biRiskRules.getScreeningResultsList().get(i);
+				sr.setItemId(UUIDTool.getUUID());
+				sr.setRulesId(biRiskRules.getRulesId());
+				this.quotaMapper.updateScreeningResults(sr);
+			}
+		}
+		
+	}
+	
+	/**
+	 * 查询指标公式定义
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public BiFormulaDef findBiFormulaDefByID(BiFormulaDef biFormulaDef){
+		return this.quotaMapper.findBiFormulaDefByID(biFormulaDef);
+	}
+	
+	
+	
+	/**
+	 * 计算终端因素分析的结果
+	 */
+	public void saveTerminalAnalysisResult(String Date) throws NoSuchMethodException, ScriptException{
+		//0.查询当天所有的航班数据
+		this.saveTerminalAnalysisResult("", Date);
+		
+	}
+	
+	/**
+	 * 计算终端因素分析的结果
+	 * @throws ScriptException 
+	 * @throws NoSuchMethodException 
+	 */
+	public void saveTerminalAnalysisResult(String fltNo,String date) throws NoSuchMethodException, ScriptException{
+		List<BiFormulaDef> fds = this.quotaMapper.findFormulaDefByWhere(null);
+		for (int i = 0; i < fds.size(); i++) {
+			fds.get(i).buildSQL(
+					this.quotaMapper.findFormulaDefRuleByWhere(new BiFormulaDefRule(fds.get(i).getFormulaDefId())),
+					fltNo,date);
+			this.logger.debug(fds.get(i).getFormulaDefId()+" parse Sql:"+fds.get(i).getSql());
+			String reult = executeRiskRule(fds.get(i).getFormulaDefId(), this.quotaMapper.findBySql(fds.get(i)));
+			//3.将结果存入BI_RESULT_DATA
+			this.quotaMapper.saveBiResultData(new BiResultData(fds.get(i).getRiskId(),date,fltNo,reult));
+		}
+	}
+
+
+	/**
+	 * 根据规则生成脚本，解析脚本产生结果
+	 * @param formulaDefId 规则ID
+	 * @param result 产生结果
+	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws ScriptException
+	 */
+	private String executeRiskRule(String formulaDefId,List<String> result) throws NoSuchMethodException, ScriptException {
+		//2.查询风险识别规则
+		List<BiRiskRules> biRiskRuleList = this.quotaMapper.findRiskRulesByWhere(new BiRiskRules(formulaDefId));
+		
+		if(biRiskRuleList!=null&&biRiskRuleList.size()>0){
+			String argName = "arg";
+			StringBuilder js = new StringBuilder();
+			for (int j = 0; j < biRiskRuleList.size(); j++) {
+				BiRiskRules riskRules = biRiskRuleList.get(j);
+				riskRules.setScreeningResultsList(quotaMapper.findScreeningResultsByWhere(new BiScreeningResults(riskRules.getRulesId())));
+				
+				js.append(riskRules.buildScript(argName));
+			}
+			String exeResult = new Script(argName, js.toString()).execFun(result.toArray(new String[result.size()]));
+			return exeResult;
+		}
+		return null;
+	}
+
+	/**
+	 * 查询低中高取值规则
+	 * @param biRiskRules
+	 * @return
+	 */
+	public List<BiRiskRules> findBiRiskRules(BiRiskRules biRiskRules){
+		List<BiRiskRules> list = this.quotaMapper.findRiskRulesByWhere(biRiskRules);
+		for (int i = 0; i < list.size(); i++) {
+			List<BiScreeningResults> screeningResults = this.quotaMapper.findScreeningResultsByWhere(new BiScreeningResults(list.get(i).getRulesId()));
+			list.get(i).setScreeningResultsList(screeningResults);
+		}
+		return list;
+	}
+	
+	
+	/**
+	 * 查询取值条件
+	 * @param biFormulaDefRule
+	 * @return
+	 */
+	public List<BiFormulaDefRule> findFormulaDefRuleByWhere(BiFormulaDefRule biFormulaDefRule){
+		return this.quotaMapper.findFormulaDefRuleByWhere(biFormulaDefRule);
+	}
+	
+	
+	/**
+	 * 删除biRiskRules及其了集
+	 * @param biRiskRules
+	 * @throws Exception 
+	 */
+	@Transactional
+	public void deleteBiRiskRules(BiRiskRules biRiskRules) throws Exception{
+		this.quotaMapper.deleteBiRiskRules(biRiskRules);
+	}
+	
+	
+	
+	/**
+	 * 构造测试数据
+	 */
+	@Transactional
+	public void executeSQL(){
+		//查询所有航班构造测试数据
+		this.quotaMapper.executeSql();
+	}
+	
+}

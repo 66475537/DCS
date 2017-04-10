@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="common/common-taglibs.jsp"%>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>登陆 - 运行控制风险管理系统</title>
+	    <link href="${ctx}/css/bootstrap.min.css" rel="stylesheet">
+	    <link href="${ctx}/css/font-awesome.min.css" rel="stylesheet">
+	    <link href="${ctx}/css/animate.css" rel="stylesheet">
+	    <link href="${ctx}/css/admin/style.css" rel="stylesheet">
+	    <link rel="shortcut icon" href="${ctx}/images/icon_32X32.ico">
+	    <style type="text/css">
+	    	.m-t {
+	    		padding: 30px;
+	    		background-color: #fff;
+	    		border-radius: 8px;
+	    	}
+	    	.gray-bg {
+			  background-color: #f3f3f4;
+			  background-image: url("images/bg-login.png");
+			}
+	    </style>
+	</head>
+	<body class="gray-bg">
+	    <div class="middle-box text-center loginscreen animated fadeInDown">
+	        <div>
+	            <div>
+	                <h1 class="logo-name">&nbsp;</h1>
+	            </div>
+	            <p style="font-size: 25px;color: #fff;">登陆 | 运行控制风险管理系统</p>
+	            <form class="m-t" action="${ctx}/doLogin.do" method="post" style="background-image: url('images/bg-form.png');">
+	                <div class="form-group">
+	                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Username">
+	                </div>
+	                <div class="form-group">
+	                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+	                </div>
+	                <div class="form-group" style="text-align: left;">
+	                	<a href="#"><small>忘记密码?</small></a>
+	                </div>
+	                <button type="submit" class="btn btn-primary block full-width m-b">登陆</button>
+	            </form>
+	            <p style="margin-top: 15px;"> <small>北京华数达科技有限公司 &copy; 2017</small> </p>
+	        </div>
+	    </div>
+	    <!-- Mainly scripts -->
+	    <script src="${ctx}/js/jquery-2.1.1.js"></script>
+	    <script src="${ctx}/js/bootstrap.min.js"></script>
+	</body>
+</html>

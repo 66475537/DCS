@@ -1,0 +1,384 @@
+<!DOCTYPE HTML>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="common/common-taglibs.jsp"%>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>运行控制风险管理系统</title>
+		<link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
+		<link rel="stylesheet" type="text/css" href="${ctx}/fonts/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="${ctx}/css/commen.css" />
+		<link rel="stylesheet" href="${ctx}/css/tools.css" />
+		<link rel="stylesheet" href="http://123.57.253.58:7789/library/3.16/3.16/esri/css/esri.css">
+		<script>
+			var ctx = "${ctx}";
+		</script>
+		<style type="text/css">
+			body{
+				background-color: #dddddd;
+			}
+			.top_button > a > i {
+			    float: left;
+			    font-size: 24px;
+			    padding: 12px 22px 15px 21px;
+			    text-align: center;
+			    color: #fff;
+			}
+
+			.col-lg-6 {
+				width: 49.5%;
+			}
+			.col-lg-6 {
+    			float: left;
+    			position: relative;
+			}
+			.col-lg-12 {
+				width: 100%;
+				height: 120px;
+				max-height:120px;
+				margin-bottom: 5px;
+			}
+			.row {
+				padding-top: 6px;
+		        padding-right: 12px;
+		        padding-bottom: 12px;
+		        padding-left: 12px;
+			}
+			.col-lg-2 {
+				float: left;
+				position: relative;
+				width: 20%;
+			}
+			.col-lg-2-div {
+				height: 106px;
+				max-height: 106px;
+				background-color: #ffffff;
+				margin-top: 5px;
+			}
+			/** tables **/
+			.ibox {
+			    clear: both;
+			    margin-bottom: 25px;
+			    margin-top: 0;
+			    padding: 0; 
+    		}
+    		.ibox-title {
+	    		-moz-border-bottom-colors: none;
+				-moz-border-left-colors: none;
+				-moz-border-right-colors: none;
+				-moz-border-top-colors: none;
+				background-color: #ffffff;
+				border-color: #e7eaec;
+				border-image: none;
+				border-style: solid solid none;
+				border-width: 3px 0 0;
+				color: inherit;
+				margin-bottom: 0;
+				padding: 15px 24px 0px;
+				min-height: 38px;
+			}
+			.ibox-content {
+			    clear: both;
+			}
+			.ibox-content {
+			    background-color: #ffffff;
+			    color: inherit;
+			    padding: 1px 20px 20px 20px;
+			    border-color: #e7eaec;
+			    border-image: none;
+			    border-style: solid solid none;
+			    border-width: 1px 0;
+    		}
+    		.table {
+			    width: 100%;
+			    max-width: 100%;
+			    margin-bottom: 20px;
+			}
+			table {
+			    background-color: transparent;
+			}
+			table {
+			    border-spacing: 0;
+			    border-collapse: collapse;
+			}
+			.table > thead:first-child > tr:first-child > th {
+			    border-top: 0;
+			}
+			.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+			    border-top: 1px dashed #e7eaec;
+			    padding: 8px;
+			    vertical-align: top;
+			}
+			.table > thead > tr > th {
+			    border-bottom: 1px solid #DDDDDD;
+			    vertical-align: bottom;
+			}
+			.table > thead > tr > th {
+			    vertical-align: bottom;
+			    border-bottom: 1px solid #ddd;
+			}
+			th {
+			    text-align: left;
+			}
+			.form-control {
+				background-color: #FFFFFF;
+				background-image: none;
+				border: 0px solid #e5e6e7;
+				border-radius: 1px;
+				color: inherit;
+				display: block;
+				padding: 6px 12px;
+				transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+				width: 110px;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<jsp:include page="left-menu.jsp"/>
+		<div class="meanbody" id="meanbody" style="height: 100%;">
+			<jsp:include page="top.jsp"/>
+				<div class="row" style="height: 100%;">
+					<div id="collg61" class="col-lg-12" style="text-align: center;">
+						<div class="col-lg-2">
+							<div style="margin-top: -2.5px;">
+								<img src="images/collg2-bg.png" height="120px;" alt="laptop">
+							</div>
+							<div style="background-color: #ffffff;height: 106px;margin-top: -116px;color: #fff;">
+								<div>
+									<strong>风险航班</strong>&nbsp;<span style="font-size: 24px;">汇总</span>
+								</div>
+								<div style="margin-top: 32px;color: #333;text-align: left;margin-left: 50px;">
+									<img alt="image" style="height:30px;width:30px;" src="images/shijian.png">
+									<div style="margin-left: 35px;margin-top: -45px;">
+										<input class="form-control" type="text" id="time" name="time">
+										<input class="form-control" type="text" id="time" name="time" style="padding: 0px 12px;">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="col-lg-2-div">
+								<div style="padding: 13px;">
+									<div style="border-left: 1px solid #e7eaec;width: 49.5%;float: left;text-align: right;">
+										<span><img alt="image" style="height: 50px;width: 50px;" src="images/wufengxian.png"></span>
+									</div>
+									<div style="width: 49.5%;float: left;text-align: left;height: 50px;padding-top: 5px;">
+										<span style="font-size: 38px;color: #b2b2b1;">汇总</span>
+									</div>
+									<div style="border-left: 1px solid #e7eaec;text-align: left;">
+										<div style="margin-left: 65px;color: #b2b2b1;">
+											<strong>当前航班总数</strong>
+										</div>
+									</div>
+								</div>							
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="col-lg-2-div">
+								<div style="padding: 13px;">
+									<div style="border-left: 1px solid #e7eaec;width: 49.5%;float: left;text-align: right;">
+										<span><img alt="image" style="height: 50px;width: 50px;" src="images/fengxian.png"></span>
+									</div>
+									<div style="width: 49.5%;float: left;text-align: left;height: 50px;padding-top: 5px;">
+										<span style="font-size: 38px;color: #ff0000;">汇总</span>
+									</div>
+									<div style="border-left: 1px solid #e7eaec;text-align: left;">
+										<div style="margin-left: 72px;color: #b2b2b1;">
+											<strong>严重警告航班(C1-C2)</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="col-lg-2-div">
+								<div style="padding: 13px;">
+									<div style="border-left: 1px solid #e7eaec;width: 49.5%;float: left;text-align: right;">
+										<span><img alt="image" style="height: 50px;width: 50px;" src="images/fengxian3.png"></span>
+									</div>
+									<div style="width: 49.5%;float: left;text-align: left;height: 50px;padding-top: 5px;">
+										<span style="font-size: 38px;color: #fff800;">汇总</span>
+									</div>
+									<div style="border-left: 1px solid #e7eaec;text-align: left;">
+										<div style="margin-left: 72px;color: #b2b2b1;">
+											<strong>紧急告警航班(C2-C3)</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="col-lg-2-div">
+								<div style="padding: 13px;">
+									<div style="border-left: 1px solid #e7eaec;width: 49.5%;float: left;text-align: right;">
+										<span><img alt="image" style="height: 50px;width: 50px;" src="images/fengxian2.png"></span>
+									</div>
+									<div style="width: 49.5%;float: left;text-align: left;height: 50px;padding-top: 5px;">
+										<span style="font-size: 38px;color: #0092ff;">汇总</span>
+									</div>
+									<div style="border-left: 1px solid #e7eaec;text-align: left;">
+										<div style="margin-left: 72px;color: #b2b2b1;">
+											<strong>一般告警航班数(C3-C4)</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rowbody" style="height: 100%">
+						<div id="collg62" class="col-lg-6" style="background-color: #fff;margin-right: 12px;height: 100%;">
+						<div class="ibox" style="height: 100%;"><!-- ibox -->
+		                    <div class="ibox-title">
+		                        <div class="ibox-tools">
+		                        	<strong>风险航班列表</strong>
+		                        </div>
+		                    </div>
+		                    <div class="ibox-content" style="height: 100%;overflow: auto;">
+		                        <table class="table" style="height: 100%;overflow: auto;">
+				                      <thead>
+				                            <tr>
+				                                <th>#</th><th>First Name</th><th>Last Name</th><th>Username</th>
+				                            </tr>
+			                            </thead>
+			                            <tbody>
+			                            <tr>
+			                                <td>1</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>2</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>3</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>4</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>5</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>6</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>7</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>8</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>9</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>10</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>11</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>12</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>13</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>14</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>15</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>16</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>17</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            </tbody>
+		                        </table>
+		                    </div>
+		                </div><!-- ibox -->
+					</div>
+						<div id="collg63" class="col-lg-6">
+								<div class="mapbody ibox-title" >
+									<div class="gis-tool">
+										  <div class="tools" id="tools">
+										        <ul id="firsttool">
+										            <li><img src="images/tools-01.png" style="width:100%;height:100%" alt="气象雷达图" id="radar"></li>
+										            <li><img src="images/tools-02.png" style="width:100%;height:100%" alt="航路图" id="highline"></li>    
+										            <li><img src="images/tools-04.png" style="width:100%;height:100%" alt="机场图层" id="airport"></li>
+										        </ul>
+										        <ul>
+										            <li><img src="images/tools-03.png" style="width:100%;height:100%" alt="航路热敏图" id="linedensity"></li>
+										            <li><img src="images/tools-05.png" style="width:100%;height:100%" alt="机场热敏图" id="aircraftdensity"></li>
+									            <li><img src="images/tools-06.png" style="width:100%;height:100%" alt="机场气象图"></li>
+										            <li><img src="images/tools-07.png" style="width:100%;height:100%" alt="机场通告"></li>
+										            <li><img src="images/tools-08.png" style="width:100%;height:100%" alt="航路通告"></li> 
+										        </ul>
+										        <ul>
+										            <li><img src="images/tools-09.png" style="width:100%;height:100%" alt="备份飞机" id="backaircraft"></li>
+										            <li><img src="images/tools-10.png" style="width:100%;height:100%" alt="备份机组" id="backpliot"></li>
+										        </ul>
+										        <ul>
+										            <li><img src="images/tools-11.png" style="width:100%;height:100%" alt="路径规划" id="testbtn"></li>
+										            <li><img src="images/tools-12.png" style="width:100%;height:100%" alt="测距工具"></li>
+										        </ul>
+										        <ul>
+										            <li><img src="images/tools-13.png" style="width:100%;height:100%" alt="放大"></li>
+										            <li><img src="images/tools-14.png" style="width:100%;height:100%" alt="缩小"></li>
+										        </ul>
+										    </div>
+									    <div class="flightpanel" id="flightdetail"><img src="images/tankuang-25.jpg" />
+									    </div>
+									</div>
+									<div class="middle-gis" style="background-color: #FFF"  id="map"></div>
+<!-- 											弹出机场图 -->
+<!-- 									<div class="airport_alerm" id="airportalerm"> -->
+<!-- 										<div class="alerm_head" id="alerm_head"><img src="images/airport-02.png" width="100%" height="100%"></div> -->
+<!-- 										<div class="alerm_bottom"> -->
+<!-- 											<div class="alerm_pic"><img src="images/airport-01.png" width="100%" height="100%"></div> -->
+<!-- 											<div class="alerm_vedio" > -->
+<!-- 												<video src="video/airport.mp4"  width="100%" height="100%" controls="controls" id="bgvideo"> -->
+<!-- 												Your browser does not support the video tag. -->
+<!-- 												</video> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+								</div>
+					</div>
+					</div>
+				</div>
+
+		</div>
+		<script src="${ctx}/js/jquery-2.1.1.js"></script>
+		<script src="http://123.57.253.58:7789/library/3.16/3.16/init.js"></script>
+		<script type="text/javascript" src="${ctx}/js/gis.js"></script>
+		<script type="text/javascript">
+		
+			$(function(){
+				$('.rowbody').css('height',$(window).height()-275+"px");
+				$('.mapbody').css('height',$(window).height()-215+"px");
+			})
+		
+// 			$(document).ready(function(){
+// 			   	var _jahDivs = $("#autoheight");
+// 				if (_jahDivs.length > 0) {
+// 					_jahDivs.css("overflow", "auto");
+// 					$(window).resize(function () {
+// 						var _addHeight = $(window).height() - $("body").outerHeight(true);
+// 						var _height = _jahDivs.height();
+// 						_jahDivs.height(_height + _addHeight - (_jahDivs.outerHeight(true) - _height) / 2-2);
+// 					}).resize();
+// 				}
+				
+// 				var _collg62 = $("#collg62");
+// 				_collg62.css("overflow", "auto");
+// 				_collg62.height($('#autoheight').height()-143);
+				
+// 				var _collg63 = $("#collg63");
+// 				_collg63.css("overflow", "auto");
+// 				_collg63.height($('#autoheight').height()-143);
+// 			})  
+		</script>
+	</body>
+</html>

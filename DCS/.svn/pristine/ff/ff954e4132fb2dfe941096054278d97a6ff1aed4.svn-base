@@ -1,0 +1,30 @@
+package com.cn.hsd.rm.formula.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cn.hsd.rm.formula.service.QuotaService;
+
+
+/**
+ * 指标定义
+ * @author chenlin
+ *
+ */
+@Controller("/quota")
+public class QuotaController {
+	
+	@Autowired
+	private QuotaService quotaService;
+	
+	/**
+	 * 跳转到管理页面
+	 * @return
+	 */
+	@RequestMapping ( "/toManagePage" )
+	public String toManagePage(){
+		
+		return "";
+	}
+}

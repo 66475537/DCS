@@ -1,0 +1,30 @@
+package com.cn.hsd.rm.terminal.service.impl;
+
+import com.cn.hsd.rm.terminal.mapping.BiTerminalTypeMapper;
+import com.cn.hsd.rm.terminal.service.TerminalService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/19.
+ * Time: 10:41.
+ * To change this template use File | Settings | File Templates.
+ */
+@Service(value = "terminalService")
+public class TerminalServiceImpl implements TerminalService {
+    @Autowired
+    private BiTerminalTypeMapper biTerminalTypeMapper;
+    /**
+     * 查询终端要素
+     *
+     * @return
+     */
+    public List<Map<String, Object>> getTerminalInfoList() {
+        return this.biTerminalTypeMapper.getTerminalInfoList();
+    }
+}

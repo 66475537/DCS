@@ -1,0 +1,89 @@
+package com.cn.hsd.rm.formula.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
+
+/**
+ * 函数
+ * @author chenlin
+ *
+ */
+public class Function {
+	
+	private String funName;
+	
+	private String argSize;
+	
+	private String argName;
+	
+	/**
+	 * 脚本
+	 */
+	private String script;
+	
+	public Function(String script,String argName){
+		this.script = script;
+		this.funName = "execute";
+		this.argName = argName;
+	}
+	
+	
+	/**
+	 * 取系统函数
+	 * @return
+	 */
+	public static Map<String,String> getSystemFunctionMaps(){
+		return SystemFunction.nameMaps;
+	}
+	
+
+	public String execDefaultFun(ScriptEngine engine, String[] args) throws ScriptException, NoSuchMethodException {
+		StringBuilder scriptSb = new StringBuilder("function ");
+		scriptSb.append(funName).append("(").append(argName).append(")").append("{");
+		scriptSb.append(argName).append(" = ").append("eval(").append(argName).append(");\n");
+		scriptSb.append(script);
+		scriptSb.append("}");
+		engine.eval(scriptSb.toString());
+		String result = (String) ((Invocable) engine).invokeFunction("execute", listToString(args));
+		return result;
+	}
+	
+	public String listToString(String[] list) {  
+	    StringBuilder sb = new StringBuilder("[");  
+	    for (int i = 0; i < list.length; i++) {  
+	        sb.append("'").append(list[i]).append("',");  
+	    }
+	    String val = sb.toString().substring(0, sb.toString().length() - 1);
+	    return val+"]";  
+	}
+	
+	
+	/**
+	 * javascript系统函数
+	 * @author chenlin
+	 *
+	 */
+	static class SystemFunction{
+		protected static Map<String,String> nameMaps = new HashMap<String,String>();
+		protected static Map<String,String> funMaps = new HashMap<String,String>();
+		
+		static{
+			nameMaps.put("getYear", "距离当前年");
+			nameMaps.put("getMonth", "距离当前月");
+			nameMaps.put("getDay", "距离当前天");
+			nameMaps.put("getHour", "距离当前小时");
+			
+			
+			funMaps.put("getYear", "function comAge(age){var birthday=new Date(age.replace(/-/g, \"\\/\"));\n var d=new Date();" 
+		   		+" age = d.getFullYear()-birthday.getFullYear()-((d.getMonth()<birthday.getMonth()|| d.getMonth()==birthday.getMonth() && d.getDate()<birthday.getDate())?1:0); " 
+		   		+"return age+'';}");
+			
+		}
+		
+	}
+
+}

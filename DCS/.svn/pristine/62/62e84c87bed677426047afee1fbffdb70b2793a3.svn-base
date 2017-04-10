@@ -1,0 +1,7 @@
+package com.cn.hsd.rm.formula.mapping;
+
+import com.cn.hsd.rm.formula.model.QuotaDef;
+
+public interface QuotaMapper {
+	public void save(QuotaDef quotaDef);
+}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hsd.rm.factors.mapping.BiRiskFactorsMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hsd.rm.factors.model.BiRiskFactors">
+		<id column="RISK_ID" property="riskId" />
+		<result column="PID" property="pid"/>
+		<result column="NAME" property="name"/>
+		<result column="CREATE_TIME" property="createTime"/>
+		<result column="IS_END_NODE" property="isEndNode"/>
+		<result column="CHILD_NODE_NUMBER" property="childNodeNumber"/>
+		<result column="NODE_INDEX" property="nodeIndex"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		RISK_ID, PID, NAME, CREATE_TIME, IS_END_NODE, CHILD_NODE_NUMBER, NODE_INDEX
+	</sql>
+	
+	<select id="getAllNodeId" resultType="java.lang.String">
+		SELECT A.RISK_ID FROM bi_risk_factors A
+	</select>
+	
+	<!-- 获取所有数据 -->
+	<select id="getAllData" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM BI_RISK_FACTORS T
+	</select>
+	
+	<select id="rootNode" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM BI_RISK_FACTORS T
+		WHERE T.NODE_INDEX = -1
+	</select>
+	
+	<!-- 以下为自动生成的 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from bi_risk_factors
+		where RISK_ID = #{riskId,jdbcType=CHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from bi_risk_factors
+		where RISK_ID = #{riskId,jdbcType=CHAR}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hsd.rm.formula.model.BiRiskFactors">
+		insert into bi_risk_factors (RISK_ID, PID, NAME,
+		CREATE_TIME, IS_END_NODE, CHILD_NODE_NUMBER,
+		NODE_INDEX)
+		values (#{riskId,jdbcType=CHAR}, #{pid,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR}, #{isEndNode,jdbcType=SMALLINT}, #{childNodeNumber,jdbcType=INTEGER},
+		#{nodeIndex,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.cn.hsd.rm.formula.model.BiRiskFactors">
+		insert into bi_risk_factors
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="riskId != null">
+				RISK_ID,
+			</if>
+			<if test="pid != null">
+				PID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="isEndNode != null">
+				IS_END_NODE,
+			</if>
+			<if test="childNodeNumber != null">
+				CHILD_NODE_NUMBER,
+			</if>
+			<if test="nodeIndex != null">
+				NODE_INDEX,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="riskId != null">
+				#{riskId,jdbcType=CHAR},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isEndNode != null">
+				#{isEndNode,jdbcType=SMALLINT},
+			</if>
+			<if test="childNodeNumber != null">
+				#{childNodeNumber,jdbcType=INTEGER},
+			</if>
+			<if test="nodeIndex != null">
+				#{nodeIndex,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cn.hsd.rm.formula.model.BiRiskFactors">
+		update bi_risk_factors
+		<set>
+			<if test="pid != null">
+				PID = #{pid,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isEndNode != null">
+				IS_END_NODE = #{isEndNode,jdbcType=SMALLINT},
+			</if>
+			<if test="childNodeNumber != null">
+				CHILD_NODE_NUMBER = #{childNodeNumber,jdbcType=INTEGER},
+			</if>
+			<if test="nodeIndex != null">
+				NODE_INDEX = #{nodeIndex,jdbcType=INTEGER},
+			</if>
+		</set>
+		where RISK_ID = #{riskId,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hsd.rm.formula.model.BiRiskFactors">
+		update bi_risk_factors
+		set PID = #{pid,jdbcType=VARCHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+		IS_END_NODE = #{isEndNode,jdbcType=SMALLINT},
+		CHILD_NODE_NUMBER = #{childNodeNumber,jdbcType=INTEGER},
+		NODE_INDEX = #{nodeIndex,jdbcType=INTEGER}
+		where RISK_ID = #{riskId,jdbcType=CHAR}
+	</update>
+</mapper>

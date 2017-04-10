@@ -1,0 +1,17 @@
+package com.cn.hsd.rm.formula.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cn.hsd.rm.formula.mapping.QuotaMapper;
+import com.cn.hsd.rm.formula.service.QuotaService;
+
+
+@Service("quotaService")
+public class QuotaServiceImpl implements QuotaService {
+	@Resource
+	private QuotaMapper quotaMapper;
+	
+	
+}

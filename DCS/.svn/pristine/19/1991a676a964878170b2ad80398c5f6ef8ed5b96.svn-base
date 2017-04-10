@@ -1,0 +1,21 @@
+package com.cn.hsd.rm.factors.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cn.hsd.rm.factors.service.IBiRiskFactorsService;
+
+@Controller
+@RequestMapping("/risk")
+public class BiRiskFactorsController {
+    @Autowired
+    private IBiRiskFactorsService service;
+    
+    @RequestMapping("/handler")
+    public void handler(String fltNo, String date){
+//        this.service.treeNode("G54949", "2017-02-16");
+        this.service.treeNode(fltNo, date);
+    }
+}
+

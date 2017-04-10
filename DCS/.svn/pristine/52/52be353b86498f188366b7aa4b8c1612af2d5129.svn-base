@@ -1,0 +1,28 @@
+package com.cn.hsd.rm.factors.mapping;
+
+import java.util.List;
+
+import com.cn.hsd.rm.factors.model.BiRiskFactors;
+
+
+
+public interface BiRiskFactorsMapper {
+    int deleteByPrimaryKey(String riskId);
+
+    int insert(BiRiskFactors record);
+
+    int insertSelective(BiRiskFactors record);
+
+    BiRiskFactors selectByPrimaryKey(String riskId);
+
+    int updateByPrimaryKeySelective(BiRiskFactors record);
+
+    int updateByPrimaryKey(BiRiskFactors record);
+    
+    
+    List<BiRiskFactors> getAllData();
+    
+    BiRiskFactors rootNode();
+    
+    List<String> getAllNodeId();
+}

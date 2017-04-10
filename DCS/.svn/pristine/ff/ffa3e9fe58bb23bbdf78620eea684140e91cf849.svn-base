@@ -1,0 +1,160 @@
+package com.cn.hsd.rm.formula.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.script.ScriptException;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiFormulaDefRule;
+import com.cn.hsd.rm.formula.model.BiQuotaDef;
+import com.cn.hsd.rm.formula.model.BiRiskFactors;
+import com.cn.hsd.rm.formula.model.BiRiskRules;
+import com.cn.hsd.rm.formula.model.BiScreeningResults;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+import com.cn.hsd.rm.formula.model.Function;
+import com.cn.hsd.rm.formula.model.Sort;
+import com.cn.hsd.rm.formula.service.QuotaService;
+
+
+/**
+ * 指标定义
+ * @author chenlin
+ *
+ */
+@Controller
+public class QuotaController {
+	
+	@Autowired
+	private QuotaService quotaService;
+	
+	private List<BiTerminalType> terminalTypeList;
+	
+	
+	/**
+	 * 跳转到管理页面
+	 * @return
+	 */
+	@RequestMapping ( "/quota/toManagePage" )
+	public String toManagePage(BiFormulaDef biFormulaDef,Map<String,Object> map){
+		//1.查询指标定义的目录结构
+		terminalTypeList = quotaService.findBiTerminalTypeByWhere(null);
+		map.put("terminalTypeList", terminalTypeList);
+		
+		BiRiskFactors rf = new BiRiskFactors(biFormulaDef.getRiskId());
+		map.put("riskFactors", quotaService.findBiRiskFactorsByWhere(rf));
+		
+		BiFormulaDef formulaDef = quotaService.findBiFormulaDefByID(biFormulaDef);
+		if(formulaDef!=null&&StringUtils.isNotEmpty(formulaDef.getFormulaDefId())){
+			map.put("riskRules",quotaService.findBiRiskRules(new BiRiskRules(formulaDef.getFormulaDefId())));
+			List<BiFormulaDefRule> fdr =  quotaService.findFormulaDefRuleByWhere(new BiFormulaDefRule(formulaDef.getFormulaDefId()));
+			map.put("formulaDefRule", fdr);
+		}
+		
+		map.put("myFormulaDef", biFormulaDef);
+		map.put("biFormulaDef", formulaDef);
+		map.put("sort", Sort.getAllSort());
+		
+		map.put("quotaType", quotaService.findQuotaType(null));
+		
+		map.put("quotaDef", JSON.toJSONString(quotaService.findQuotaDef(new BiQuotaDef())));
+		
+		map.put("jsFuns", Function.getSystemFunctionMaps());
+		
+		
+		//2.查询所有的终端因素
+		return "quota/quota_manager";
+	}
+	
+	
+	/**
+	 * 保存取值规则,带不带主键为修改，带主键为保存
+	 * @return
+	 */
+	@RequestMapping ( "/quota/saveScreeningResults" )
+	@ResponseBody
+	public String saveScreeningResults(BiRiskRules BiRiskRules){
+		quotaService.saveBiRiskRules(BiRiskRules);
+		return "{\"success\":\"1\"}";
+	}
+	
+	/**
+	 * 执行计算
+	 * @return
+	 */
+	@RequestMapping ( "/quota/findBiFormulaDef" )
+	@ResponseBody
+	public String findBiFormulaDef(BiRiskRules riskRules){
+		BiRiskRules br = new BiRiskRules();
+		br.setRulesId(riskRules.getRulesId());
+		List<BiRiskRules> brList = quotaService.findBiRiskRules(br);
+		
+		return JSON.toJSONString(brList.get(0));
+	}
+	
+	
+	@RequestMapping ( "/quota/deleteScreeningResults" )
+	@ResponseBody
+	public String deleteScreeningResults(BiRiskRules BiRiskRules){
+		try {
+			quotaService.deleteBiRiskRules(BiRiskRules);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"success\":\"0\"}";
+		}
+		return "{\"success\":\"1\"}";
+	}
+	
+	
+	/**
+	 * 执行计算
+	 * @return
+	 */
+	@RequestMapping ( "/quota/execute" )
+	@ResponseBody
+	public String execute(BiFormulaDef biFormulaDef,Map<String,Object> map){
+		try {
+			this.quotaService.saveTerminalAnalysisResult("G5738", "2017-02-16");
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+		return "{\"success\":1}";
+	}
+	
+	
+	/**
+	 * 执行计算
+	 * @return
+	 */
+	@RequestMapping ( "/quota/executeSQL" )
+	@ResponseBody
+	public String executeSQL(){
+		this.quotaService.executeSQL();
+		return "success";
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	public List<BiTerminalType> getTerminalTypeList() {
+		return terminalTypeList;
+	}
+	public void setTerminalTypeList(List<BiTerminalType> terminalTypeList) {
+		this.terminalTypeList = terminalTypeList;
+	}
+	
+}

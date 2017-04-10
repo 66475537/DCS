@@ -1,0 +1,134 @@
+package com.cn.hsd.rm.flight.service.impl;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.cn.hsd.rm.flight.mapping.FlightMapper;
+import com.cn.hsd.rm.flight.mapping.FlightPilotMapper;
+import com.cn.hsd.rm.flight.model.Flight;
+import com.cn.hsd.rm.flight.model.FlightPilot;
+import com.cn.hsd.rm.flight.model.Pilots;
+import com.cn.hsd.rm.flight.service.FlightService;
+import com.cn.hsd.rm.util.UUIDTool;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/17.
+ * Time: 16:06.
+ * To change this template use File | Settings | File Templates.
+ */
+@Service(value = "flightService")
+public class FlightServiceImpl implements FlightService {
+    @Autowired
+    private FlightMapper flightMapper;
+
+
+    @Autowired
+    private FlightPilotMapper flightPilotMapper;
+    /**
+     * 首页航班风险结果列表
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    public List<Map<String, Object>> getFlightRiskResultList(Map<String, Object> map) {
+        return this.flightMapper.getFlightRiskResultList(map);
+    }
+
+    /**
+     * 首页航班风险预警数量
+     *
+     * @param map
+     * @return
+     */
+    public Map<String, Object> getFlightRiskInfoCountIndex(Map<String, Object> map) {
+        return this.flightMapper.getFlightRiskInfoCountIndex(map);
+    }
+
+    /**
+     * 查询航班风险评估列表
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    public List<Map<String, Object>> getFlightRiskResultDetailsList(Map<String, Object> map) {
+        return this.flightMapper.getFlightRiskResultDetailsList(map);
+    }
+
+    /**
+     * 查询航班编号
+     * @return
+     */
+    @Override
+    public List<Flight> queryFlightNo() {
+        return flightMapper.queryFlightNo();
+    }
+
+    /**
+     * 查询本次航班得飞行员信息
+     *
+     * @param flightId
+     * @return
+     */
+    @Override
+    public List<Pilots> queryPilotsInThisFlight(String flightId) {
+        List<Pilots> list =  flightMapper.queryPilotsInThisFlight(flightId);
+        return list;
+    }
+
+    /**
+     * 查询不是本次航班得飞行员信息
+     *
+     * @param flightId
+     * @return
+     */
+    @Override
+    public List<Pilots> queryPilotsNotInThisFlight(String flightId) {
+        List<Pilots> list =  flightMapper.queryPilotsNotInThisFlight(flightId);
+        return list;
+    }
+
+    /**
+     * 修改过机组航班中间表
+     *
+     * @param flightId
+     * @param strs
+     */
+    @Override
+    @Transactional
+    public void updataFlightPilot(String flightId, String strs) {
+        if(StringUtils.isNotEmpty(strs)){
+            flightPilotMapper.deleteByFlightId(  flightId  );
+            String[] strArray = strs.split(",");
+            for(int  i=0;i<strArray.length;i++){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                FlightPilot  flightPilot= new FlightPilot();
+                flightPilot.setId(UUIDTool.getUUID().toString());
+                flightPilot.setFltId(flightId);
+                flightPilot.setPilotId(strArray[i]);
+                flightPilot.setCreateTime(sdf.format(new Date()));
+                flightPilotMapper.insertModel(flightPilot);
+            }
+        }
+    }
+    /**
+     * 查询机组成员
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    @Override
+    public String getAirMembers(Map<String, Object> map) {
+        return this.flightMapper.getAirMembers(map);
+    }
+}

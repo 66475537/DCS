@@ -1,0 +1,1398 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 112.124.101.248
+Source Server Version : 50716
+Source Host           : 112.124.101.248:3306
+Source Database       : rm
+
+Target Server Type    : MYSQL
+Target Server Version : 50716
+File Encoding         : 65001
+
+Date: 2017-02-23 14:52:08
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for bi_formula_def
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_formula_def`;
+CREATE TABLE `bi_formula_def` (
+  `FORMULA_DEF_ID` varchar(32) NOT NULL,
+  `FORMULA_DEF_NAME` varchar(32) NOT NULL,
+  `VALUE_TABLE` varchar(32) NOT NULL,
+  `VALUE_FIELD` varchar(32) NOT NULL,
+  `VALUE_NAME` varchar(64) DEFAULT NULL,
+  `GET_ROW_COUNT` varchar(32) DEFAULT NULL,
+  `ORDERBYS` varchar(128) DEFAULT NULL,
+  `ORDERBY_FIELD` varchar(128) DEFAULT NULL,
+  `REMARK` varchar(1024) DEFAULT NULL,
+  `CREATE_TIME` varchar(32) DEFAULT NULL,
+  `UPDATE_TIME` varchar(32) DEFAULT NULL,
+  `UPDATE_USER` varchar(32) DEFAULT NULL,
+  `RISK_ID` char(32) NOT NULL,
+  PRIMARY KEY (`FORMULA_DEF_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_formula_def
+-- ----------------------------
+INSERT INTO `bi_formula_def` VALUES ('UUID100001', 'test1', 'PILOTS', 'TECHNICAL_GRADE', '飞行员技术等级', '2', 'MIN', 'TECHNICAL_GRADE', '测试1', '2017-01-01 12:00:00', null, null, 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_formula_def` VALUES ('UUID100002', 'test2', 'WEATHER', 'CAN_TAKE_OFF', '天气情况', '1', null, 'CAN_TAKE_OFF', '测试2', '2017-01-01 12:00:00', null, null, '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+
+-- ----------------------------
+-- Table structure for bi_formula_def_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_formula_def_rule`;
+CREATE TABLE `bi_formula_def_rule` (
+  `ID` varchar(32) NOT NULL,
+  `CONDITION_` varchar(32) NOT NULL,
+  `FRONT` varchar(64) NOT NULL,
+  `BACK` varchar(32) NOT NULL,
+  `CREATE_TIME` varchar(32) NOT NULL,
+  `FORMULA_DEF_ID` varchar(32) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_formula_def_rule
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bi_quota_def
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_quota_def`;
+CREATE TABLE `bi_quota_def` (
+  `QUOTA_DEF_ID` varchar(32) NOT NULL,
+  `TABLE_NAME` varchar(64) NOT NULL,
+  `FIELD_NAME` varchar(64) NOT NULL,
+  `FIELD_NAME_CN` varchar(32) DEFAULT NULL,
+  `CREATE_TIME` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`QUOTA_DEF_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_quota_def
+-- ----------------------------
+INSERT INTO `bi_quota_def` VALUES ('100001', 'PILOTS', 'TECHNICAL_GRADE', '技术等级', '2017-01-01 12:00:00');
+INSERT INTO `bi_quota_def` VALUES ('100002', 'PILOTS', 'ICAO', 'ICAO英文等级', '2017-01-01 12:00:00');
+INSERT INTO `bi_quota_def` VALUES ('100003', 'WEATHER', 'CAN_TAKE_OFF', '是否满足起降要求', '2017-01-01 12:00:00');
+INSERT INTO `bi_quota_def` VALUES ('100004', 'AIRPORT', 'CAN_TAKE_OFF', '是否满足起降要求', '2017-01-01 12:00:00');
+
+-- ----------------------------
+-- Table structure for bi_quota_type
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_quota_type`;
+CREATE TABLE `bi_quota_type` (
+  `ID` varchar(32) NOT NULL,
+  `TABLE_NAME` varchar(64) NOT NULL,
+  `TABLE_NAME_CN` varchar(64) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_quota_type
+-- ----------------------------
+INSERT INTO `bi_quota_type` VALUES ('100001', 'FLIGHT', '航班');
+INSERT INTO `bi_quota_type` VALUES ('100002', 'PILOTS', '飞行员');
+INSERT INTO `bi_quota_type` VALUES ('100003', 'WEATHER', '天气');
+INSERT INTO `bi_quota_type` VALUES ('100004', 'AIRPORT', '机场');
+
+-- ----------------------------
+-- Table structure for bi_result_data
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_result_data`;
+CREATE TABLE `bi_result_data` (
+  `ID` varchar(32) NOT NULL,
+  `RECKON_DATE` varchar(32) NOT NULL,
+  `FLT_NO` varchar(32) NOT NULL,
+  `RESULT` varchar(32) DEFAULT NULL,
+  `RISK_GRADE` varchar(32) DEFAULT NULL,
+  `CREATE_TIME` varchar(32) NOT NULL,
+  `RISK_ID` char(32) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_result_data
+-- ----------------------------
+INSERT INTO `bi_result_data` VALUES ('07eb79771dbc4a9c93ab84fe1e8acfac', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:00', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('08e4dba8f17842918c5d3beedb2b3bc3', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:38', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('0f2eb60878af4d92839116e2327dad54', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:46', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('0f7fd4d5de3644dcb2f50be5dc1bcfc6', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:04', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('12a2e6160f93472297cfbe5a7fc6a780', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:00', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa09d20f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '08ed7b6df73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0a254f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '08ed7b6df73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0a39bf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '08ed7b6df73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0a4c3f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '08ed7b6df73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0a604f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '169f823af73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0a72df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '169f823af73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0a820f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '169f823af73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0a90df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '169f823af73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0aa22f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '1d989701f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0ab17f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '1d989701f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0ac02f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '1d989701f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0b76cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '1d989701f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0b901f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '225efd1df25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0ba21f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '225efd1df25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0bb7cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '225efd1df25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0bc8df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '225efd1df25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0bde2f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '22674669f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0bf10f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '22674669f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0c00bf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '22674669f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0c10af7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '22674669f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0c22cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '2970c17af73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0c335f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '2970c17af73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0c431f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '2970c17af73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0c5fbf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '2970c17af73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0c73ff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '2d93a5e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0c84bf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '2d93a5e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0c947f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '2d93a5e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0ca3df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '2d93a5e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0cba2f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '30e8214bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0ccc5f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '30e8214bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0cdb8f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '30e8214bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0ceb3f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '30e8214bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0cfecf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '444b87fcf73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d10cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '444b87fcf73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d202f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '444b87fcf73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d2f5f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '444b87fcf73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d441f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '482faebef73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d55ef7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '482faebef73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d65ff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '482faebef73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d74af7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '482faebef73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0d87df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '57aa0535f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0d97ef7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '57aa0535f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0da7cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '57aa0535f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0db8ef7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '57aa0535f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0dcddf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '57bc9494f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0dde4f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '57bc9494f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0defef7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '57bc9494f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0dff1f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '57bc9494f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0e124f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '65c54b9bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0e225f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '65c54b9bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0e348f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '65c54b9bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0e489f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '65c54b9bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0e5e4f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '69b0c4e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0e70cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '69b0c4e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0e812f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '69b0c4e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0e905f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '69b0c4e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0ea1af7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '6da0e739f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0eb61f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '6da0e739f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0ed87f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '6da0e739f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0eec6f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '6da0e739f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0f015f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '85b0302df73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0f119f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '85b0302df73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0f206f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '85b0302df73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0f320f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '85b0302df73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa0f451f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '892c9850f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0f579f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '892c9850f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0f682f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '892c9850f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0f778f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '892c9850f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0f8e6f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '893a060df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0f9eaf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '893a060df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0fadaf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '893a060df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0fbd0f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '893a060df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0fd0ff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '894c1112f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0fe10f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '894c1112f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa0ff03f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '894c1112f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa1000cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '894c1112f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa10123f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '8ae49615f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa10615f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '8ae49615f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa10783f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '8ae49615f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa1088af7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '8ae49615f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa109f2f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa10b47f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa10c3ff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa10d30f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa10e60f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '971f0453f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa10f67f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '971f0453f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa1105df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '971f0453f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa1114df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '971f0453f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa11341f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '9dbd8c2ef25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11485f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '9dbd8c2ef25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11586f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '9dbd8c2ef25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa116b9f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '9dbd8c2ef25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11809f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', '9dc841b1f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa1192ef7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', '9dc841b1f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11a59f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', '9dc841b1f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11b65f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', '9dc841b1f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11c95f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'a10e97e6f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11dbbf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'a10e97e6f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11ecaf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'a10e97e6f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa11fc0f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'a10e97e6f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa12125f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'ab8b587cf73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12234f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'ab8b587cf73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12365f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'ab8b587cf73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa1248df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'ab8b587cf73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa125b2f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'ac1be020f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa126b3f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'ac1be020f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa127d6f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'ac1be020f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa128eaf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'ac1be020f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12a3cf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'b0009f80f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12b4ef7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'b0009f80f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12c5df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'b0009f80f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12d8bf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'b0009f80f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12ee5f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'b1260126f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa12fecf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'b1260126f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa130dff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'b1260126f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa131d2f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'b1260126f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa13332f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'b4439b9df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa13433f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'b4439b9df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa13bc9f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'b4439b9df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa13d0df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'b4439b9df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa1403ff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'b457fd4bf25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa14189f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'b457fd4bf25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa1427ff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'b457fd4bf25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa14393f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'b457fd4bf25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa144ddf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'b4a0ed41f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa14613f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'b4a0ed41f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa14727f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'b4a0ed41f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa14818f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'b4a0ed41f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa1498ef7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'd0622a9af25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa14aa0f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'd0622a9af25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa14bcbf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'd0622a9af25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa14d06f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'd0622a9af25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa14e3ff7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'd06e8ed3f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa14f81f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'd06e8ed3f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa150a0f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'd06e8ed3f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa151adf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'd06e8ed3f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa152f1f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'd78f08abf73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa153e4f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'd78f08abf73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa15501f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'd78f08abf73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa15602f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'd78f08abf73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa15762f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'db6eb47ff73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa15871f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'db6eb47ff73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa1597df7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'db6eb47ff73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa15a9af7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'db6eb47ff73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa15becf7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa160c4f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'e075faedf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa161e1f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'e075faedf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa162c9f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'e075faedf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa163b9f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'e075faedf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('1aa164c5f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54949', null, '低', 'testtime', 'e3538395f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa165b6f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54948', null, '低', 'testtime', 'e3538395f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa16698f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54946', null, '低', 'testtime', 'e3538395f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1aa16780f7dd11e6aff100ffd1ccb5b6', '2017-02-23', 'G54947', null, '低', 'testtime', 'e3538395f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('1debf81f34bc49058a3e5b8566011a0f', '2017-02-23', 'G54947', '4', '低', '2017-02-23 11:56:37', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('214eae17a72349f8ada4b2514b51c800', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:29', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('221140d4c2cd4696a315e583b07bdee0', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:38', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('26af667ca2244231bdf20f323687859a', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:35', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('281ccccedb62452984f6d6545d2a2f97', '2017-02-23', 'G54947', '2', '低', '2017-02-23 11:56:44', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('2de88b7919e542879327803e4451a69e', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:00', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('2e363ac6b43a467ea7dcdf453a720c39', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:48', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('2e5ad62624e74f86a00bcd9d39273339', '2017-02-23', 'G54948', '6', '中', '2017-02-23 11:58:29', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('2fc7009c192f4f9b9403f9047ad4e0d2', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:43', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('2ffc2377626040349289aee5790287ff', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:43', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('301dba9c7687473da219a3e1867df548', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:49', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('32b6c39f17d64752932ffc5bca720f12', '2017-02-23', 'G54948', '4', '低', '2017-02-23 11:58:33', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('33301b95e9ed40f8b411eba1298e4983', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:02', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('3a34207d2de94b6984a85fa5cae722fd', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:01', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('3d582dc7f901498a83fb6b21f9eefc97', '2017-02-23', 'G54947', '1', '低', '2017-02-23 11:56:43', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('409ef56571a8454ea79a2c8bfcb0a259', '2017-02-23', 'G54946', '4', '低', '2017-02-23 12:06:43', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('40c872cda7594f19b9f399958674fb62', '2017-02-23', 'G54947', '6', '中', '2017-02-23 11:56:41', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('42cf92019f9d4a579dfc94628e9dbc53', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:40', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('456e627943c140e8a48bb8dda799a3e9', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:45', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('46d8c9c976404ddeab4aaa6668d1330c', '2017-02-23', 'G54948', '2', '低', '2017-02-23 11:58:34', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('471e099b1d9c4e7681d7a65a0b9fbba7', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:41:59', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('49f83af7e9fd44f796d2ca03feca431e', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:32', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('5101409e8c1b4e2cb4fae72e12ede063', '2017-02-23', 'G54948', '4', '低', '2017-02-23 11:58:28', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('5225b2ed260d479d8011681ae3f56518', '2017-02-23', 'G54948', '3', '低', '2017-02-23 11:58:35', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('55bcf3882cb24257b0ffcdceec0d5422', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:42', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('5600b9bc437049c085b9d3e5eb87b002', '2017-02-23', 'G54946', null, '低', '2017-02-23 12:06:42', 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('57f1d19579cd47818e2685d55e374f90', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:44', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('5d81dbe65d8b40f48ac955f8c36b7925', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:02', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('5f5a6a94ab084b26a78b58b4b0f33d09', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:30', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('6025c31627ac4331807d53c7de3b51f9', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:28', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('606fdd3424454adc96a5c9b3eb437ce5', '2017-02-23', 'G54946', '6', '中', '2017-02-23 12:06:47', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('60f0d507807c4551b045f0ff4b018344', '2017-02-23', 'G54948', '2', '低', '2017-02-23 11:58:34', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('61a8a22d119d4f2f99d6e59a036d2947', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:33', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('66e909d76df34d4d9ca6e8d79d8f0d43', '2017-02-23', 'G54947', '4', '低', '2017-02-23 11:56:37', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('683f9e5cc10a4684ace9d834c907bb4a', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:30', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('6a9c31b6404241d0b58909544020368a', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:41:59', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('6bd5e1b8692a497db01c8e60382acab5', '2017-02-23', 'G54948', '4', '低', '2017-02-23 11:58:31', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('71e290c7f14044958160223fafcb83ed', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:46', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('733917e5f83844acb96ec3147d0f4082', '2017-02-23', 'G54947', '4', '低', '2017-02-23 11:56:38', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('74aeec6da73a48f9868ea217aae10d99', '2017-02-23', 'G54946', '1', '低', '2017-02-23 12:06:51', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('74d3ed361b7b45fa821dae4b783641b5', '2017-02-23', 'G54946', '4', '低', '2017-02-23 12:06:44', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('789a185a3cbc4f06a1f66562c7a38716', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:04', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('79f2568614cb4b3aa78930edf9f99f20', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:06', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('7cb77bbd4e5b4a618f7ee27fd9499143', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:39', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('7f136b3aabb14f19837943fb5ea261d3', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:04', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('83d6c851e3b74a8b93ed22259f57fcae', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:45', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('84036350e749468bbe64a3082f1123e6', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:01', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('850999b0b8bb4546920e6d568bf9f70c', '2017-02-23', 'G54947', '2', '低', '2017-02-23 11:56:41', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('8a35587355c9437cba3efb8a80ee20cc', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:47', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('8a96f8cfb468440ea6bc1449c127fa0f', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:34', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('8c52a0f572364333a03b19d434b6aa84', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:29', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('8e218cbd8c0d4d8eba766d8036b3f7f6', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:34', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('8e6e68f212f24afba4f73e762f71735d', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:02', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('8eee311a58ec41e88eb506c6824cc2f3', '2017-02-23', 'G54948', '4', '低', '2017-02-23 11:58:32', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('8f80633d2d094bfa96acd016dc69bc08', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:41', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('921d6b237b3145d39b9305102c966d1b', '2017-02-23', 'G54947', '4', '低', '2017-02-23 11:56:40', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('96565da5367842e883a94f7dd22b811a', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:44', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('9b4c5a8b738e42b6ab8b3689114a9a5f', '2017-02-23', 'G54948', '2', '低', '2017-02-23 11:58:33', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('9b7feb671308449a8150b4c4f95f0af8', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:30', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('9cd1db3533f34e04872928530112ed73', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:46', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('9f24917ee42b4c3d8adc2dfa7e1c232a', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:05', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('9f505de6e14941d1a1b5a9c097cf5444', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:03', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('a091806ad7cc4f548ee7304d2eecc790', '2017-02-23', 'G54946', '2', '低', '2017-02-23 12:06:48', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('a1c333ef736e415ca3d8a2ad92c4b763', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:48', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('a354e432eccf40a784740aa383d25c57', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:50', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('a50ddbef7c45493fa8484c8ef8217c82', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:39', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('a72cfb0100b242fbbac0924ef6127b00', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:35', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('ab27c9a1d9844fcc92f2957b408720ab', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:01', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('ac39c1faa4b8404e885a83063dcaf078', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:01', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('b037bd05d72949d4b4e395090cc335bc', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:31', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('b3e3cc3f73d24e00be96ccffa8661138', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:40', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('bb18f597e5d941c58d6234d5a7971b37', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:05', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('bb45c3bb0ea44613a723410c06ae4758', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:04', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('bc091e73addf491098cf9c11553bad17', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:45', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('bfbe5a47e694470083b1bfa7d638c797', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:06', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('c115a5835d73419889b7ed85051deed8', '2017-02-23', 'G54946', '4', '低', '2017-02-23 12:06:46', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('c465989807214af1b93c8d55d743e155', '2017-02-23', 'G54949', '2', '低', '2017-02-23 13:42:02', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('c579800570914027a51c44c7edb2276e', '2017-02-23', 'G54946', '4', '低', '2017-02-23 12:06:47', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('c68a9a870a1d4ca49d253f96626e463a', '2017-02-23', 'G54946', '2', '低', '2017-02-23 12:06:49', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('c7cd48989a6e484bb207b081059e23d0', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:02', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('c8b78c759a174ab98c2f0fb5024fab37', '2017-02-23', 'G54946', '6', '中', '2017-02-23 12:06:44', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('cbd88f733f2043929aaa421f8903bdb1', '2017-02-23', 'G54947', '2', '低', '2017-02-23 11:56:43', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('cc454ff2fa8a469dae2985597a02bfea', '2017-02-23', 'G54947', '4', '低', '2017-02-23 11:56:42', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('ccff1403d4f741cd80a768d8a2757486', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:50', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('d2d6d972a6b14597a172585f1214423e', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:37', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('d3ac2af46b9041d9b1085381fffd0399', '2017-02-23', 'G54947', '1', '低', '2017-02-23 11:56:45', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('d5774a60046a4898aa36682e69d0612f', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:39', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('d838de16b78545659ce4221077f7ae1b', '2017-02-23', 'G54946', '3', '低', '2017-02-23 12:06:50', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('d8835973cb1647c4b6d4aba56d685503', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:03', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('d9e4ac402d6441c9a784549c29c59354', '2017-02-23', 'G54948', '4', '低', '2017-02-23 11:58:28', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('dcfc8c11f1554e38b805c9f0c71acf1e', '2017-02-23', 'G54948', '1', '低', '2017-02-23 11:58:36', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('de638d44a968496d84f84aac69782cba', '2017-02-23', 'G54948', '6', '中', '2017-02-23 11:58:32', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('e2a374f564bd4b489683e549f6149333', '2017-02-23', 'G54947', null, '低', '2017-02-22 17:26:50', 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('e354c871600d44058f6ddca35f5e8c5d', '2017-02-23', 'G54948', '2', '低', '2017-02-23 11:58:36', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('e420508993aa44dc9f118ddf1cc39ac0', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:06', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('e90359ebb9a94326a0846dcc09ed1ed6', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:42', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('e93887d94bcc4eb59c566a0c75ce932f', '2017-02-23', 'G54947', '5', '中', '2017-02-23 11:56:39', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('e982dbcb332d47229cae11d2b33c66ae', '2017-02-23', 'G54949', '1', '低', '2017-02-23 13:42:04', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('eab8d2ca4c694ab8a36a073473dd35d3', '2017-02-23', 'G54947', '4', '低', '2017-02-23 11:56:43', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('ef3097d663c14ed0a4f6b8295b5d54ca', '2017-02-23', 'G54948', null, '低', '2017-02-21 10:47:33', 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('f6dc89fe035e49299c8d3469b67dee3f', '2017-02-23', 'G54948', '5', '中', '2017-02-23 11:58:31', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('f782ff523f2d4b48bfc919a56b69bab1', '2017-02-23', 'G54949', '4', '低', '2017-02-23 13:42:03', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('f8c0f60c9cad4c54ab5bf4c7803796af', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:49', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_result_data` VALUES ('faf94ca1ab0846b8b0778f9f671568ba', '2017-02-23', 'G54946', '5', '中', '2017-02-23 12:06:45', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('fbfa8a5e0eca42c5bb6d02b5e90a8a8f', '2017-02-23', 'G54946', '2', '低', '2017-02-23 12:06:49', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_result_data` VALUES ('ff9962e6500d4b8fa8869206f1b6e913', '2017-02-23', 'G54946', '4', '低', '2017-02-23 12:06:51', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+
+-- ----------------------------
+-- Table structure for bi_risk_factors
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_risk_factors`;
+CREATE TABLE `bi_risk_factors` (
+  `RISK_ID` char(32) NOT NULL,
+  `PID` varchar(32) DEFAULT NULL,
+  `NAME` varchar(64) DEFAULT NULL,
+  `CREATE_TIME` varchar(32) DEFAULT NULL,
+  `IS_END_NODE` smallint(5) unsigned NOT NULL,
+  `CHILD_NODE_NUMBER` int(10) unsigned DEFAULT NULL,
+  `NODE_INDEX` int(11) DEFAULT NULL,
+  PRIMARY KEY (`RISK_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_risk_factors
+-- ----------------------------
+INSERT INTO `bi_risk_factors` VALUES ('08ed7b6df73311e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', '其它机组和管制员英语交流程度', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('0f81bd68f73311e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', '机场繁忙程度', null, '0', '2', '2');
+INSERT INTO `bi_risk_factors` VALUES ('169f823af73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', '备降机场繁忙程度', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('1d989701f73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', '目的地机场繁忙程度', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('225efd1df25a11e6aff100ffd1ccb5b6', 'e03a85c3f25911e6aff100ffd1ccb5b6', '机组技术经验搭配', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('22674669f25a11e6aff100ffd1ccb5b6', 'e03a85c3f25911e6aff100ffd1ccb5b6', '机组间协作程度', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('2970c17af73411e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '距离定检的时间', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('2d93a5e3f73411e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '航空器使用的日均飞行时间', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('30bfb36af25b11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', '环境导致', null, '0', '3', '1');
+INSERT INTO `bi_risk_factors` VALUES ('30c8e028f25b11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', '设备导致', null, '0', '1', '2');
+INSERT INTO `bi_risk_factors` VALUES ('30d2c1f8f25b11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', '人员导致', null, '0', '2', '3');
+INSERT INTO `bi_risk_factors` VALUES ('30e8214bf73411e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '不同型号航空器故障率', null, '1', '0', '3');
+INSERT INTO `bi_risk_factors` VALUES ('39adb0acf25911e6aff100ffd1ccb5b6', 'dd4badc3f25811e6aff100ffd1ccb5b6', '机组配合程度', null, '0', '3', '1');
+INSERT INTO `bi_risk_factors` VALUES ('39be186af25911e6aff100ffd1ccb5b6', 'dd4badc3f25811e6aff100ffd1ccb5b6', '机组经验能力', null, '0', '2', '2');
+INSERT INTO `bi_risk_factors` VALUES ('39d34e44f25911e6aff100ffd1ccb5b6', 'dd4badc3f25811e6aff100ffd1ccb5b6', '机组压力程度', null, '0', '2', '3');
+INSERT INTO `bi_risk_factors` VALUES ('444b87fcf73211e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', '特殊气候', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('482faebef73211e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', '地形/障碍物', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('57aa0535f25b11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', '积累性疲劳', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('57bc9494f25b11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', '短暂性疲劳', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('5ce422d2f25a11e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '其它机组成员飞行经验能力', null, '0', '2', '1');
+INSERT INTO `bi_risk_factors` VALUES ('5ced50b8f25a11e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '机长经验能力', null, '0', '2', '2');
+INSERT INTO `bi_risk_factors` VALUES ('65c54b9bf73411e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', '导航数据库', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('69b0c4e3f73411e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', '通讯导航设备', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('6da0e739f73411e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'PBN能力', null, '1', '0', '3');
+INSERT INTO `bi_risk_factors` VALUES ('6ece6db2f72c11e6a2f8507b9d4d7a23', 'ed14850af72a11e6a2f8507b9d4d7a23', '“环”运行环境要素（E）', null, '0', '2', '2');
+INSERT INTO `bi_risk_factors` VALUES ('728b0944f73311e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'MEL项', null, '0', '2', '1');
+INSERT INTO `bi_risk_factors` VALUES ('7610e296f73311e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', '航空器自身状态及情况', null, '0', '3', '2');
+INSERT INTO `bi_risk_factors` VALUES ('7983fb13f73311e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', '航空器属性', null, '0', '3', '3');
+INSERT INTO `bi_risk_factors` VALUES ('85b0302df73111e6a2f8507b9d4d7a23', 'b03b2461f72f11e6a2f8507b9d4d7a23', '起落标准', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('88f0d38af72c11e6a2f8507b9d4d7a23', 'ed14850af72a11e6a2f8507b9d4d7a23', '“机”航空器状态风险要素（A）', null, '0', '3', '3');
+INSERT INTO `bi_risk_factors` VALUES ('892c9850f25b11e6aff100ffd1ccb5b6', '30bfb36af25b11e6aff100ffd1ccb5b6', '危险天气', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('893a060df25b11e6aff100ffd1ccb5b6', '30bfb36af25b11e6aff100ffd1ccb5b6', '有临时改变航路', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('894c1112f25b11e6aff100ffd1ccb5b6', '30bfb36af25b11e6aff100ffd1ccb5b6', '航班延误等不正常情况', null, '1', '0', '3');
+INSERT INTO `bi_risk_factors` VALUES ('8ae49615f73111e6a2f8507b9d4d7a23', 'b03b2461f72f11e6a2f8507b9d4d7a23', '摩擦效应', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('8fbc1ed6f73111e6a2f8507b9d4d7a23', 'b03b2461f72f11e6a2f8507b9d4d7a23', '天气现象', null, '1', '0', '3');
+INSERT INTO `bi_risk_factors` VALUES ('938bebf1f73911e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', '驾驶相关风险因素', null, '0', '2', '1');
+INSERT INTO `bi_risk_factors` VALUES ('971f0453f73911e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', '航路更改', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('9dbd8c2ef25a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '其它机组成员机场熟悉程度', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('9dc841b1f25a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '其它机组成员飞行经验能力', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('a10e97e6f25b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '有MEL项', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('ab8b587cf73911e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '特殊旅客或货物', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('ac1be020f73211e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', '是否有限制性通告', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('b0009f80f73911e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '重要天气', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('b03b2461f72f11e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', '气象条件', null, '0', '3', '1');
+INSERT INTO `bi_risk_factors` VALUES ('b1260126f73211e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', '跑到长度坡度等条件', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('b4439b9df25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', '飞行检查', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('b457fd4bf25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', '有特殊旅客', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('b4a0ed41f73211e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', '设备设施条件', null, '1', '0', '3');
+INSERT INTO `bi_risk_factors` VALUES ('b5c49577f72f11e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', '飞行条件复杂程度', null, '0', '3', '2');
+INSERT INTO `bi_risk_factors` VALUES ('baba7b1ef72f11e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', '与空管配合情况', null, '0', '2', '3');
+INSERT INTO `bi_risk_factors` VALUES ('d0622a9af25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', '机场熟悉程度', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('d06e8ed3f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', '机长飞行经验能力', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('d78f08abf73311e6a2f8507b9d4d7a23', '728b0944f73311e6a2f8507b9d4d7a23', '其它MEL项', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('d8358d2cf72e11e6a2f8507b9d4d7a23', '6ece6db2f72c11e6a2f8507b9d4d7a23', '机场风险要素', null, '0', '3', '1');
+INSERT INTO `bi_risk_factors` VALUES ('db6eb47ff73311e6a2f8507b9d4d7a23', '728b0944f73311e6a2f8507b9d4d7a23', '着陆进近涉及MEL', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('dd4badc3f25811e6aff100ffd1ccb5b6', 'ed14850af72a11e6a2f8507b9d4d7a23', '“人”机组风险要素（C）', null, '0', '3', '1');
+INSERT INTO `bi_risk_factors` VALUES ('de59d576f72e11e6a2f8507b9d4d7a23', '6ece6db2f72c11e6a2f8507b9d4d7a23', '航路风险要素', null, '0', '2', '2');
+INSERT INTO `bi_risk_factors` VALUES ('e03a85c3f25911e6aff100ffd1ccb5b6', '39adb0acf25911e6aff100ffd1ccb5b6', '机组间搭配程度', null, '0', '2', '1');
+INSERT INTO `bi_risk_factors` VALUES ('e05f2a95f25911e6aff100ffd1ccb5b6', '39adb0acf25911e6aff100ffd1ccb5b6', '机组技术级别配合', null, '1', '0', '2');
+INSERT INTO `bi_risk_factors` VALUES ('e075faedf25911e6aff100ffd1ccb5b6', '39adb0acf25911e6aff100ffd1ccb5b6', '机组的英文程度', null, '1', '0', '3');
+INSERT INTO `bi_risk_factors` VALUES ('e3538395f73111e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', '周边环境复杂程度', null, '1', '0', '1');
+INSERT INTO `bi_risk_factors` VALUES ('e86c1533f73111e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', '进近复杂程度', null, '0', '2', '2');
+INSERT INTO `bi_risk_factors` VALUES ('ed14850af72a11e6a2f8507b9d4d7a23', null, '风险架构', null, '0', '3', '-1');
+INSERT INTO `bi_risk_factors` VALUES ('ed7323f3f73111e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', '着陆复杂程度', null, '0', '3', '3');
+INSERT INTO `bi_risk_factors` VALUES ('f4a06cd5f25a11e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', '精神压力', null, '0', '3', '1');
+INSERT INTO `bi_risk_factors` VALUES ('f4b52e20f25a11e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', '机组疲劳程度', null, '0', '2', '2');
+
+-- ----------------------------
+-- Table structure for bi_risk_factors_level
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_risk_factors_level`;
+CREATE TABLE `bi_risk_factors_level` (
+  `ID` char(32) NOT NULL,
+  `LEVEL_FLAG` smallint(5) unsigned DEFAULT NULL,
+  `LEVEL_VALUE` double(10,2) DEFAULT NULL,
+  `RISK_ID` char(32) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_risk_factors_level
+-- ----------------------------
+INSERT INTO `bi_risk_factors_level` VALUES ('0127b77ecadf45b0b11cf02e211f0575', '2', '5.00', 'ab8b587cf73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('0215600e99334cd78c85066f38fe1f3d', '1', '1.00', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('0288aa471990485d9a693dd4e73597cd', '1', '1.00', 'db6eb47ff73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('032b6a2310df478a9ee3ea2985ce5660', '1', '1.00', '8ae49615f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('03c49d7fddef4a439974bead957ce52d', '1', '1.00', '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('04132313b11341a390aa613f1bb2d425', '2', '5.00', '30e8214bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('057b8873c26747b78d7c2debb42ac7e5', '3', '8.00', '8ae49615f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('070a0aef15524ffcaef8c37e040229a3', '3', '8.00', '2d93a5e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('07a4cd508ba2476ea77461e777afc73b', '2', '5.00', '8ae49615f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('097ec8a10e854fa8accab4889ccd9b31', '1', '1.00', '9dc841b1f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('09b43415cd134509b1ecb2579b470c88', '2', '5.00', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('0b51438c76894af988c4f74cfd9ef21a', '2', '5.00', 'd06e8ed3f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('0e6d7546be87431b8059e9f0bffc982c', '1', '1.00', 'b4a0ed41f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('1298a07a4fa24d4cad44bfa8dea446af', '1', '1.00', '57bc9494f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('131c5154eea349479e140d27f1e35c2c', '2', '5.00', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('14f1518ac1ef450e9ed7e64bc8f9aec4', '2', '5.00', '9dc841b1f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('1620c303050f49f0b97c3ebe61139459', '2', '5.00', '2d93a5e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('16a66b93729840f08219c650fb34efae', '1', '1.00', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('16a88c5a550240adbf7a46a98bc69b22', '1', '1.00', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('171c84c999764356b45748b748b99e49', '3', '8.00', '971f0453f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('1b1d66e55a5342f9b1e8ed6c2368962f', '1', '1.00', 'b4439b9df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('1edcf92dc3994ea8a485749139b40689', '2', '5.00', 'b4439b9df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('202c7adcc84b467f8294ec9c02dcfe2e', '3', '8.00', 'ac1be020f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('20b0127521174faf93716c19f508ff81', '2', '5.00', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('22df06be4f7b4b02a096e63945a18ae2', '1', '1.00', '30e8214bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('22e5053160634fe7a7183c1e9965f0fd', '2', '5.00', '1d989701f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('22f8f9c611904bcebfc2f80ef0ae1d14', '3', '8.00', '65c54b9bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('250231ef94e34e8789751a672b1dcad9', '3', '8.00', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('27783e5498a64f0daff89434a0064457', '2', '5.00', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('2a54d343414a433195951fff226b8944', '2', '5.00', '169f823af73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('2a5f2607dce44dc1ab33995c17a30a37', '1', '1.00', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('2ba20935e0b34115b4cde12c8f8fd4ec', '3', '8.00', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('2bf95e5c183d47fcb1b9c8582e5c9ac9', '3', '8.00', '08ed7b6df73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('2d0948b7ae224c1eb3a57033ae544221', '2', '5.00', '225efd1df25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('2d9ff35da4014698a65f445c7b4aaa7f', '3', '8.00', 'b4a0ed41f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('2e0c7e22c8874463a24c24877bdfe000', '1', '1.00', 'd78f08abf73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('2eefa939403242e88005c45bfb9f11de', '2', '5.00', '22674669f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('2f7f1b62169440d586a64fcac893cbeb', '2', '5.00', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('30070ddfc7ef4014875756b2454c4511', '3', '8.00', '9dbd8c2ef25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('33fbf88bc7ae4148ad11c715edbaa5b1', '3', '8.00', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('389a0343ecbf4ee28564267aadfc3b29', '3', '8.00', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('38f4cde5ce2e4aa481befe6339ee8c8b', '3', '8.00', '30e8214bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('3976bd55ba6348feb32a53cea9d587e3', '3', '8.00', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('399a09bd94044734a5b637e901f2d24f', '3', '8.00', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('3b8027d2378c4630b0d740096cbd3d14', '2', '5.00', 'b457fd4bf25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('3d66733e1c6f491bb97b425ed5d04316', '3', '8.00', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('3e72f128b6ea4eddb0195874e564ca1e', '1', '1.00', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('3e766ed99b624e2598688ef4dd7b714a', '2', '5.00', '893a060df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('3ee4c40a705747a08b90200a0cf955ed', '2', '5.00', 'a10e97e6f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('3ff293aac5004325b31bfa8fee0e36f5', '1', '1.00', '6da0e739f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('4116351bdeef42ecbeae2bc82876150b', '1', '1.00', 'ac1be020f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('4133ffe2434e4756b157ffb12270ea15', '1', '1.00', '9dbd8c2ef25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('431c905a9bb0420cb653eaa7f397039a', '3', '8.00', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('442c82b34d7b482cb3a77b1e7782ffa3', '2', '5.00', '57bc9494f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('44752468e9d3482bac56d36c764b9a73', '3', '8.00', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('4487a06f4cc945b8b6397ddb29547ade', '2', '5.00', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('4496b15c5e3f4be7ab9054236ce26a38', '2', '5.00', '85b0302df73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('44978db6d2e8483ca2b5be0eca814393', '3', '8.00', '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('45d0ed3eb44c44d5b97b31a01519d520', '2', '5.00', '8fbc1ed6f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('481e8a410a3a4df593561c737ecfb489', '1', '1.00', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('4b9954258dc144f39810b2694145c51a', '3', '8.00', '892c9850f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('4cc41737ab26410c862faa04fdbea1a5', '1', '1.00', '482faebef73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('4dff3968f0f44fe6963c56eb59f778fb', '2', '5.00', '57aa0535f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('4ed76ee5e6824681986cea58f6f97593', '2', '5.00', '9dbd8c2ef25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('4f0777c4bc0147179f4fa746cd313d14', '3', '8.00', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('4f0f21786f554dc9a5ca5b9faac3440f', '1', '1.00', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('50eb8f5bae8e45fdb36275785fc8f11c', '2', '5.00', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('51dc27f3eaf546959710da139ba991cf', '2', '5.00', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('52fd26d35fa945f9bec23948d371a6bc', '2', '5.00', '482faebef73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('54bac37964ae47b1bd6e482b18435540', '2', '5.00', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('5524177695404e4f9382a36114e9f633', '3', '8.00', '444b87fcf73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('5c79ed70afc647a791e80fb5bbc0417d', '3', '8.00', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('5f5ec0a70ffb4a5ab33c7411c9d25f1f', '2', '5.00', 'e3538395f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('5fd285edc8674750bfc7ef65d4d69932', '1', '1.00', '893a060df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('605394844d51438d850844905f2d9b61', '2', '5.00', 'd0622a9af25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('613ff79389424ee5937e5bd4b6404f2b', '1', '1.00', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('622f7eede5e3497b99108aa9f239b3e0', '3', '8.00', 'a10e97e6f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('640168607fd143e5ac5862a0a5ecb6ff', '3', '8.00', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('6b4535a010fd46db8c97e7f349690686', '3', '8.00', 'd78f08abf73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('6b889463582847988fd7fbd5f6864104', '1', '1.00', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('6b9faa0eaf9f4499b27d52aabfba2b2e', '3', '8.00', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('6c4bdc6d06e74dcd98f6eb7b65d4f8ac', '1', '1.00', 'b0009f80f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('6d85b896ef8940cb9c2ad71253c417ac', '1', '1.00', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('6e29319e3c1640c6a915c5ed07b46625', '3', '8.00', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('6e66644a8e104afc9f9d96e79b82f733', '2', '5.00', 'ac1be020f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('713f08c660b0494f8c0e8ab9a1a62bcf', '3', '8.00', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('721c494d88244f6193d9d428108801bd', '1', '1.00', '1d989701f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('754429e4d1c44697b0279595321beb06', '2', '5.00', '892c9850f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('784b1d68c5f744a8b22c28e797acd297', '3', '8.00', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('798be069885349b2b2b6e4059aabea08', '2', '5.00', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('7b8d385c2fa74a1a8ee6ab58e03ca89c', '1', '1.00', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('7c18e0dbedd6418f89ea288edbdeb9fd', '1', '1.00', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('7c876d8fa3b541ea9b2dd3d2a1278d73', '2', '5.00', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('7c8e5729515b42a9819237b324c4bed7', '2', '5.00', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('7de2732a8c724a91bcc7cc7207be1702', '2', '5.00', '6da0e739f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('7e119515997a4fe6b09606516adb1b2f', '2', '5.00', 'b1260126f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('7e996f8b8082459f8358372dd8a9c353', '3', '8.00', 'ab8b587cf73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('7f2749d3085440c99953fb67e8ea5ebd', '3', '8.00', '894c1112f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('7f93af9e3b7548fe98bc9a62ed522807', '1', '1.00', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('7f982907c150424fb8c0826da8a0edc3', '3', '8.00', 'b4439b9df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('807c3a2e85fe496894c36632e96d1f4c', '3', '8.00', 'd0622a9af25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('8137d7efc1ca4c379375a73f84caf403', '3', '8.00', '482faebef73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('817f42ddf3924e69aa2c4548fabf10c6', '1', '1.00', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('8192e7d1f763462fa4d1e13337b283b9', '1', '1.00', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('84c6da67d3524fa692692482ed627133', '2', '5.00', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('8683099261f74c2f8fbe718e35d6aca3', '3', '8.00', '893a060df25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('86abab34cde448f9a49f8e7e2d5338c0', '1', '1.00', 'b1260126f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('875d5341bab24c96871acf60d7a89364', '1', '1.00', 'ab8b587cf73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('87ab505c8e264faa93c3fc066f9ab362', '1', '1.00', 'b457fd4bf25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('886d1f497f83434bbe104a04d94d008c', '1', '1.00', '225efd1df25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('8b710783a98f4597bf77460b3e3cc43f', '1', '1.00', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('8f6a11da0d71470b84b2aa6986410a84', '1', '1.00', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('8f7041dcc18f49a6bf59d4ee281d716e', '1', '1.00', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('8fda2a501d0c419bb89f777c5c1ad398', '2', '5.00', '971f0453f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('8ffe2ffff7c348939d5c7f7f500c1076', '2', '5.00', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('9071003aac9345b98f2e3ec9c00d4b73', '2', '5.00', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('949a566ae4c447eda0b01a0b4800d481', '2', '5.00', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('966659fcc3704e62998702fabeb328ba', '1', '1.00', '971f0453f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('9697ede4bba94c678fc460008197cdd4', '3', '8.00', '2970c17af73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('9b7d6dd2ef59486190fe379502e46e32', '1', '1.00', '894c1112f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('9b88bd7016b84601af9665f1245496b0', '2', '5.00', 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('9c4784c8596d407398327359ecdc0902', '3', '8.00', '1d989701f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('9cf6896075cb411da90447b499b440f6', '3', '8.00', '69b0c4e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('9d96a8f264674b028ebedd232cf9ee81', '1', '1.00', 'd0622a9af25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('9dd85746421e45ecad2299ee7f3dab48', '2', '5.00', 'db6eb47ff73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('9e69143e02174458a04952a4a515db9f', '3', '8.00', '6da0e739f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('9effaf22a07f42db975cb0800643bd4a', '2', '5.00', '69b0c4e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('a4f633f9e9c04d1983530d65c63f4981', '3', '8.00', '57bc9494f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('a77ee0d9307543659a86f9cb7f342b91', '3', '8.00', '225efd1df25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('a7bdfa18ad464ab6b4311f551cb62915', '3', '8.00', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('ab4f641bceb94f4ba73a61ac97bfd5c5', '1', '1.00', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('abc3c4bcc4fc44c69dbf80da215e6b6d', '3', '8.00', '22674669f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('aec0051a952244468e2cff8c4940ccf1', '1', '1.00', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('afa9a168eabf43d5a671ec97933bb483', '2', '5.00', 'e075faedf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('afad31fd1e024c03b8707dd0f12e9b23', '3', '8.00', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('b00bb04433a942ddbb0610dcb72fa138', '2', '5.00', '08ed7b6df73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b0db4ade979a4663869ab17ac20218db', '3', '8.00', '85b0302df73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b3802db0942148c897304ed9b20d2093', '2', '5.00', 'd78f08abf73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b47141d398384e7985c7852c341845f0', '2', '5.00', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b4874f7065cd4e88b2ee6fad35c8e40a', '3', '8.00', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('b51d96db9c074284b0980c76dc3cbcd1', '2', '5.00', 'b4a0ed41f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b6d3ab29d8584fe599f39605e7edfc10', '2', '5.00', '2970c17af73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b6e1f3cc90124e559ef54dbe9bb38abb', '3', '8.00', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b6fe78af5c014f75986ed729895e8ecc', '3', '8.00', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('b8e1417d805d4021ac70d3019ab9714f', '1', '1.00', '2970c17af73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('bc0814ba554e42898f03b4c8d7a6145a', '2', '5.00', 'b0009f80f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('bce6697004a243e3b9d0c142dfa38504', '1', '1.00', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('bd0539ed6d29407da3f1423dc952da5e', '2', '5.00', '65c54b9bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('bed395cc1b8c4ad09d25fa8f9659d2f8', '1', '1.00', '892c9850f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('bf14fde8d6df48d89213272ff58adbc9', '1', '1.00', 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('bfda967009364eb49b0783553a3f9e0c', '2', '5.00', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('c222228524734ac790fd4ad54c3b2bc0', '1', '1.00', '57aa0535f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c282471531aa47448ad11b78a1a7192f', '3', '8.00', 'b0009f80f73911e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('c30845be133e45c6ac3c945388e71943', '2', '5.00', '444b87fcf73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('c321a325fa5640d6b8b9dda5e492f206', '1', '1.00', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('c3cd6de8129640dba4be2a85c452cf3b', '3', '8.00', 'e3538395f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('c42f367b1c41493b861ac00fc0633d9a', '1', '1.00', 'a10e97e6f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c5a5233465c6425cad9dccc5d2deba18', '1', '1.00', '69b0c4e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('c6981438f6b94294866fc69b15479b0f', '3', '8.00', '57aa0535f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c75e8571237d4063838c626cffcfc9f7', '1', '1.00', 'e075faedf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c785312e2cbb47648e9e457f618fac63', '3', '8.00', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c7a526811e3445b3b34344468f16ca13', '3', '8.00', '9dc841b1f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c7cc779bdf444ae2ade93d6960b90ed3', '3', '8.00', 'b457fd4bf25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c8a5dd80a3ef427aa7c49e417f09f0b1', '3', '8.00', 'e075faedf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('c97a006648a042daac0c382b7129ab15', '3', '8.00', '169f823af73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('cd8bafeeef5b47c69020734dc088cc79', '1', '1.00', '22674669f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('cdbafc7e8e5a45bea5d54a7755e86f92', '3', '8.00', 'db6eb47ff73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('d13aac99f28446cfa4ceb08cf37e5e35', '1', '1.00', '2d93a5e3f73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('d14063452f794d8398f411c1192fb95f', '2', '5.00', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('d279764c4da6472abccdbd5c266444b8', '3', '8.00', 'e05f2a95f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('d2beee69afc8444abb365c66e1574551', '1', '1.00', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('d74447ae6c4b4875b3d5b77ca8f3f544', '1', '1.00', 'd06e8ed3f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('d81e4055d88b4ba69270e12f7558f51d', '1', '1.00', '169f823af73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('d869b4f213ac4a24b3f0a877cb72c9c5', '3', '8.00', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('dae5b21035874fa6b19885aa637baaf5', '2', '5.00', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('dc18ab4ea83a499e96a7133b8613df12', '3', '8.00', 'b1260126f73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('dcc2db8a0fb348f085bf5868f3d1ed13', '3', '8.00', 'd06e8ed3f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('dd02402d04cb49b2b43bdd1ac70d3795', '2', '5.00', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('df438c8aa50746a8b3ec087491ad5d46', '1', '1.00', '65c54b9bf73411e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('e01a5cddcaf746e29debaf5de0782df1', '2', '5.00', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('e105b78606284c5db4029e2fdf36a9a1', '2', '5.00', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('e39a61b6e2104088ab386c3b4dccb919', '3', '8.00', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('e4f5022fecbf4ff6830748526ec55f62', '1', '1.00', '85b0302df73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('e7a9cccf83b34df9abdd1ee48ae6cb46', '3', '8.00', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('ef454e35689346a589edf90a30dee8c1', '2', '5.00', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('f0f8c1719090459d849c43569e6c94c7', '1', '1.00', 'e3538395f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('f1ea9aec8aa44c95989fbcaf1e94b26e', '1', '1.00', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('f2416670a39e4accbfb962e0ff5e6d17', '2', '5.00', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('f242c3170a2e4358830733750d8835cf', '1', '1.00', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('f278107d867f4214b47c1871d3919bf8', '3', '8.00', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('f45e46a41df84b02b3be20ca13d17a64', '1', '1.00', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('f64c5f1a2a064faf8b3d362831bcaa26', '2', '5.00', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('f6a1a776355f4e4f975661bae8a29bac', '1', '1.00', '444b87fcf73211e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('f6b36d331ab74191af2f3807b5413f55', '2', '5.00', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('f7e841fc77ca442288d3848f21ced26d', '2', '5.00', '894c1112f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('f8559fa8a08c480bba88d8aaf60c4ccf', '3', '8.00', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `bi_risk_factors_level` VALUES ('f9a4011ce494417c9cd9d6b4c765d902', '1', '1.00', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `bi_risk_factors_level` VALUES ('fb1b2bf686ac482d903ec6f983aedad3', '1', '1.00', '08ed7b6df73311e6a2f8507b9d4d7a23');
+
+-- ----------------------------
+-- Table structure for bi_risk_rules
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_risk_rules`;
+CREATE TABLE `bi_risk_rules` (
+  `RULES_ID` varchar(32) NOT NULL,
+  `VALUE` varchar(32) NOT NULL,
+  `VALUE_TYPE` char(1) DEFAULT '1' COMMENT '1.固定值\n2.变量值',
+  `RELATION` char(1) DEFAULT NULL COMMENT '1.并且\n2.或',
+  `MEASURES` varchar(2048) DEFAULT NULL,
+  `FORMULA_DEF_ID` varchar(32) NOT NULL,
+  PRIMARY KEY (`RULES_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_risk_rules
+-- ----------------------------
+INSERT INTO `bi_risk_rules` VALUES ('9424bc749d8e4199866d66e4f29729ff', '低', null, null, null, 'UUID100001');
+INSERT INTO `bi_risk_rules` VALUES ('9d01ca32d4e04018a3ed0de68929f21f', '中', null, null, null, 'UUID100001');
+INSERT INTO `bi_risk_rules` VALUES ('bc5257d117ae4000ad053bc72bc32bdf', '低', null, null, null, 'UUID100002');
+INSERT INTO `bi_risk_rules` VALUES ('cd4cc844205b4289bbe92b72af14b34d', '高', null, null, null, 'UUID100001');
+INSERT INTO `bi_risk_rules` VALUES ('ed09c2f9c0a147af8cf6f05126234b6a', '高', null, null, null, 'UUID100002');
+
+-- ----------------------------
+-- Table structure for bi_screening_results
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_screening_results`;
+CREATE TABLE `bi_screening_results` (
+  `ITEM_ID` varchar(32) NOT NULL,
+  `CONDITION_` varchar(32) DEFAULT NULL,
+  `FRONT` varchar(64) DEFAULT NULL,
+  `BACK` varchar(32) DEFAULT NULL,
+  `RULES_ID` varchar(32) NOT NULL,
+  `ARG_FUN` varchar(32) DEFAULT NULL,
+  `ORDER_NUM` smallint(6) NOT NULL DEFAULT '1',
+  `IS_SIGN` smallint(5) NOT NULL DEFAULT '0',
+  `NEXUS` varchar(2) DEFAULT '&&',
+  PRIMARY KEY (`ITEM_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_screening_results
+-- ----------------------------
+INSERT INTO `bi_screening_results` VALUES ('2a95629918be4b89a1f3f16590ded932', '=', 'arg[0]', '是', 'bc5257d117ae4000ad053bc72bc32bdf', '', '1', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('303c574295a547139040b2c5e531ed61', '=', 'arg[0]', 'C1', '9424bc749d8e4199866d66e4f29729ff', '', '1', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('5c916f36d1f44ad48696ae50c3a1ef3b', '>=', 'arg[1]', 'F2', 'cd4cc844205b4289bbe92b72af14b34d', '', '2', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('5f4f256987e54c709eaa333845c116f9', '<=', 'arg[1]', 'F3', '9d01ca32d4e04018a3ed0de68929f21f', '', '3', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('af283609297b43f5b66ced1ff86646cf', '=', 'arg[0]', 'C3', 'cd4cc844205b4289bbe92b72af14b34d', '', '1', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('b0d43a51203640b4b60dcec50dea622a', '=', 'arg[0]', 'C2', '9d01ca32d4e04018a3ed0de68929f21f', '', '1', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('b182969f8ae24894b6c0f7b4d4720b7c', '=', 'arg[0]', '否', 'ed09c2f9c0a147af8cf6f05126234b6a', '', '1', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('b46307a9b0ce4177acdf426892077841', '<=', 'arg[1]', 'F2', '9424bc749d8e4199866d66e4f29729ff', '', '1', '0', '&&');
+INSERT INTO `bi_screening_results` VALUES ('e19432fbf5544c9a9f108d032be0f669', '>', 'arg[1]', 'F2', '9d01ca32d4e04018a3ed0de68929f21f', '', '2', '0', '&&');
+
+-- ----------------------------
+-- Table structure for bi_terminal_type
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_terminal_type`;
+CREATE TABLE `bi_terminal_type` (
+  `TERMINAL_TYPE_ID` varchar(32) NOT NULL,
+  `NAME` varchar(32) DEFAULT NULL,
+  `PID` varchar(32) DEFAULT NULL,
+  `CREATE_TIME` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`TERMINAL_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_terminal_type
+-- ----------------------------
+INSERT INTO `bi_terminal_type` VALUES ('UUID100001', '飞行前控制运行总风险', '0', '2017-01-01 12:00:00');
+INSERT INTO `bi_terminal_type` VALUES ('UUID100002', 'C-人评价终端因素', 'UUID100001', '2017-01-01 12:00:00');
+INSERT INTO `bi_terminal_type` VALUES ('UUID100003', 'A-机评价终端因素', 'UUID100001', '2017-01-01 12:00:00');
+INSERT INTO `bi_terminal_type` VALUES ('UUID100004', 'E-环评价终端因素', 'UUID100001', '2017-01-01 12:00:00');
+
+-- ----------------------------
+-- Table structure for bi_terminal_type_ref
+-- ----------------------------
+DROP TABLE IF EXISTS `bi_terminal_type_ref`;
+CREATE TABLE `bi_terminal_type_ref` (
+  `ID` varchar(32) NOT NULL,
+  `RISK_ID` char(32) NOT NULL,
+  `TERMINAL_TYPE_ID` varchar(32) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bi_terminal_type_ref
+-- ----------------------------
+INSERT INTO `bi_terminal_type_ref` VALUES ('e968854df58a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9688a09f58a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9688b4af58a11e6aff100ffd1ccb5b6', '30bfb36af25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9688c46f58a11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9688d2ef58a11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9688e1bf58a11e6aff100ffd1ccb5b6', '39adb0acf25911e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9688f03f58a11e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9688ff6f58a11e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e96890def58a11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e96891e7f58a11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e96892cff58a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e96893b7f58a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e968949cf58a11e6aff100ffd1ccb5b6', '892c9850f25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689581f58a11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689666f58a11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e96897b8f58a11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e96898a6f58a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e968998bf58a11e6aff100ffd1ccb5b6', 'a10e97e6f25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689a6af58a11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689b52f58a11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689c32f58a11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689d11f58a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689df6f58a11e6aff100ffd1ccb5b6', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689ed9f58a11e6aff100ffd1ccb5b6', 'e03a85c3f25911e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e9689fbef58a11e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e968a0a0f58a11e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e968a180f58a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('e968a283f58a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'UUID100002');
+INSERT INTO `bi_terminal_type_ref` VALUES ('REF_100001', 'UUID100001', 'UUID100002');
+
+-- ----------------------------
+-- Table structure for flight
+-- ----------------------------
+DROP TABLE IF EXISTS `flight`;
+CREATE TABLE `flight` (
+  `ID` varchar(32) NOT NULL,
+  `FLT_NO` varchar(16) DEFAULT NULL,
+  `IS_INTERNATIONAL` varchar(8) DEFAULT NULL,
+  `START_AIRPORT` varchar(32) DEFAULT NULL,
+  `END_AIRPORT` varchar(32) DEFAULT NULL,
+  `START_TIME` varchar(32) DEFAULT NULL,
+  `REAL_START_TIME` varchar(32) DEFAULT NULL,
+  `DEPARTURE_TIME` varchar(32) DEFAULT NULL,
+  `REAL_END_TIME` varchar(32) DEFAULT NULL,
+  `END_TIME` varchar(32) DEFAULT NULL,
+  `ARRIVAL_TIME` varchar(32) DEFAULT NULL,
+  `DISPATCH_DATE` varchar(32) DEFAULT NULL,
+  `IS_APPROVE` varchar(32) DEFAULT NULL,
+  `IS_BAK` varchar(32) DEFAULT NULL,
+  `OPEN_DOOR_DATE` varchar(32) DEFAULT NULL,
+  `CLOSE_DOOR_DATE` varchar(32) DEFAULT NULL,
+  `CREATE_TIME` varchar(32) DEFAULT NULL,
+  `IS_CHANGE` varchar(2) DEFAULT NULL COMMENT '1.变更\n2.非变更',
+  `FLIGHT_CODE` varchar(10) DEFAULT NULL COMMENT '飞机编号',
+  `FLIGHT_TYPE` varchar(10) DEFAULT NULL COMMENT '机型',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flight
+-- ----------------------------
+INSERT INTO `flight` VALUES ('UUID100001', 'G54949', '1', 'ZUCK', 'ZSPD', '2017-02-23 18:02:16', '2017-02-16 08:30:00', null, '2017-02-16 15:00:00', '2017-02-23 22:07:16', null, '2017-02-16 08:00:00', '1', '0', null, null, '2017-02-16 06:00:00', '0', 'B-6811', 'CRJ900');
+INSERT INTO `flight` VALUES ('UUID100002', 'G54948', '1', 'ZSPD', 'ZBAA', '2017-02-23 15:02:16', '2017-02-16 08:30:00', null, '2017-02-16 15:00:00', '2017-02-23 16:07:16', null, '2017-02-16 08:00:00', '1', '0', null, null, '2017-02-16 06:00:00', '0', 'B-3142', 'CRJ900');
+INSERT INTO `flight` VALUES ('UUID100003', 'G54946', '1', 'ZHHH', 'ZBAA', '2017-02-23 11:02:16', '2017-02-16 08:30:00', null, '2017-02-16 15:00:00', '2017-02-23 13:07:16', null, '2017-02-16 08:00:00', '1', '0', null, null, '2017-02-16 06:00:00', '0', 'B-3118', 'CRJ900');
+INSERT INTO `flight` VALUES ('UUID100004', 'G54947', '1', 'ZSJN', 'ZGSZ', '2017-02-23 14:02:16', '2017-02-16 08:30:00', null, '2017-02-16 15:00:00', '2017-02-23 18:07:16', null, '2017-02-16 08:00:00', '1', '0', null, null, '2017-02-16 06:00:00', '0', 'B-3227', 'CRJ900');
+
+-- ----------------------------
+-- Table structure for flight_pilot
+-- ----------------------------
+DROP TABLE IF EXISTS `flight_pilot`;
+CREATE TABLE `flight_pilot` (
+  `ID` varchar(32) NOT NULL,
+  `FLT_ID` varchar(32) NOT NULL,
+  `PILOT_ID` varchar(32) DEFAULT NULL,
+  `CREATE_TIME` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flight_pilot
+-- ----------------------------
+INSERT INTO `flight_pilot` VALUES ('3628e21daea14d98b2c02b01913fb0b6', 'UUID100002', 'UUID100004', '2017-02-21');
+INSERT INTO `flight_pilot` VALUES ('3791048ca188491390cdcde02f49dd5d', 'UUID100004', 'UUID100004', '2017-02-22');
+INSERT INTO `flight_pilot` VALUES ('5b9f78f8f0a740efb22739054cc6adb8', 'UUID100004', 'UUID100007', '2017-02-22');
+INSERT INTO `flight_pilot` VALUES ('900d85df2fd741cca093aab6883e0e61', '0', 'UUID100005', '2017-02-20');
+INSERT INTO `flight_pilot` VALUES ('9f86c27511694a5d9fc4a4cb2a79fc78', 'UUID100003', 'UUID100004', '2017-02-23');
+INSERT INTO `flight_pilot` VALUES ('a5e3d6185b0b4562b9512f1908894012', 'UUID100002', 'UUID100007', '2017-02-21');
+INSERT INTO `flight_pilot` VALUES ('b21b838ee1144066b2b29e2e74f09654', 'UUID100001', 'UUID100005', '2017-02-20');
+INSERT INTO `flight_pilot` VALUES ('baf54a86489740cd856fc86189211d5e', 'UUID100001', 'UUID100001', '2017-02-20');
+INSERT INTO `flight_pilot` VALUES ('d0dd3ae19854430084f8d4f943ea6254', 'UUID100003', 'UUID100007', '2017-02-23');
+INSERT INTO `flight_pilot` VALUES ('f7fe95f6fba94fb6a0f91f5b87a88885', '0', 'UUID100003', '2017-02-20');
+
+-- ----------------------------
+-- Table structure for matrix
+-- ----------------------------
+DROP TABLE IF EXISTS `matrix`;
+CREATE TABLE `matrix` (
+  `ID` char(32) NOT NULL,
+  `X_ID` varchar(32) DEFAULT NULL,
+  `Y_ID` varchar(32) DEFAULT NULL,
+  `COORD` varchar(32) DEFAULT NULL,
+  `COORD_VAL` int(11) DEFAULT NULL,
+  `D_LEVEL` smallint(6) DEFAULT '0',
+  `RISK_ID` char(32) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `RISK_ID` (`RISK_ID`),
+  CONSTRAINT `matrix_ibfk_1` FOREIGN KEY (`RISK_ID`) REFERENCES `bi_risk_factors` (`RISK_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of matrix
+-- ----------------------------
+INSERT INTO `matrix` VALUES ('1191386ff74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X1Y1', '10', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('119371d9f74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X1Y2', '6', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('11967e8ff74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X1Y3', '5', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('11985bbef74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X2Y1', '8', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('119a42b1f74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X3Y1', '7', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('119c6c8af74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X2Y2', '5', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('119ebcb1f74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X2Y3', '4', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('11a0acf9f74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X3Y2', '5', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('11a2d273f74111e6a2f8507b9d4d7a23', 'ab8b587cf73911e6a2f8507b9d4d7a23', 'b0009f80f73911e6a2f8507b9d4d7a23', 'X3Y3', '4', '0', '938bebf1f73911e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('130e0d9ef27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y1', '6', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('131871baf27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y2', '4', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('13267d2bf27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y3', '2', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('1331e1c0f27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y1', '5', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('133bdb8bf27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y1', '5', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('134705dff27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y2', '2', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('1350d22ef27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y3', '1', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('1359c40bf27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y2', '1', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('13629cc7f27c11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y3', '1', '1', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('13a8e2b6f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y1', '10', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13aa8c8af74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y2', '6', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13ac8a45f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y3', '5', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13aeb19af74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y1', '8', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13b0b474f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y1', '7', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13b2bfecf74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y2', '5', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13b4e9c5f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y3', '4', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13b7133cf74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y2', '5', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13b957f2f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y3', '4', '3', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13bb6ba7f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y1', '7', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13bd5e48f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y2', '5', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13bf415ff74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y3', '3', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13c1628bf74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y1', '6', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13c39db4f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y1', '5', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13c5b260f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y2', '4', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13c7eab2f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y3', '2', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13c9ea7bf74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y2', '3', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13cbc555f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y3', '2', '2', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13cde540f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y1', '6', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13cfcacbf74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y2', '4', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13d1b41df74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X1Y3', '2', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13d3ef54f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y1', '5', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13d5d655f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y1', '5', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13d7e082f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y2', '2', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13d9eae3f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X2Y3', '1', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13dbf4a0f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y2', '1', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('13de1516f74211e6a2f8507b9d4d7a23', 'b1260126f73211e6a2f8507b9d4d7a23', 'b4a0ed41f73211e6a2f8507b9d4d7a23', 'X3Y3', '1', '1', 'ed7323f3f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('29a44296f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X1Y1', '10', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29ad8fecf27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X1Y2', '6', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29b647c4f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X1Y3', '5', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29bf7c54f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X2Y1', '8', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29c8dd01f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X3Y1', '7', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29d811b4f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X2Y2', '5', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29e56602f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X2Y3', '4', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29efd095f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X3Y2', '5', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('29f8fad2f27b11e6aff100ffd1ccb5b6', '9dbd8c2ef25a11e6aff100ffd1ccb5b6', '9dc841b1f25a11e6aff100ffd1ccb5b6', 'X3Y3', '4', '0', '5ce422d2f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('308679bcf74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y1', '10', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('3088f491f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y2', '6', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('308b9f13f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y3', '5', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('308da8b4f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y1', '8', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('309009a9f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y1', '7', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30924f6df74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y2', '5', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30947c10f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y3', '4', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30967892f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y2', '5', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30987300f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y3', '4', '3', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('309a8ee4f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y1', '7', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('309ca0e7f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y2', '5', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('309ea2fcf74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y3', '3', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30a089a5f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y1', '6', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30a2b241f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y1', '5', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30a514a1f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y2', '4', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30a716c0f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y3', '2', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30a924e2f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y2', '3', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30ab2701f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y3', '2', '2', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30ad2b05f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y1', '6', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30aeef3cf74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y2', '4', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30b10bd1f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X1Y3', '2', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30b3333ef74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y1', '5', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30b525b1f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y1', '5', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30b75057f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y2', '2', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30b950d7f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X2Y3', '1', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30bb45bff74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y2', '1', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('30bd4cc1f74011e6a2f8507b9d4d7a23', '2d93a5e3f73411e6a2f8507b9d4d7a23', '30e8214bf73411e6a2f8507b9d4d7a23', 'X3Y3', '1', '1', '7610e296f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('383240cbf74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X1Y1', '10', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('3833daa9f74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X1Y2', '6', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('3835ab9df74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X1Y3', '5', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('3837c7e7f74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X2Y1', '8', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('3839a4aff74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X3Y1', '7', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('383ba730f74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X2Y2', '5', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('383dc531f74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X2Y3', '4', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('38400ef3f74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X3Y2', '5', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('3842245ef74211e6a2f8507b9d4d7a23', '169f823af73311e6a2f8507b9d4d7a23', '1d989701f73311e6a2f8507b9d4d7a23', 'X3Y3', '4', '0', '0f81bd68f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('479d2563f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y1', '10', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('47a986b8f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y2', '6', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('47b99d7df27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y3', '5', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('47ca38e9f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y1', '8', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('47d7f7f6f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y1', '7', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('47e5523ff27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y2', '5', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('47f54fb8f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y3', '4', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('48005baef27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y2', '5', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('480a1559f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y3', '4', '3', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4abba8e2f27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X1Y1', '10', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4ac5514cf27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X1Y2', '6', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4ad1c2d3f27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X1Y3', '5', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4add6bedf27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X2Y1', '8', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4ae7e196f27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X3Y1', '7', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4af39874f27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X2Y2', '5', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4afeb909f27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X2Y3', '4', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4b06fc0af27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X3Y2', '5', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('4b102e26f27a11e6aff100ffd1ccb5b6', '5ce422d2f25a11e6aff100ffd1ccb5b6', '5ced50b8f25a11e6aff100ffd1ccb5b6', 'X3Y3', '4', '0', '39be186af25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('507eee9ff27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y1', '7', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('50878bfaf27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y2', '5', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('50901502f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y3', '3', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('509a5fd8f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y1', '6', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('50a35197f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y1', '5', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('50ac21a1f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y2', '4', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('50b4e5f2f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y3', '2', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('50bda653f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y2', '3', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('50c60237f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y3', '2', '2', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('542810e8f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y1', '6', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('5432056df27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y2', '4', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('543b7ce0f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X1Y3', '2', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('544582c4f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y1', '5', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('545173dff27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y1', '5', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('545a7337f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y2', '2', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('54681294f27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X2Y3', '1', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('547ef13ef27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y2', '1', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('54b24c5ff27911e6aff100ffd1ccb5b6', '39be186af25911e6aff100ffd1ccb5b6', '39d34e44f25911e6aff100ffd1ccb5b6', 'X3Y3', '1', '1', 'dd4badc3f25811e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('54e7d432f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y1', '10', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54e968c6f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y2', '6', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54eb5cd4f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y3', '5', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54ed55d6f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y1', '8', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54ef63a8f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y1', '7', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54f193a5f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y2', '5', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54f3ce63f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y3', '4', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54f5ccebf74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y2', '5', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54f82071f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y3', '4', '3', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54fa2008f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y1', '7', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54fbf6c8f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y2', '5', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54fe0446f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y3', '3', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('54fff9fcf74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y1', '6', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('5501d8cef74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y1', '5', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('550401e8f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y2', '4', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('55063397f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y3', '2', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('55085dadf74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y2', '3', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('550a76a2f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y3', '2', '2', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('550c9b44f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y1', '6', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('550e7635f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y2', '4', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('55109021f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X1Y3', '2', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('5512b965f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y1', '5', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('5514ab2bf74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y1', '5', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('5516c538f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y2', '2', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('5518bcd3f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X2Y3', '1', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('551ad6edf74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y2', '1', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('551cdac7f74011e6a2f8507b9d4d7a23', '69b0c4e3f73411e6a2f8507b9d4d7a23', '6da0e739f73411e6a2f8507b9d4d7a23', 'X3Y3', '1', '1', '7983fb13f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('554e5299f27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X1Y1', '10', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('555881dff27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X1Y2', '6', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('556334daf27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X1Y3', '5', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('556e4985f27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X2Y1', '8', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('55778bf1f27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X3Y1', '7', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('5580a6a2f27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X2Y2', '5', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('558b0bbaf27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X2Y3', '4', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('559484eaf27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X3Y2', '5', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('559e85f0f27b11e6aff100ffd1ccb5b6', 'd0622a9af25a11e6aff100ffd1ccb5b6', 'd06e8ed3f25a11e6aff100ffd1ccb5b6', 'X3Y3', '4', '0', '5ced50b8f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('63e50851f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y1', '10', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63e69d0bf74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y2', '6', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63e8e5edf74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y3', '5', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63eb18b4f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y1', '8', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63ed5bd8f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y1', '7', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63ef8730f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y2', '5', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63f1d480f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y3', '4', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63f4405af74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y2', '5', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63f63a0ef74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y3', '4', '3', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63f8583df74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y1', '7', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63fa521bf74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y2', '5', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63fc4423f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y3', '3', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('63fe71e7f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y1', '6', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('64009728f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y1', '5', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('64027f25f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y2', '4', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6404cf27f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y3', '2', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('64072fb6f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y2', '3', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('640921f5f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y3', '2', '2', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('640b2737f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y1', '6', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('640d5ea8f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y2', '4', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('640f3faff74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X1Y3', '2', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('64112e45f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y1', '5', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('641326cef74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y1', '5', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6414faa8f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y2', '2', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('64172df6f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X2Y3', '1', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('641914b6f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y2', '1', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('641b3fa7f74111e6a2f8507b9d4d7a23', '8ae49615f73111e6a2f8507b9d4d7a23', '8fbc1ed6f73111e6a2f8507b9d4d7a23', 'X3Y3', '1', '1', 'b03b2461f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('68c35c9ff73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y1', '10', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b75ee24f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y1', '10', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b778cc3f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y2', '6', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b7964e0f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y3', '5', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b7b992ff74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y1', '8', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b7dc454f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y1', '7', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b7fd572f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y2', '5', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b821aaff74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y3', '4', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b83ef36f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y2', '5', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b860e1bf74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y3', '4', '3', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b880789f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y1', '7', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b89e5ebf74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y2', '5', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b8c10cef74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y3', '3', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b8e47f0f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y1', '6', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b9076cdf74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y1', '5', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b9294f7f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y2', '4', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b948d52f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y3', '2', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b966d3cf74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y2', '3', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b9863a3f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y3', '2', '2', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b9a803df74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y1', '6', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b9c48cff74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y2', '4', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6b9e57fff74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X1Y3', '2', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6ba0608df74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y1', '5', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6ba27320f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y1', '5', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6ba48d98f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y2', '2', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6ba68517f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X2Y3', '1', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6ba8a778f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y2', '1', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('6baacc81f74211e6a2f8507b9d4d7a23', '88f0d38af72c11e6a2f8507b9d4d7a23', 'dd4badc3f25811e6aff100ffd1ccb5b6', 'X3Y3', '1', '1', 'ed14850af72a11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('73a8aedff27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X1Y1', '10', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('73b81ca5f27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X1Y2', '6', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('73c4e1a5f27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X1Y3', '5', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('73d59c6bf27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X2Y1', '8', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('73e3a500f27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X3Y1', '7', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('73f62252f27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X2Y2', '5', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('740a1961f27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X2Y3', '4', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('74165dc3f27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X3Y2', '5', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('74274664f27a11e6aff100ffd1ccb5b6', 'f4a06cd5f25a11e6aff100ffd1ccb5b6', 'f4b52e20f25a11e6aff100ffd1ccb5b6', 'X3Y3', '4', '0', '39d34e44f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('84a54aaff73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y2', '6', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84a77a33f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y3', '5', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84aaac20f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y1', '8', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84accbadf73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y1', '7', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84af0071f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y2', '5', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84b0ed9bf73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y3', '4', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84b32489f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y2', '5', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84b5a756f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y3', '4', '3', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84b7e13df73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y1', '7', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84b9b332f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y2', '5', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84bbcc2bf73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y3', '3', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84bde947f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y1', '6', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84bff960f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y1', '5', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84c210acf73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y2', '4', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84c41461f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y3', '2', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84c638def73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y2', '3', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84c88bfef73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y3', '2', '2', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84caa056f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y1', '6', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84cc6f16f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y2', '4', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84ce93b4f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X1Y3', '2', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84d0b0e3f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y1', '5', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84d29625f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y1', '5', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84d4c6cef73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y2', '2', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84d6bee8f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X2Y3', '1', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84d89b36f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y2', '1', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('84daccd7f73f11e6a2f8507b9d4d7a23', '7610e296f73311e6a2f8507b9d4d7a23', '7983fb13f73311e6a2f8507b9d4d7a23', 'X3Y3', '1', '1', '88f0d38af72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('86632964f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y1', '10', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8664f016f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y2', '6', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8666c5d5f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y3', '5', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8668efaaf74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y1', '8', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('866b19f8f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y1', '7', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('866d2e26f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y2', '5', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('866f46aff74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y3', '4', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8671a264f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y2', '5', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('86739c7af74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y3', '4', '3', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('86759e3bf74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y1', '7', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8677820cf74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y2', '5', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8679744cf74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y3', '3', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('867baefcf74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y1', '6', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('867de84df74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y1', '5', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('867fe2e1f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y2', '4', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8681e294f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y3', '2', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8683f029f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y2', '3', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8685c89bf74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y3', '2', '2', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8687bcf7f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y1', '6', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('86899388f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y2', '4', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('868baf9bf74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X1Y3', '2', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('868db19ef74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y1', '5', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('868fee58f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y1', '5', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8691f0f5f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y2', '2', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8693e62df74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X2Y3', '1', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('869613a6f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y2', '1', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('86981098f74111e6a2f8507b9d4d7a23', 'e86c1533f73111e6a2f8507b9d4d7a23', 'ed7323f3f73111e6a2f8507b9d4d7a23', 'X3Y3', '1', '1', 'b5c49577f72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dc47ef3f74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X1Y1', '10', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dc6b1f2f74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X1Y2', '6', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dca086df74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X1Y3', '5', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dcc12bff74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X2Y1', '8', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dce1ddff74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X3Y1', '7', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dd07bcdf74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X2Y2', '5', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dd28a76f74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X2Y3', '4', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dd49089f74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X3Y2', '5', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('8dd67a21f74011e6a2f8507b9d4d7a23', 'd8358d2cf72e11e6a2f8507b9d4d7a23', 'de59d576f72e11e6a2f8507b9d4d7a23', 'X3Y3', '4', '0', '6ece6db2f72c11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('92856d21f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y1', '10', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9290aa27f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y2', '6', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('929ce401f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y3', '5', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('92a6204bf27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y1', '8', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('92af8b80f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y1', '7', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('92b971d8f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y2', '5', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('92c207dbf27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y3', '4', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('92caeec2f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y2', '5', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('92d3b512f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y3', '4', '3', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9cc979d7f27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X1Y1', '10', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9cd3f1cef27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X1Y2', '6', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9cde9b55f27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X1Y3', '5', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9ce85c7cf27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X2Y1', '8', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9cf2351df27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X3Y1', '7', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9cfd10fef27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X2Y2', '5', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9d07c207f27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X2Y3', '4', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9d119163f27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X3Y2', '5', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('9d1d4939f27b11e6aff100ffd1ccb5b6', '57aa0535f25b11e6aff100ffd1ccb5b6', '57bc9494f25b11e6aff100ffd1ccb5b6', 'X3Y3', '4', '0', 'f4b52e20f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a3a1cc86f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y1', '10', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a3ad1b23f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y2', '6', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a3bc881ef27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y3', '5', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a3ca659df27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y1', '8', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a3da93e9f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y1', '7', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a3e62114f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y2', '5', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a3f60b20f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y3', '4', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a40ce53af27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y2', '5', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('a41a8623f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y3', '4', '3', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb44eb22f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y1', '7', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb4f56f8f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y2', '5', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb5880c4f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y3', '3', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb60c08cf27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y1', '6', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb6db9c0f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y1', '5', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb791c75f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y2', '4', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb82686bf27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y3', '2', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb8d694df27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y2', '3', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bb98593df27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y3', '2', '2', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('bccb2605f74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X1Y1', '10', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcccd5bbf74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X1Y2', '6', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcced817f74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X1Y3', '5', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcd0dc61f74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X2Y1', '8', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcd2b958f74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X3Y1', '7', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcd4c6e4f74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X2Y2', '5', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcd6d6caf74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X2Y3', '4', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcd8ce2df74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X3Y2', '5', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bcdadec4f74111e6a2f8507b9d4d7a23', '08ed7b6df73311e6a2f8507b9d4d7a23', '0f81bd68f73311e6a2f8507b9d4d7a23', 'X3Y3', '4', '0', 'baba7b1ef72f11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bd97237cf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y1', '10', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bd999e02f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y2', '6', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bd9c82d4f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y3', '5', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bd9ea383f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y1', '8', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bda0b7c4f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y1', '7', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bda2f57af74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y2', '5', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bda513ddf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y3', '4', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bda71948f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y2', '5', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bda901f6f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y3', '4', '3', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdab3188f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y1', '7', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdad0e6cf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y2', '5', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdaef1c4f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y3', '3', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdb11d54f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y1', '6', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdb30274f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y1', '5', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdb4f2f9f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y2', '4', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdb6e7bcf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y3', '2', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdb8e3fdf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y2', '3', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdbaf6acf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y3', '2', '2', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdbd442bf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y1', '6', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdbf2be6f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y2', '4', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdc152a6f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X1Y3', '2', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdc36829f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y1', '5', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdc55b8ff74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y1', '5', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdc75fb8f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y2', '2', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdc9858af74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X2Y3', '1', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdcb78c1f74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y2', '1', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('bdcd7aadf74011e6a2f8507b9d4d7a23', 'b5c49577f72f11e6a2f8507b9d4d7a23', 'baba7b1ef72f11e6a2f8507b9d4d7a23', 'X3Y3', '1', '1', 'd8358d2cf72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('c5ada081f27d11e6aff100ffd1ccb5b6', 'a10e97e6f25b11e6aff100ffd1ccb5b6', '', 'X1', '9', '0', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('c5b60027f27d11e6aff100ffd1ccb5b6', 'a10e97e6f25b11e6aff100ffd1ccb5b6', '', 'X2', '6', '0', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('c5bf6159f27d11e6aff100ffd1ccb5b6', 'a10e97e6f25b11e6aff100ffd1ccb5b6', '', 'X3', '2', '0', '30c8e028f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cac73a53f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y1', '7', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cad6f0ebf27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y2', '5', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cae0a1c5f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y3', '3', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('caf08aacf27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y1', '6', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cafdf795f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y1', '5', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cb0a344ef27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y2', '4', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cb15f261f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y3', '2', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cb2369c2f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y2', '3', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('cb315858f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y3', '2', '2', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d421bbfff27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y1', '10', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d437604cf27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y2', '6', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d4416d86f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y3', '5', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d449be38f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y1', '8', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d457ed93f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y1', '7', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d4635f24f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y2', '5', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d470bdd8f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y3', '4', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d48815e7f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y2', '5', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d49fd566f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y3', '4', '3', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d98f1b34f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y1', '6', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9984f0cf27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y2', '4', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9a11092f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X1Y3', '2', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9abdb9cf27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y1', '5', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9b42850f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y1', '5', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9bc8d92f27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y2', '2', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9c4c1bbf27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X2Y3', '1', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9cd571af27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y2', '1', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('d9d5d2def27911e6aff100ffd1ccb5b6', 'e05f2a95f25911e6aff100ffd1ccb5b6', 'e075faedf25911e6aff100ffd1ccb5b6', 'X3Y3', '1', '1', '39adb0acf25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('df6cc42ef74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X1Y1', '10', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df720f80f74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X1Y2', '6', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df7488e4f74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X1Y3', '5', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df772adaf74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X2Y1', '8', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df794025f74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X3Y1', '7', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df7b48eaf74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X2Y2', '5', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df7d830ef74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X2Y3', '4', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df7fadb0f74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X3Y2', '5', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('df81aa03f74011e6a2f8507b9d4d7a23', '938bebf1f73911e6a2f8507b9d4d7a23', '971f0453f73911e6a2f8507b9d4d7a23', 'X3Y3', '4', '0', 'de59d576f72e11e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e2dc21ebf27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X1Y1', '10', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e2e716e9f27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X1Y2', '6', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e2f453b5f27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X1Y3', '5', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e2ff70e3f27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X2Y1', '8', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e3118bc3f27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X3Y1', '7', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e31cb902f27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X2Y2', '5', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e327aecef27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X2Y3', '4', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e34236d6f27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X3Y2', '5', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e34bacfff27a11e6aff100ffd1ccb5b6', '225efd1df25a11e6aff100ffd1ccb5b6', '22674669f25a11e6aff100ffd1ccb5b6', 'X3Y3', '4', '0', 'e03a85c3f25911e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e3ca8865f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y1', '6', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e3d99579f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y2', '4', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e3e54e8df27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X1Y3', '2', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e3f6c6c3f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y1', '5', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e4075c4bf27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y1', '5', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e412e1fff27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y2', '2', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e41bb573f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X2Y3', '1', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e425a206f27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y2', '1', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e42e700ef27c11e6aff100ffd1ccb5b6', '893a060df25b11e6aff100ffd1ccb5b6', '894c1112f25b11e6aff100ffd1ccb5b6', 'X3Y3', '1', '1', '30bfb36af25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e4dfce64f27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X1Y1', '10', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e4eb3f7af27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X1Y2', '6', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e4f48977f27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X1Y3', '5', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e4fd4de7f27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X2Y1', '8', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e508263cf27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X3Y1', '7', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e5127ae5f27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X2Y2', '5', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e51d47a0f27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X2Y3', '4', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e52620f3f27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X3Y2', '5', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e52e9103f27d11e6aff100ffd1ccb5b6', 'b4439b9df25b11e6aff100ffd1ccb5b6', 'b457fd4bf25b11e6aff100ffd1ccb5b6', 'X3Y3', '4', '0', '30d2c1f8f25b11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('e6f8f4e5f73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X1Y1', '10', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e6fa9eccf73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X1Y2', '6', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e6fc92e8f73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X1Y3', '5', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e6fed29af73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X2Y1', '8', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e700bc3bf73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X3Y1', '7', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e702d031f73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X2Y2', '5', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e70523ddf73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X2Y3', '4', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e7073668f73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X3Y2', '5', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('e7095698f73f11e6a2f8507b9d4d7a23', 'd78f08abf73311e6a2f8507b9d4d7a23', 'db6eb47ff73311e6a2f8507b9d4d7a23', 'X3Y3', '4', '0', '728b0944f73311e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef0a2f45f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X1Y1', '10', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef0bac8af74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X1Y2', '6', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef0d90b4f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X1Y3', '5', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef0f9962f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X2Y1', '8', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef11cba7f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X3Y1', '7', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef13d677f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X2Y2', '5', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef15d4b0f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X2Y3', '4', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef1807e2f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X3Y2', '5', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('ef19f062f74111e6a2f8507b9d4d7a23', '444b87fcf73211e6a2f8507b9d4d7a23', '482faebef73211e6a2f8507b9d4d7a23', 'X3Y3', '4', '0', 'e86c1533f73111e6a2f8507b9d4d7a23');
+INSERT INTO `matrix` VALUES ('f58191a0f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y1', '7', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f58ae8c3f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y2', '5', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f5970fe2f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X1Y3', '3', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f5a4e1cef27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y1', '6', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f5b2d93df27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y1', '5', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f5bbca66f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y2', '4', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f5c63762f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X2Y3', '2', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f5d06226f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y2', '3', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+INSERT INTO `matrix` VALUES ('f5dcdb15f27b11e6aff100ffd1ccb5b6', '30c8e028f25b11e6aff100ffd1ccb5b6', '30d2c1f8f25b11e6aff100ffd1ccb5b6', 'X3Y3', '2', '2', 'f4a06cd5f25a11e6aff100ffd1ccb5b6');
+
+-- ----------------------------
+-- Table structure for pilots
+-- ----------------------------
+DROP TABLE IF EXISTS `pilots`;
+CREATE TABLE `pilots` (
+  `PILOTS_ID` varchar(32) NOT NULL,
+  `NAME` varchar(32) NOT NULL,
+  `EMP_NUM` varchar(30) NOT NULL,
+  `LICENSE_ID` varchar(32) DEFAULT NULL,
+  `ICAOLEVEL` varchar(32) DEFAULT NULL,
+  `ICAOSTARTDATE` varchar(32) DEFAULT NULL,
+  `NATIONALITY` varchar(32) DEFAULT NULL,
+  `CITYID` varchar(32) DEFAULT NULL,
+  `ID_CARDNO` varchar(32) DEFAULT NULL,
+  `EN_NAME` varchar(32) DEFAULT NULL,
+  `MENTAL_STRESS` varchar(2) DEFAULT NULL COMMENT '1.底\n2.中\n3.高',
+  `BIRTHDAY` varchar(32) DEFAULT NULL,
+  `EMERGENCY_STARTDATE` varchar(32) DEFAULT NULL,
+  `LAST_BREAK_TIME` varchar(32) DEFAULT NULL,
+  `PILOT_HEALTH` varchar(2) DEFAULT NULL,
+  `TECHNICAL_GRADE` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`PILOTS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pilots
+-- ----------------------------
+INSERT INTO `pilots` VALUES ('UUID100001', '机长1', '1000012', '1000001', '5', '2016-12-20 12:00:00', 'CN', 'SHA', '42081198710234037', 'tonny', '1', '1987-10-21 12:00:00', '1', '2017-02-09', '1', 'C1');
+INSERT INTO `pilots` VALUES ('UUID100002', '副驾1', '1000013', '10000012', '5', '2016-12-25 12:00:00', 'CN', 'SHA', '42081198710234037', 'jak', '1', '1987-10-21 12:00:00', '1', '2017-02-09', '1', 'F1');
+INSERT INTO `pilots` VALUES ('UUID100003', '机长2', '1000014', '10000013', '5', '2016-12-25 12:00:00', 'CN', 'HKG', '42081198710234037', 'vicky', '1', '1987-10-21 12:00:00', '1', '2017-02-09', '1', 'C2');
+INSERT INTO `pilots` VALUES ('UUID100004', '机长3', '1000015', '1000002', '4', '2016-12-25 12:00:00', 'CN', 'HKG', '42081198710234037', 'marray', '1', '1987-10-21 12:00:00', '1', '2017-02-09', '1', 'C3');
+INSERT INTO `pilots` VALUES ('UUID100005', '副驾2', '1000015', '1000015', '3', '2016-12-25 12:00:00', 'CN', 'SHA', '42081198710234037', 'jak', '1', '1987-10-21 12:00:00', '1', '2017-02-09', '1', 'F2');
+INSERT INTO `pilots` VALUES ('UUID100006', '副驾3', '1000016', '1000016', '3', '2016-12-25 12:00:00', 'CN', 'SHA', '42081198710234037', 'abc', '1', '1987-10-21 12:00:00', '1', '2017-02-09', '1', 'F3');
+INSERT INTO `pilots` VALUES ('UUID100007', '副驾4', '1000017', '1000017', '4', '2016-12-25 12:00:00', 'CN', 'SHA', '42081198710234037', 'cde', '1', '1987-10-21 12:00:00', '1', '2017-02-09', '1', 'F4');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `USER_ID` bigint(20) NOT NULL COMMENT '主键',
+  `LOGIN_NAME` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '登录名称',
+  `USER_NAME` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '真实姓名',
+  `EMAIL` varchar(40) COLLATE utf8_bin DEFAULT NULL COMMENT '邮箱',
+  `MOBILE` varchar(18) COLLATE utf8_bin DEFAULT NULL COMMENT '手机',
+  `CREATE_TIME` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '创建时间',
+  `UPDATE_TIME` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '最后更新时间',
+  `PASSWORD` varchar(30) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统用户登陆表';
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', 'qwe', '系统管理员', '123@qq.com', '1234567', '2017-01-20 11:11:11', null, 'qwe123');
+
+-- ----------------------------
+-- View structure for view_flight_pilots
+-- ----------------------------
+DROP VIEW IF EXISTS `view_flight_pilots`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_flight_pilots` AS select `flight`.`START_TIME` AS `START_TIME`,`flight`.`REAL_START_TIME` AS `REAL_START_TIME`,`flight`.`REAL_END_TIME` AS `REAL_END_TIME`,`flight`.`CREATE_TIME` AS `CREATE_TIME`,`flight`.`DISPATCH_DATE` AS `DISPATCH_DATE`,`flight`.`IS_APPROVE` AS `IS_APPROVE`,`flight`.`FLT_NO` AS `FLT_NO`,`flight`.`IS_INTERNATIONAL` AS `IS_INTERNATIONAL`,`flight`.`OPEN_DOOR_DATE` AS `OPEN_DOOR_DATE`,`flight`.`END_AIRPORT` AS `END_AIRPORT`,`flight`.`START_AIRPORT` AS `START_AIRPORT`,`flight`.`IS_BAK` AS `IS_BAK`,`flight`.`DEPARTURE_TIME` AS `DEPARTURE_TIME`,`flight`.`CLOSE_DOOR_DATE` AS `CLOSE_DOOR_DATE`,`flight`.`ARRIVAL_TIME` AS `ARRIVAL_TIME`,`flight`.`IS_CHANGE` AS `IS_CHANGE`,`flight`.`END_TIME` AS `END_TIME`,`pilots`.`BIRTHDAY` AS `BIRTHDAY`,`pilots`.`ICAOSTARTDATE` AS `ICAOSTARTDATE`,`pilots`.`NATIONALITY` AS `NATIONALITY`,`pilots`.`TECHNICAL_GRADE` AS `TECHNICAL_GRADE`,`pilots`.`PILOTS_ID` AS `PILOTS_ID`,`pilots`.`EMERGENCY_STARTDATE` AS `EMERGENCY_STARTDATE`,`pilots`.`ICAOLEVEL` AS `ICAOLEVEL`,`pilots`.`EN_NAME` AS `EN_NAME`,`pilots`.`ID_CARDNO` AS `ID_CARDNO`,`pilots`.`LICENSE_ID` AS `LICENSE_ID`,`pilots`.`NAME` AS `NAME`,`pilots`.`CITYID` AS `CITYID`,`pilots`.`PILOT_HEALTH` AS `PILOT_HEALTH`,`pilots`.`LAST_BREAK_TIME` AS `LAST_BREAK_TIME`,`pilots`.`MENTAL_STRESS` AS `MENTAL_STRESS`,`pilots`.`EMP_NUM` AS `EMP_NUM`,`flight_pilot`.`ID` AS `PILOTID`,`flight_pilot`.`PILOT_ID` AS `PILOT_ID`,`flight_pilot`.`FLT_ID` AS `FLT_ID` from ((`flight` join `pilots`) join `flight_pilot` on(((`pilots`.`PILOTS_ID` = `flight_pilot`.`PILOT_ID`) and (`flight`.`ID` = `flight_pilot`.`FLT_ID`)))) ;

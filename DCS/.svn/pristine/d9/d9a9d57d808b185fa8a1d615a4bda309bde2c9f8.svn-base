@@ -1,0 +1,13 @@
+package com.cn.hsd.rm.result.service;
+
+import java.util.List;
+
+import com.cn.hsd.rm.result.model.BiResultData;
+import com.cn.hsd.rm.result.model.NodeTree;
+
+public interface IBiResultDataService {
+    List<BiResultData> getTree(String fltNo);
+    
+    NodeTree newTree(String fltNo);
+}
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hsd.rm.level.mapping.BiRiskFactorsLevelMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hsd.rm.level.model.BiRiskFactorsLevel">
+		<id column="ID" property="id"/>
+		<result column="LEVEL_FLAG" property="levelFlag"/>
+		<result column="LEVEL_VALUE" property="levelValue"/>
+		<result column="RISK_ID" property="riskId"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, LEVEL_FLAG, LEVEL_VALUE, RISK_ID
+	</sql>
+	
+	<!--  -->
+	<select id="getListByRiskId" resultMap="BaseResultMap">
+		SELECT  
+			<include refid="Base_Column_List" />
+		FROM BI_RISK_FACTORS_LEVEL T 
+		WHERE T.RISK_ID = #{riskId}
+		ORDER BY T.LEVEL_FLAG
+	</select>
+	
+	<!-- 以下自动生成 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from bi_risk_factors_level
+		where ID = #{id,jdbcType=CHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from bi_risk_factors_level
+		where ID = #{id,jdbcType=CHAR}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hsd.rm.level.model.BiRiskFactorsLevel">
+		insert into bi_risk_factors_level 
+		(ID, LEVEL_FLAG, LEVEL_VALUE,RISK_ID)
+		values (#{id}, #{levelFlag}, #{levelValue},#{riskId})
+	</insert>
+	<insert id="insertSelective" parameterType="com.cn.hsd.rm.level.model.BiRiskFactorsLevel">
+		insert into bi_risk_factors_level
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="levelFlag != null">
+				LEVEL_FLAG,
+			</if>
+			<if test="levelValue != null">
+				LEVEL_VALUE,
+			</if>
+			<if test="riskId != null">
+				RISK_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="levelFlag != null">
+				#{levelFlag,jdbcType=SMALLINT},
+			</if>
+			<if test="levelValue != null">
+				#{levelValue,jdbcType=DOUBLE},
+			</if>
+			<if test="riskId != null">
+				#{riskId,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cn.hsd.rm.level.model.BiRiskFactorsLevel">
+		update bi_risk_factors_level
+		<set>
+			<if test="levelFlag != null">
+				LEVEL_FLAG = #{levelFlag,jdbcType=SMALLINT},
+			</if>
+			<if test="levelValue != null">
+				LEVEL_VALUE = #{levelValue,jdbcType=DOUBLE},
+			</if>
+			<if test="riskId != null">
+				RISK_ID = #{riskId,jdbcType=CHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hsd.rm.level.model.BiRiskFactorsLevel">
+		update bi_risk_factors_level
+		set LEVEL_FLAG = #{levelFlag,jdbcType=SMALLINT},
+		LEVEL_VALUE = #{levelValue,jdbcType=DOUBLE},
+		RISK_ID = #{riskId,jdbcType=CHAR}
+		where ID = #{id,jdbcType=CHAR}
+	</update>
+</mapper>

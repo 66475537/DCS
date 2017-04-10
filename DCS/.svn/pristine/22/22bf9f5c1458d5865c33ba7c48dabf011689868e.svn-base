@@ -1,0 +1,48 @@
+package com.cn.hsd.rm.formula.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cn.hsd.rm.formula.mapping.QuotaMapper;
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiRiskFactors;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+import com.cn.hsd.rm.formula.service.QuotaService;
+
+
+@Service("quotaService")
+public class QuotaServiceImpl implements QuotaService {
+	@Resource
+	private QuotaMapper quotaMapper;
+	
+	/**
+	 * 查询终端因素定义分类
+	 * @param terminalType
+	 * @return
+	 */
+	public List<BiTerminalType> findBiTerminalTypeByWhere(BiTerminalType terminalType){
+		List<BiRiskFactors> brfList = quotaMapper.findRiskFactorsByWhere(new BiRiskFactors());
+		List<BiTerminalType> list = quotaMapper.findBiTerminalTypeByWhere(terminalType);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < brfList.size(); j++) {
+				if(list.get(i).getTerminalTypeId().equals(brfList.get(j).getTypeId())){
+					list.get(i).addRiskFactors(brfList.get(j));
+				}
+			}
+		}
+		return BiTerminalType.buildTree(list);
+	}
+	
+	
+	/**
+	 * 查询指标公式定义
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public BiFormulaDef findBiFormulaDefByID(BiFormulaDef biFormulaDef){
+		return this.quotaMapper.findBiFormulaDefByID(biFormulaDef);
+	}
+}

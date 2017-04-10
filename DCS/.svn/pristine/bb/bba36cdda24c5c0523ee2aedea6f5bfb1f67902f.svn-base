@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="gb2312">
+   <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title></title>
+		
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-treeview.css" rel="stylesheet">
+		<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <div id="treeview" style="width:100%"></div>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+      
+        
+        <div class="row wrapper border-bottom white-bg page-heading" style="padding:15px;">
+            <div class="col-lg-10">
+                <h3>执行时间(T15)</h3>                    
+            </div>
+            <table style="width:100%;margin:15px;">
+            	<tr>
+            		<td colspan="5">上次更新：张三|2016-09-09 22:30</td>
+            		<td colspan="1"> 
+										<button class="btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>锁定</strong></button>&nbsp;&nbsp;&nbsp;
+										 <button class="btn btn-sm btn-primary  m-t-n-xs" type="reset"><strong>保存</strong></button>&nbsp;&nbsp;&nbsp;
+										 <button class="btn btn-sm btn-primary  m-t-n-xs" type="reset"><strong>发布</strong></button>&nbsp;&nbsp;&nbsp;
+            		</td>
+            		</tr>
+            	<tr>
+            		<td>
+            			有效期
+            		</td>
+            		<td>
+            			<select class="form-control m-b" style="height:30px;">
+            				<option>长期有效</option>	
+            				<option>时间戳</option>
+            			</select>
+            			<!--长期有效果 -->
+            			<!-- 2016-12-12 12:12:12 -->
+            		</td>
+            		
+            		<td align="right">
+            			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间范围 &nbsp;&nbsp;&nbsp;
+            		</td>
+            		<td>
+            			
+            			<div class="form-group" id="data_5">
+                        <div class="input-daterange input-group" id="datepicker">
+                            <input type="text" class="input-sm form-control" name="start" style="width:120px" value="05/14/2014"/>
+                            <span class="input-group-addon" style="width:50px;">至</span>
+                            <input type="text" class="input-sm form-control" name="end" style="width:120px" value="05/22/2014" />
+                        </div>
+                    </div>
+            		</td>
+            	</tr>	
+            	<tr>
+            		<td>
+            		说明	
+            		</td>	
+            		<td colspan="5">
+            			<textarea cols="100"></textarea>	
+            		</td>
+            	</tr>
+            </table>
+                                
+        </div>
+        <br/><br/>
+        <div class="row wrapper border-bottom white-bg page-heading" style="padding:8px 20px 0px 15px;">
+            <div class="col-lg-10" >
+                <h3>风险识别规则</h3>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-6" style="width:100%;float:left;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>低-风险识别-规则定义(用例1)</h5><br/>
+                        <div class="ibox-tools">
+                        		<a class="dropdown-toggle" href="#" title="新增">
+		                        	<i class="fa fa-plus-square" data-toggle="modal"   href="#modal-form"></i>
+		                        </a>
+                            <a class="collapse-link" title="收缩">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" title="功能">
+                                <li><a data-toggle="modal"   href="#modal-form">修改</a>
+                                </li>
+                                <li><a href="#">禁用</a>
+                                </li>
+                            </ul>
+                            <a class="close-link" title="删除">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-lg-6" style="width:100%;">
+		                    <div class="ibox-content"  >
+														<table>
+															<tr>
+																<td style="width:70%">
+																	<table class="table table-striped table-hover">
+				                            <thead>
+				                            <tr>
+				                                <th>变量名称</th>
+				                                <th>对比条件</th>
+				                                <th>参考值</th>
+				                            </tr>
+				                            </thead>
+				                            <tbody>
+				                            <tr>
+				                                <td>执行时间</td>
+				                                <td>>=</td>
+				                                <td>0</td>
+				                            </tr>
+				                            <tr>
+				                                <td colspan="3">并且</td>
+				                            </tr>
+				                            <tr>
+				                                <td>执勤时间</td>
+				                                <td><</td>
+				                                <td>6</td>
+				                            </tr>
+				                            </tbody>
+				                        	</table>
+																</td>
+																<td style="width:28%;padding:10px;vertical-align:top;">
+																	缓解措施:
+		                    						<textarea name="" cols="35" rows="5"></textarea>
+																</td>
+															</tr>
+														</table>
+		                    
+		                   </div>
+		                   
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- 中-风险识别 -->
+       	<div class="row">
+                <div class="col-lg-6" style="width:100%;float:left;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>中-风险识别-规则定义(用例1)</h5><br/>
+                        <div class="ibox-tools">
+	                        	<a class="dropdown-toggle" href="#" title="新增">
+		                        	<i class="fa fa-plus-square" data-toggle="modal"   href="#modal-form"></i>
+		                        </a>
+                            <a class="collapse-link" title="收缩">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" title="功能">
+                                <li><a data-toggle="modal"   href="#modal-form">修改</a>
+                                </li>
+                                <li><a href="#">禁用</a>
+                                </li>
+                            </ul>
+                            <a class="close-link" title="删除">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-lg-6" style="width:100%;">
+		                    <div class="ibox-content"  >
+														<table>
+															<tr>
+																<td style="width:70%">
+																	<table class="table table-striped table-hover">
+				                            <thead>
+				                            <tr>
+				                                <th>变量名称</th>
+				                                <th>对比条件</th>
+				                                <th>参考值</th>
+				                            </tr>
+				                            </thead>
+				                            <tbody>
+				                            <tr>
+				                                <td>执行时间</td>
+				                                <td>>=</td>
+				                                <td>8</td>
+				                            </tr>
+				                            <tr>
+				                                <td colspan="3">并且</td>
+				                            </tr>
+				                            <tr>
+				                                <td>执勤时间</td>
+				                                <td><</td>
+				                                <td>11</td>
+				                            </tr>
+				                            </tbody>
+				                        	</table>
+																</td>
+																<td style="width:28%;padding:10px;vertical-align:top;">
+																	缓解措施:
+		                    						<textarea name="" cols="35" rows="5"></textarea>
+																</td>
+															</tr>
+														</table>
+		                        
+													
+		                    
+		                   </div>
+		                   
+                    </div>
+                </div>
+            </div>
+            </div>
+        	</div>
+        <!-- 高-风险识别 -->
+        <div class="row">
+                <div class="col-lg-6" style="width:100%;float:left;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>高-风险识别-规则定义(用例1)</h5><br/>
+                        <div class="ibox-tools">
+	                        	<a class="dropdown-toggle" href="#" title="新增">
+		                        	<i class="fa fa-plus-square" data-toggle="modal"   href="#modal-form"></i>
+		                        </a>
+                            <a class="collapse-link" title="收缩">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user" title="功能">
+                                <li><a data-toggle="modal"   href="#modal-form">修改</a>
+                                </li>
+                                <li><a href="#">禁用</a>
+                                </li>
+                            </ul>
+                            <a class="close-link" title="删除">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-lg-6" style="width:100%;">
+		                    <div class="ibox-content"  >
+														<table>
+															<tr>
+																<td style="width:70%">
+																	<table class="table table-striped table-hover">
+				                            <thead>
+				                            <tr>
+				                                <th>变量名称</th>
+				                                <th>对比条件</th>
+				                                <th>参考值</th>
+				                            </tr>
+				                            </thead>
+				                            <tbody>
+				                            <tr>
+				                                <td>执行时间</td>
+				                                <td>>=</td>
+				                                <td>14</td>
+				                            </tr>
+				                            <tr>
+				                                <td colspan="3">并且</td>
+				                            </tr>
+				                            <tr>
+				                                <td>执勤时间</td>
+				                                <td><</td>
+				                                <td>16</td>
+				                            </tr>
+				                            </tbody>
+				                        	</table>
+																</td>
+																<td style="width:28%;padding:10px;vertical-align:top;">
+																	缓解措施:
+		                    						<textarea name="" cols="35" rows="5"></textarea>
+																</td>
+															</tr>
+														</table>
+		                        
+													
+		                    
+		                   </div>
+		                   
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+	        
+	       
+	       <div class="row">
+                <div class="col-lg-6" style="width:100%;float:left;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h3>风险标示类型</h3>
+                    </div>
+                    <div class="row">
+                    	<div class="col-lg-6" style="width:100%;">
+		                    <div class="ibox-content"  >
+														<div class="btn-group" data-toggle="buttons">
+															<label class="btn btn-primary">
+																<input type="radio" name="options" id="option1"> 定量
+															</label>
+															<label class="btn btn-primary">
+																<input type="radio" name="options" id="option2"> 定性
+															</label>
+															
+														</div>
+
+		                        
+													
+		                    </div>
+		                   </div>
+		                   
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+            
+            
+            
+         </div>
+         
+      </div>
+            
+        
+	        
+  </div> 
+
+        </div>
+        
+
+<!-- model -->
+<div class="ibox-content" >
+      <div id="modal-form" class="modal fade" aria-hidden="true">
+          <div class="modal-dialog" >
+              <div class="modal-content"  style="width:900px;float:left;">
+                  <div class="modal-body">
+                      <!-- start -->
+	<div class="col-lg-6" style="width:820px;float:left;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>满足
+                        	<select >
+                          		<option>全部</option>	
+                          		<option>任意</option>
+                          	</select>
+                        	以下</h5><br/>
+                    </div>
+                    <div class="row">
+                    	<div class="col-lg-6" style="width:100%;">
+		                    <div class="ibox-content"  >
+														
+															<table id="editTable" class="table table-striped table-hover">
+		                            <tr>
+		                                <td>
+		                                	<select >
+		                                		<option>执行时间</option>	
+		                                		<option>技术等级</option>
+		                                	</select>	
+		                                </td>
+		                                <td>
+		                                	<input type="text"  style="width:80px" />
+		                                </td>
+		                                <td>fx</td>
+		                                <td>
+		                                	<select >
+		                                		<option>=</option>
+		                                		<option>></option>	
+		                                		<option>>=</option>
+		                                		<option><</option>
+		                                		<option><=</option>
+		                                		<option>!=</option>
+		                                	</select>
+		                                </td>
+		                                
+		                                <td>
+		                                	<select >
+		                                		<option>固定值</option>
+		                                		<option>属性</option>	
+		                                		<option>变量</option>
+		                                	</select>
+		                                </td>
+		                                
+		                                <td>
+		                                	<input type="text"  style="width:80px" value="0" />
+		                                </td>
+		                                <td>
+		                                	<input type="text"  style="width:80px" value="" />
+		                                </td>
+		                                <td>fx</td>
+		                                
+		                                <td>
+		                                	<a href="#" class="addRow">新增</a>	
+		                                	&nbsp;
+		                                	<a href="#" class="deleteRow">删除</a>	
+		                                	&nbsp;
+		                                	<a href="#" class="up">上移</a>
+		                                	&nbsp;
+		                                	<a href="#" class="down">下移</a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <td>
+		                                	<select >
+		                                		<option>执行时间</option>	
+		                                		<option>技术等级</option>
+		                                	</select>	
+		                                </td>
+		                                <td>
+		                                	<input type="text"  style="width:80px" />
+		                                </td>
+		                                <td>fx</td>
+		                                <td>
+		                                	<select >
+		                                		<option>=</option>
+		                                		<option>></option>	
+		                                		<option>>=</option>
+		                                		<option><</option>
+		                                		<option><=</option>
+		                                		<option>!=</option>
+		                                	</select>
+		                                </td>
+		                                
+		                                <td>
+		                                	<select >
+		                                		<option>固定值</option>
+		                                		<option>属性</option>	
+		                                		<option>变量</option>
+		                                	</select>
+		                                </td>
+		                                
+		                                <td>
+		                                	<input type="text"  style="width:80px" value="6" />
+		                                </td>
+		                                <td>
+		                                	<input type="text"  style="width:80px" value="" />
+		                                </td>
+		                                <td>fx</td>
+		                                
+		                                <td>
+		                                	<a href="#" class="addRow">新增</a>	
+		                                	&nbsp;
+		                                	<a href="#"  class="deleteRow">删除</a>	
+		                                	&nbsp;
+		                                	<a href="#" class="up">上移</a>
+		                                	&nbsp;
+		                                	<a href="#" class="down">下移</a>
+		                                </td>
+		                            </tr>
+		                            
+		                            <tr>
+		                                <td>
+		                                	<select >
+		                                		<option>执勤时间</option>	
+		                                		<option>技术等级</option>
+		                                	</select>	
+		                                </td>
+		                                <td>
+		                                	<input type="text"  style="width:80px" />
+		                                </td>
+		                                <td>fx</td>
+		                                <td>
+		                                	<select >
+		                                		<option>=</option>
+		                                		<option selected="selected">></option>	
+		                                		<option>>=</option>
+		                                		<option><</option>
+		                                		<option><=</option>
+		                                		<option>!=</option>
+		                                	</select>
+		                                </td>
+		                                
+		                                <td>
+		                                	<select >
+		                                		<option>固定值</option>
+		                                		<option selected="selected">属性</option>	
+		                                		<option>变量</option>
+		                                	</select>
+		                                </td>
+		                                
+		                                <td>
+		                                	<input type="text"  style="width:80px" value="执勤时间" />
+		                                </td>
+		                                
+		                                <td>
+		                                	<input type="text"  style="width:80px" value="Max" />
+		                                </td>
+		                                <td>fx</td>
+		                                
+		                                <td>
+		                                	<a href="#" class="addRow">新增</a>	
+		                                	&nbsp;
+		                                	<a href="#" class="deleteRow">删除</a>	
+		                                	&nbsp;
+		                                	<a href="#" class="up">上移</a>
+		                                	&nbsp;
+		                                	<a href="#" class="down">下移</a>
+		                                </td>
+		                            </tr>
+		                            
+		                 
+		                        	</table>
+		                        	
+		                        	<div class="pull-right">
+																<button class="btn btn-sm btn-primary  m-t-n-xs" type="submit" onclick="javascript:$('#modal-form').modal('hide');"><strong>确认</strong></button>
+																 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																 <button class="btn btn-sm btn-primary  m-t-n-xs" type="reset" onclick="javascript:$('#modal-form').modal('hide');"><strong>取消</strong></button>
+																&nbsp;&nbsp;&nbsp;
+		                        	</div>
+		                        	
+		                        	
+		                    	
+													&nbsp;
+		                   </div>
+		                   
+                    </div>
+                </div>
+            </div>
+            </div>
+</div>
+                  </div>
+              </div>
+              </div>
+          </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Peity -->
+    <script src="js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    
+    <!-- Data picker -->
+   <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <!-- Peity -->
+    <script src="js/demo/peity-demo.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            
+            initClick();
+
+            var defaultData = [
+           {
+               href: "0",
+               text: "飞行前运行控制总风险",
+               icon: 'glyphicon glyphicon-warning-sign',
+               nodes: [
+                   {
+                       href: "19",
+                       text: "C-人评价矩阵",
+                       icon: 'glyphicon glyphicon-user',
+                       nodes: [
+                           {
+                               href: "33",
+                               text: "C001机组配合程度",
+                               nodes: [
+                                   {
+                                       href: "36",
+                                       text: "C005机组技术级别配合"
+                                   },
+                                   {
+                                       href: "37",
+                                       text: "C006飞行机组英文程度"
+                                   },
+                                   {
+                                       href: "38",
+                                       text: "C004机组间搭配程度",
+                                       nodes: [
+                                           {
+                                               href: "41",
+                                               text: "C012机组协作程度"
+                                           },
+                                           {
+                                               href: "44",
+                                               text: "C013机组技术经验搭配"
+                                           }
+                                       ]
+                                   }
+                               ]
+                           },
+                           {
+                               href: "34",
+                               text: "C002机组经验能力",
+                               nodes: [
+                                   {
+                                       href: "46",
+                                       text: "C007机长经验能力",
+                                       nodes: [
+                                           {
+                                               href: "48",
+                                               text: "C015机场熟悉程度",
+                                               nodes: [
+                                                   {
+                                                       href: "98",
+                                                       text: "C031距今最近一次飞该机场时间 (机长)"
+                                                   },
+                                                   {
+                                                       href: "99",
+                                                       text: "C032三个月内飞该机场的次数(机长)"
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "49",
+                                               text: "C014机长的飞行经验能力",
+                                               nodes: [
+                                                   {
+                                                       href: "54",
+                                                       text: "C030历史飞行经验",
+                                                       nodes: [
+                                                           {
+                                                               href: "56",
+                                                               text: "C055距今最近一次飞行的时间"
+                                                           },
+                                                           {
+                                                               href: "64",
+                                                               text: "C054在该机型的飞行经验"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "100",
+                                                       text: "C029距今最近一次训练时间(机长)"
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "101",
+                                               text: "C016机长安全水平"
+                                           }
+                                       ]
+                                   },
+                                   {
+                                       href: "65",
+                                       text: "C008机组其他成员飞行经验能力",
+                                       nodes: [
+                                           {
+                                               href: "66",
+                                               text: "C017其他机组成员的飞行经验能力",
+                                               nodes: [
+                                                   {
+                                                       href: "70",
+                                                       text: "C033距今最近一次训练时间(其他)"
+                                                   },
+                                                   {
+                                                       href: "71",
+                                                       text: "C034历史飞行经验",
+                                                       nodes: [
+                                                           {
+                                                               href: "72",
+                                                               text: "C056在该机型的飞行经验(其他)"
+                                                           },
+                                                           {
+                                                               href: "73",
+                                                               text: "C057距今最近一次飞行的时间(其他)"
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "67",
+                                               text: "C018其他机组成员的机场熟悉程度",
+                                               nodes: [
+                                                   {
+                                                       href: "74",
+                                                       text: "C035距今最近一次飞核机场时间(其他)"
+                                                   },
+                                                   {
+                                                       href: "75",
+                                                       text: "C036三个月内飞该机场的次数(其他)"
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "68",
+                                               text: "C019副驾安全水平"
+                                           }
+                                       ]
+                                   }
+                               ]
+                           },
+                           {
+                               href: "35",
+                               text: "C003机组压力程度",
+                               nodes: [
+                                   {
+                                       href: "76",
+                                       text: "C009精神压力",
+                                       nodes: [
+                                           {
+                                               href: "77",
+                                               text: "C021设备导致"
+                                           },
+                                           {
+                                               href: "78",
+                                               text: "C020人员导致",
+                                               nodes: [
+                                                   {
+                                                       href: "79",
+                                                       text: "C037有特殊旅客"
+                                                   },
+                                                   {
+                                                       href: "80",
+                                                       text: "C038飞行检查"
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "81",
+                                               text: "C022环境导致",
+                                               nodes: [
+                                                   {
+                                                       href: "82",
+                                                       text: "C041航班延误等不正常情况"
+                                                   },
+                                                   {
+                                                       href: "83",
+                                                       text: "C039航路情况",
+                                                       nodes: [
+                                                           {
+                                                               href: "84",
+                                                               text: "C058有临时更改航路"
+                                                           },
+                                                           {
+                                                               href: "85",
+                                                               text: "C059危险天气"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "86",
+                                                       text: "C040机场",
+                                                       nodes: [
+                                                           {
+                                                               href: "87",
+                                                               text: "C060硬件条件",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "89",
+                                                                       text: "C078跑道长度"
+                                                                   },
+                                                                   {
+                                                                       href: "90",
+                                                                       text: "C079机场标高"
+                                                                   },
+                                                                   {
+                                                                       href: "91",
+                                                                       text: "C080机场设备"
+                                                                   }
+                                                               ]
+                                                           },
+                                                           {
+                                                               href: "88",
+                                                               text: "C061软件条件",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "92",
+                                                                       text: "C081特殊程序"
+                                                                   },
+                                                                   {
+                                                                       href: "93",
+                                                                       text: "C082复杂天气"
+                                                                   }
+                                                               ]
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                           }
+                                       ]
+                                   },
+                                   {
+                                       href: "94",
+                                       text: "C010机长疲劳程度",
+                                       nodes: [
+                                           {
+                                               href: "95",
+                                               text: "C023机长健康状况"
+                                           },
+                                           {
+                                               href: "96",
+                                               text: "C024短暂性疲劳",
+                                               nodes: [
+                                                   {
+                                                       href: "97",
+                                                       text: "C042飞行前短暂疲劳休息不足程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "102",
+                                                               text: "C062本执勤期为白天/晚上"
+                                                           },
+                                                           {
+                                                               href: "103",
+                                                               text: "C063飞行前休息是否全为夜间(机长)"
+                                                           },
+                                                           {
+                                                               href: "104",
+                                                               text: "C064本执勤期前休息时数(机长)"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "105",
+                                                       text: "C043工作量产生的短暂疲劳程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "106",
+                                                               text: "C065在执勤期间所飞的航段数(机长)"
+                                                           },
+                                                           {
+                                                               href: "107",
+                                                               text: "C066执勤时数(机长)"
+                                                           },
+                                                           {
+                                                               href: "108",
+                                                               text: "C067跨零点小时数(机长)"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "109",
+                                                       text: "C044机长年龄"
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "110",
+                                               text: "C025累积性疲劳",
+                                               nodes: [
+                                                   {
+                                                       href: "111",
+                                                       text: "C045最近一次休假时间(机长)"
+                                                   },
+                                                   {
+                                                       href: "112",
+                                                       text: "C046工作量产生的累积疲劳程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "113",
+                                                               text: "C068排班计划变更情况(机长)"
+                                                           },
+                                                           {
+                                                               href: "114",
+                                                               text: "C069之前飞行量产生的累积疲劳程度",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "115",
+                                                                       text: "C083距今7天累积的疲劳程度(机长)"
+                                                                   },
+                                                                   {
+                                                                       href: "116",
+                                                                       text: "C084距今1个日历月累积的疲劳程度(机长)"
+                                                                   },
+                                                                   {
+                                                                       href: "117",
+                                                                       text: "C085距今3个日历月累积的疲劳程度(机长)"
+                                                                   }
+                                                               ]
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "119",
+                                                       text: "C047机长年龄"
+                                                   }
+                                               ]
+                                           }
+                                       ]
+                                   },
+                                   {
+                                       href: "120",
+                                       text: "C011副驾疲劳程度",
+                                       nodes: [
+                                           {
+                                               href: "121",
+                                               text: "C026副驾健康状况"
+                                           },
+                                           {
+                                               href: "122",
+                                               text: " C027短暂性疲劳",
+                                               nodes: [
+                                                   {
+                                                       href: "123",
+                                                       text: "C048飞行前短暂疲劳不足程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "124",
+                                                               text: "C071飞行前休息是否全为夜间(其他)"
+                                                           },
+                                                           {
+                                                               href: "125",
+                                                               text: "C072本执勤期前休息时数(其他)"
+                                                           },
+                                                           {
+                                                               href: "127",
+                                                               text: "C070本执勤期为白天/晚上"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "128",
+                                                       text: "C049工作量产生的短暂疲劳程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "129",
+                                                               text: "C073在执勤期间所飞的航段数(其他)"
+                                                           },
+                                                           {
+                                                               href: "130",
+                                                               text: "C074执勤时数(其他)"
+                                                           },
+                                                           {
+                                                               href: "131",
+                                                               text: "C075跨零点小时数(其他)"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "132",
+                                                       text: "C050副驾驶年龄"
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "133",
+                                               text: "C028累积性疲劳",
+                                               nodes: [
+                                                   {
+                                                       href: "134",
+                                                       text: "C051最近一次休假时间(其他)"
+                                                   },
+                                                   {
+                                                       href: "135",
+                                                       text: "C052工作量产生的累积疲劳程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "136",
+                                                               text: "C076排班计划变更情况(其他)"
+                                                           },
+                                                           {
+                                                               href: "138",
+                                                               text: "C077之前飞行量产生的累积疲劳程度",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "139",
+                                                                       text: "C086距今7天累积的疲劳程度(其他)"
+                                                                   },
+                                                                   {
+                                                                       href: "140",
+                                                                       text: "C087距今1个日历月累积的疲劳程度(其他)"
+                                                                   },
+                                                                   {
+                                                                       href: "141",
+                                                                       text: "C088距今3个日历月累积的疲劳程度(其他)"
+                                                                   }
+                                                               ]
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "137",
+                                                       text: "C053副驾驶年龄"
+                                                   }
+                                               ]
+                                           }
+                                       ]
+                                   }
+                               ]
+                           }
+                       ]
+                   },
+                   {
+                       href: "20",
+                       text: "E-环评价矩阵",
+                       icon: 'glyphicon glyphicon-cloud',
+                       nodes: [
+                           {
+                               href: "144",
+                               text: "E001机场风险要素",
+                               nodes: [
+                                   {
+                                       href: "146",
+                                       text: "E003机场条件状况",
+                                       nodes: [
+                                           {
+                                               href: "148",
+                                               text: "E008与空管配合情况",
+                                               nodes: [
+                                                   {
+                                                       href: "151",
+                                                       text: "E021ATC功能",
+                                                       nodes: [
+                                                           {
+                                                               href: "152",
+                                                               text: "E032机组英语流利程度"
+                                                           },
+                                                           {
+                                                               href: "153",
+                                                               text: "E033管制程序"
+                                                           },
+                                                           {
+                                                               href: "154",
+                                                               text: "E034管制员语言"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "155",
+                                                       text: "E022机场繁忙程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "156",
+                                                               text: "E035起飞机场繁忙程度"
+                                                           },
+                                                           {
+                                                               href: "157",
+                                                               text: "E036目的地机场繁忙程度"
+                                                           },
+                                                           {
+                                                               href: "158",
+                                                               text: "E037备降机场繁忙程度"
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "149",
+                                               text: "E009机场保障能力",
+                                               nodes: [
+                                                   {
+                                                       href: "159",
+                                                       text: "E023通信网络",
+                                                       nodes: [
+                                                           {
+                                                               href: "160",
+                                                               text: "E038机场配载油量数据获取能力"
+                                                           },
+                                                           {
+                                                               href: "237",
+                                                               text: "E039航务延伸服务"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "163",
+                                                       text: "E024机场类型"
+                                                   },
+                                                   {
+                                                       href: "164",
+                                                       text: "E025地面保障能力",
+                                                       nodes: [
+                                                           {
+                                                               href: "165",
+                                                               text: "E040机场航油供应能力"
+                                                           },
+                                                           {
+                                                               href: "166",
+                                                               text: "E041地面除/防冰能力"
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                           },
+                                           {
+                                               href: "150",
+                                               text: "E010机场复杂程度",
+                                               nodes: [
+                                                   {
+                                                       href: "167",
+                                                       text: "E026着陆复杂程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "170",
+                                                               text: "E042设施设备",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "171",
+                                                                       text: "E056灯光设备"
+                                                                   },
+                                                                   {
+                                                                       href: "172",
+                                                                       text: "E057导航设备"
+                                                                   }
+                                                               ]
+                                                           },
+                                                           {
+                                                               href: "173",
+                                                               text: "E043跑道相关参数",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "174",
+                                                                       text: "E058跑道坡度"
+                                                                   },
+                                                                   {
+                                                                       href: "175",
+                                                                       text: "E059跑道长度"
+                                                                   },
+                                                                   {
+                                                                       href: "179",
+                                                                       text: "E060机场标高"
+                                                                   }
+                                                               ]
+                                                           },
+                                                           {
+                                                               href: "176",
+                                                               text: "E044限制通告",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "177",
+                                                                       text: "E061航行通告"
+                                                                   },
+                                                                   {
+                                                                       href: "178",
+                                                                       text: "E062运行标准通告"
+                                                                   }
+                                                               ]
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "168",
+                                                       text: "E027机场环境复杂程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "180",
+                                                               text: "E045机场复杂程度"
+                                                           },
+                                                           {
+                                                               href: "181",
+                                                               text: "E046周边环境复杂程度"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "169",
+                                                       text: "E028进近复杂程度",
+                                                       nodes: [
+                                                           {
+                                                               href: "184",
+                                                               text: "E048一发失效程序"
+                                                           },
+                                                           {
+                                                               href: "185",
+                                                               text: "E049特殊气候"
+                                                           },
+                                                           {
+                                                               href: "238",
+                                                               text: "E047障碍物"
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                           }
+                                       ]
+                                   },
+                                   {
+                                       href: "147",
+                                       text: "E004气象条件",
+                                       nodes: [
+                                           {
+                                               href: "186",
+                                               text: "E011天气现象"
+                                           },
+                                           {
+                                               href: "187",
+                                               text: "E012摩擦效应"
+                                           },
+                                           {
+                                               href: "188",
+                                               text: "E013起降标准",
+                                               nodes: [
+                                                   {
+                                                       href: "189",
+                                                       text: "E029着陆标准",
+                                                       nodes: [
+                                                           {
+                                                               href: "192",
+                                                               text: "E050能见度"
+                                                           },
+                                                           {
+                                                               href: "193",
+                                                               text: "E051风",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "194",
+                                                                       text: "E063侧风",
+                                                                       nodes: [
+                                                                           {
+                                                                               href: "196",
+                                                                               text: "E067平均侧风"
+                                                                           },
+                                                                           {
+                                                                               href: "197",
+                                                                               text: "E068阵性侧风"
+                                                                           }
+                                                                       ]
+                                                                   },
+                                                                   {
+                                                                       href: "195",
+                                                                       text: "E064顺风",
+                                                                       nodes: [
+                                                                           {
+                                                                               href: "198",
+                                                                               text: "E069平均顺风"
+                                                                           },
+                                                                           {
+                                                                               href: "199",
+                                                                               text: "E070阵性顺风"
+                                                                           }
+                                                                       ]
+                                                                   }
+                                                               ]
+                                                           },
+                                                           {
+                                                               href: "203",
+                                                               text: "E052云高"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       href: "190",
+                                                       text: "E030温度"
+                                                   },
+                                                   {
+                                                       href: "191",
+                                                       text: "E031起飞标准",
+                                                       nodes: [
+                                                           {
+                                                               href: "200",
+                                                               text: "E053能见度"
+                                                           },
+                                                           {
+                                                               href: "201",
+                                                               text: "E054风",
+                                                               nodes: [
+                                                                   {
+                                                                       href: "204",
+                                                                       text: "E065侧风",
+                                                                       nodes: [
+                                                                           {
+                                                                               href: "206",
+                                                                               text: "E071平均侧风"
+                                                                           },
+                                                                           {
+                                                                               href: "207",
+                                                                               text: "E072阵性侧风"
+                                                                           }
+                                                                       ]
+                                                                   },
+                                                                   {
+                                                                       href: "205",
+                                                                       text: "E066逆风",
+                                                                       nodes: [
+                                                                           {
+                                                                               href: "265",
+                                                                               text: "E073平均逆风"
+                                                                           },
+                                                                           {
+                                                                               href: "266",
+                                                                               text: "E074阵性逆风"
+                                                                           },
+                                                                           {
+                                                                               href: "267",
+                                                                               text: "E073平均逆风"
+                                                                           }
+                                                                       ]
+                                                                   }
+                                                               ]
+                                                           },
+                                                           {
+                                                               href: "202",
+                                                               text: "E055云高"
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                           }
+                                       ]
+                                   }
+                               ]
+                           },
+                           {
+                               href: "145",
+                               text: "E002航路风险要素",
+                               nodes: [
+                                   {
+                                       href: "210",
+                                       text: "E005驾驶相关风险要素",
+                                       nodes: [
+                                           {
+                                               href: "213",
+                                               text: "E014航路更改"
+                                           },
+                                           {
+                                               href: "214",
+                                               text: "E015特殊旅客"
+                                           }
+                                       ]
+                                   },
+                                   {
+                                       href: "211",
+                                       text: "E006重要天气",
+                                       nodes: [
+                                           {
+                                               href: "215",
+                                               text: "E016颠簸"
+                                           },
+                                           {
+                                               href: "216",
+                                               text: "E017积冰"
+                                           },
+                                           {
+                                               href: "217",
+                                               text: "E018雷雨"
+                                           }
+                                       ]
+                                   },
+                                   {
+                                       href: "212",
+                                       text: "E007航路运行要求",
+                                       nodes: [
+                                           {
+                                               href: "219",
+                                               text: "E020情报区航行通告"
+                                           },
+                                           {
+                                               href: "264",
+                                               text: "E019航路客舱释压/飘降分析"
+                                           }
+                                       ]
+                                   }
+                               ]
+                           }
+                       ]
+                   },
+                   {
+                       href: "21",
+                       text: "A-机评价矩阵",
+                       icon: 'glyphicon glyphicon-plane',
+                       nodes: [
+                           {
+                               href: "220",
+                               text: "A001MEL/CDL关联要素",
+                               nodes: [
+                                   {
+                                       href: "223",
+                                       text: "A004MEL关联要素"
+                                   },
+                                   {
+                                       href: "224",
+                                       text: "A005CDL关联要素"
+                                   }
+                               ]
+                           },
+                           {
+                               href: "221",
+                               text: "A002航空器自身状态及使用情况",
+                               nodes: [
+                                   {
+                                       href: "225",
+                                       text: "A006航空器使用的日均飞行时间"
+                                   },
+                                   {
+                                       href: "226",
+                                       text: "A007TB要求"
+                                   }
+                               ]
+                           },
+                           {
+                               href: "222",
+                               text: "A003航空器属性",
+                               nodes: [
+                                   {
+                                       href: "227",
+                                       text: "A008PBN能力"
+                                   },
+                                   {
+                                       href: "228",
+                                       text: "A009通讯导航设备"
+                                   },
+                                   {
+                                       href: "236",
+                                       text: "A010供氧时间限制"
+                                   }
+                               ]
+                           }
+                       ]
+                   }
+               ]
+           }
+            ];
+
+            $('#treeview').treeview({
+                color: "#428bca",
+                expandIcon: "glyphicon glyphicon-stop",
+                collapseIcon: "glyphicon glyphicon-unchecked",
+                //nodeIcon: "glyphicon glyphicon-user",
+                data: defaultData,
+                levels: 3,
+                onNodeSelected: function (event, node) {
+                    var argument = "";
+                    for (var i = 0; i < node.nodes.length; i++) {
+                        argument = argument + node.nodes[i].text;
+                        argument = argument + ",";
+                    }
+                    if (argument.length > 1) {
+                        argument = argument.substring(0, argument.length - 1);
+                    }
+                }
+            });
+
+
+        });
+        
+        
+        function initClick(){
+//上移 
+	$(".up").click(function() { 
+    upFun(this);
+  }); 
+  //下移 
+   
+  $(".down").click(function() { 
+     downFun(this);
+  }); 
+  
+  $(".deleteRow").click(function() { 
+  		deleteRowFun(this);
+    
+  }); 
+  
+  $(".addRow").click(function() { 
+  	addRowFun(this);
+  });
+        }
+        
+        $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+            
+            
+            function upFun(obj){
+            	var $up = $(obj); 
+  						var len = $up.length;
+  						var $tr = $(obj).parents("tr"); 
+					    if ($tr.index() != len - 1) { 
+					      $tr.fadeOut().fadeIn(); 
+      					$tr.prev().before($tr);  
+					    }
+  						
+            }
+            
+            function downFun(obj){
+            	var $down = $(obj); 
+  						var len = $down.length;
+  						var $tr = $(obj).parents("tr"); 
+					    if ($tr.index() != len + 1) { 
+					      $tr.fadeOut().fadeIn(); 
+					      $tr.next().after($tr); 
+					    }
+  						
+            }
+            
+            function deleteRowFun(obj){
+            	var $tr = $(obj).parents("tr"); 
+   					 	$tr.remove(); 
+            }
+            
+            function addRowFun(obj){
+            	 var $tr = $(obj).parents("tr");
+    $tr.after("<tr><td><select ><option>执行时间</option><option>技术等级</option></select>	</td>"
+		                                +"<td><input type='text'  style='width:80px' /></td>"
+		                                +"<td>fx</td>"
+		                                +"<td>"
+		                                	+"<select >"
+		                                		+"<option>=</option>"
+		                                		+"<option>></option>	"
+		                                		+"<option>>=</option>"
+		                                		+"<option><</option>"
+		                                		+"<option><=</option>"
+		                                		+"<option>!=</option>"
+		                                	+"</select>"
+		                                +"</td>"
+		                                +"<td>"
+		                                	+"<select >"
+		                                		+"<option>固定值</option>"
+		                                		+"<option>属性</option>	"
+		                                		+"<option>变量</option>"
+		                                	+"</select>"
+		                                +"</td>"
+		                                +"<td>"
+		                                	+"<input type='text'  style='width:80px' />"
+		                                +"</td>"
+		                                +"<td>"
+		                                	+"<input type='text'  style='width:80px'  />"
+		                                +"</td>"
+		                                +"<td>fx</td>"
+		                                +"<td>"
+		                                	+"<a href='#' onclick='addRowFun(this)'>新增</a>	"
+		                                	+"&nbsp;"
+		                                	+"<a href='#'  onclick='deleteRowFun(this)'>删除</a>	"
+		                                	+"&nbsp;"
+		                                	+"<a href='#' class='up' onclick='upFun(this)'>上移</a>"
+		                                	+"&nbsp;"
+		                                	+"<a href='#' class='down' onclick='downFun(this)'>下移</a>"
+		                                +"</td>"
+		                            +"</tr>");
+            }
+    </script>
+
+</body>
+
+</html>

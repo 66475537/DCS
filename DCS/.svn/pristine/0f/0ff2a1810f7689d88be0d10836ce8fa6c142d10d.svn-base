@@ -1,0 +1,46 @@
+package com.cn.hsd.rm.formula.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 自定义
+ * @author chenlin
+ *
+ */
+public class Sort {
+	
+	private static List<Sort> sortList = new ArrayList<Sort>();
+	
+	static{
+		sortList.add(new Sort("MAX","最低的"));//desc
+		sortList.add(new Sort("MIN","最高的"));//asc
+		sortList.add(new Sort("COUNT","取记录条数"));
+		sortList.add(new Sort("SUM","求和"));
+		sortList.add(new Sort("AVG","平均值"));
+	}
+	
+	private String eName;
+	private String cName;
+	public Sort(String eName, String cName) {
+		this.eName = eName;
+		this.cName = cName;
+	}
+	public String geteName() {
+		return eName;
+	}
+	public void seteName(String eName) {
+		this.eName = eName;
+	}
+	public String getcName() {
+		return cName;
+	}
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
+	
+	
+	public static List<Sort> getAllSort(){
+		return sortList;
+	}
+}

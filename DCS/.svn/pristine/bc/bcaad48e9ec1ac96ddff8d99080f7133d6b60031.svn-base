@@ -1,0 +1,37 @@
+package com.cn.hsd.rm.terminal.controller;
+
+import com.cn.hsd.rm.terminal.service.TerminalService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/19.
+ * Time: 10:42.
+ * To change this template use File | Settings | File Templates.
+ */
+@Controller
+@Scope(value = "prototype")
+@RequestMapping(value = "/terminal")
+public class TerminalController {
+    private Logger logger = LoggerFactory.getLogger(TerminalController.class);
+    @Autowired
+    private TerminalService terminalService;
+
+    /**
+     * 展示终端要素
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/displayTerminalTree.do")
+    public String displayTerminalTree(Model model) {
+        return "terminal/terminalTree";
+    }
+}

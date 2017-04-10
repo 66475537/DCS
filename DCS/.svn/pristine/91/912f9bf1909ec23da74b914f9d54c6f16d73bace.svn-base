@@ -1,0 +1,61 @@
+package com.cn.hsd.rm.rostering.controller;
+
+import com.cn.hsd.rm.flight.service.FlightService;
+import com.cn.hsd.rm.util.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/22.
+ * Time: 11:21.
+ * To change this template use File | Settings | File Templates.
+ */
+@Controller
+@Scope(value = "prototype")
+@RequestMapping(value = "/rostering")
+public class RosteringController {
+    private Logger logger = LoggerFactory.getLogger(RosteringController.class);
+
+    @Autowired
+    private FlightService flightService;
+
+    /**
+     * 跳转排班页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "/redirectRosteringPage.do")
+    public String redirectRosteringPage(Model model){
+        logger.info("跳转排班页面");
+        Map<String, Object> conditionMap = null;
+        List<Map<String, Object>> resultMapList = null;
+        String airMembers = null;
+        try {
+            //初始化并设置查询条件
+            conditionMap = new HashMap<String, Object>();
+            conditionMap.put("currentDate", DateUtil.getNowTime(DateUtil.DATE_SMALL_STR));
+            resultMapList = this.flightService.getFlightRiskResultDetailsList(conditionMap);
+            if (resultMapList != null && !resultMapList.isEmpty()) {
+                for (Map<String, Object> map: resultMapList) {
+                    airMembers = this.flightService.getAirMembers(map);
+                    map.put("AIR_MEMBER", airMembers);
+                }
+            }
+            model.addAttribute("resultMapList", resultMapList);
+        } catch (Exception e) {
+            logger.error("Abnormal jump scheduling page: \r\n" + e);
+        }
+        return "rostering/list-rostering";
+    }
+}

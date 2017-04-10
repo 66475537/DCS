@@ -1,0 +1,57 @@
+package com.cn.hsd.rm.formula.model;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
+/**
+ * 
+ * @author chenlin
+ *
+ */
+public class Script {
+	
+	/**
+	 * 声明引擎
+	 */
+	private static ScriptEngine engine;
+	
+	static{
+		ScriptEngineManager manager = new ScriptEngineManager();
+		engine = manager.getEngineByName("js");
+	}
+	
+	private static Function fun;
+	
+	/**
+	 * 声明脚本
+	 * @param argName 参数名称
+	 * @param script 脚本
+	 */
+	public Script(String argName,String script){
+		fun = new Function(script,argName);
+	}
+	
+	/**
+	 * 解析脚本得到内容
+	 * @param args
+	 * @return
+	 * @throws ScriptException 
+	 * @throws NoSuchMethodException 
+	 */
+	public String execFun(String[] args) throws NoSuchMethodException, ScriptException{
+		return fun.execDefaultFun(engine,args);
+	}
+	
+	
+	public static void main(String[] args) throws ScriptException, NoSuchMethodException {
+		String js = "if(args[0]==\"0\" && args[1] > \"F3\" && args[1] < \"F7\"){"
+			+"return '低';"
+		+"}else{"
+			+"return '高';"
+		+"}";
+		System.out.println(new Script("args", js).execFun(new String[]{"0","F6"}));
+	}
+	
+	
+}

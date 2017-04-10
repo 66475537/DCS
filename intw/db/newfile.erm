@@ -9,10 +9,10 @@
 		<bottom_margin>30</bottom_margin>
 		<right_margin>30</right_margin>
 	</page_setting>
-	<category_index>0</category_index>
+	<category_index>1</category_index>
 	<zoom>1.0</zoom>
 	<x>-72</x>
-	<y>103</y>
+	<y>102</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -157,7 +157,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-02-09 13:12:22</creation_date>
-			<updated_date>2017-03-16 07:54:22</updated_date>
+			<updated_date>2017-03-16 21:50:45</updated_date>
 			<model_property>
 				<name>Project Name</name>
 				<value></value>
@@ -260,7 +260,7 @@
 		</word>
 		<word>
 			<id>4</id>
-			<length>45</length>
+			<length>128</length>
 			<decimal>null</decimal>
 			<array>false</array>
 			<array_dimension>null</array_dimension>
@@ -268,7 +268,7 @@
 			<zerofill>false</zerofill>
 			<binary>false</binary>
 			<args></args>
-			<char_semantics>true</char_semantics>
+			<char_semantics>false</char_semantics>
 			<description></description>
 			<logical_name>CH_NAME</logical_name>
 			<physical_name>CH_NAME</physical_name>
@@ -340,7 +340,7 @@
 		</word>
 		<word>
 			<id>9</id>
-			<length>45</length>
+			<length>128</length>
 			<decimal>null</decimal>
 			<array>false</array>
 			<array_dimension>null</array_dimension>
@@ -348,7 +348,7 @@
 			<zerofill>false</zerofill>
 			<binary>false</binary>
 			<args></args>
-			<char_semantics>true</char_semantics>
+			<char_semantics>false</char_semantics>
 			<description></description>
 			<logical_name>EN_NAME</logical_name>
 			<physical_name>EN_NAME</physical_name>

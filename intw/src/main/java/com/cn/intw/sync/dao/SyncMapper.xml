@@ -17,7 +17,7 @@
 	
 	
 	<insert id="addAirlineInfoBatch" parameterType="java.util.List">
-	insert into AIRCRAFTINFO(ID,TWO_CODE,THREE_CODE,CH_NAME,EN_NAME,CH_NAME_SHORT,BASECODE,ISEDITLOGINNAME) values  
+	insert into AIRLINEINFO(ID,TWO_CODE,THREE_CODE,CH_NAME,EN_NAME,CH_NAME_SHORT,BASECODE,ISEDITLOGINNAME) values  
 	 <foreach collection="list" item="item" index="index" separator="," >  
         (#{item.ID},#{item.TWO_CODE},#{item.THREE_CODE},#{item.CH_NAME},#{item.EN_NAME},#{item.CH_NAME_SHORT},#{item.BASECODE},#{item.IsEditLoginName})  
     </foreach>
@@ -28,14 +28,14 @@
 		delete from AIRLINEINFO
 	</delete>
 	
-	
-	
 
 	
 	<insert id="addAirPort" parameterType="java.util.List">
-	insert into AIRPORT() values  
+	insert into AIRPORT(UUID,ID,THREE_CODE,FOUR_CODE,ISSC,SHORT_NAME,EN_NAME,CN_NAME,DISTRICT)
+	 values  
 	 <foreach collection="list" item="item" index="index" separator="," >  
-        (#{item.ID})  
+        (#{item.UUID},#{item.ID},#{item.THREE_CODE},#{item.FOUR_CODE},#{item.ISSC},
+        #{item.SHORT_NAME},#{item.EN_NAME},#{item.CN_NAME},#{item.DISTRICT})  
     </foreach>
 	</insert>
 	
@@ -45,9 +45,17 @@
 	
 	
 	<insert id="addCityPairTimeBatch" parameterType="java.util.List">
-	insert into CITYPAIRTIME() values  
+	insert into CITYPAIRTIME(TERMINALTIMELIBRARYID,TERMINALONE,TERMINALTWO,SUMMER_8OUT,SUMMER_8IN,
+	WINTER_8OUT,WINTER_8IN,SUMMER_7OUT,SUMMER_7IN,WINTER_7OUT,
+	WINTER_7IN,SUMMER_6OUT,SUMMER_6IN,WINTER_6OUT,WINTER_6IN,
+	SUMMER_5OUT,SUMMER_5IN,WINTER_5OUT,WINTER_5IN,
+	SUMMER_4OUT,SUMMER_4IN,WINTER_4OUT,WINTER_4IN) values  
 	 <foreach collection="list" item="item" index="index" separator="," >  
-        (#{item.ID})  
+        (#{item.terminaltimelibraryID},#{item.terminalONE},#{item.terminalTWO},#{item.summer_8OUT},#{item.summer_8IN},
+        #{item.winter_8OUT},#{item.winter_8IN},#{item.summer_7OUT},#{item.summer_7IN},#{item.winter_7OUT},
+        #{item.winter_7IN}, #{item.summer_6OUT},#{item.summer_6IN},#{item.winter_6OUT},#{item.winter_6IN},
+        #{item.summer_5OUT},#{item.summer_5IN}, #{item.winter_5OUT},#{item.winter_5IN},
+        #{item.summer_4OUT},#{item.summer_4IN},#{item.winter_4OUT},#{item.winter_4IN})  
     </foreach>
 	</insert>
 	

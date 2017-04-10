@@ -1,0 +1,24 @@
+package com.cn.hsd.rm.result.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cn.hsd.rm.result.mapping.BiResultDataMapper;
+import com.cn.hsd.rm.result.model.BiResultData;
+import com.cn.hsd.rm.result.service.IBiResultDataService;
+
+@Service
+public class BiResultDataServiceImpl implements IBiResultDataService{
+
+    @Autowired
+    private BiResultDataMapper resultDataMapper; 
+    
+    @Override
+    public List<BiResultData> getTree(String fltNo) {
+        return this.resultDataMapper.getTree(fltNo);
+    }
+
+}
+

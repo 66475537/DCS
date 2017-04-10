@@ -1,0 +1,51 @@
+package com.cn.hsd.rm.flight.service.impl;
+
+import com.cn.hsd.rm.flight.mapping.FlightMapper;
+import com.cn.hsd.rm.flight.service.FlightService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/17.
+ * Time: 16:06.
+ * To change this template use File | Settings | File Templates.
+ */
+@Service(value = "flightService")
+public class FlightServiceImpl implements FlightService {
+    @Autowired
+    private FlightMapper flightMapper;
+    /**
+     * 首页航班风险结果列表
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    public List<Map<String, Object>> getFlightRiskResultList(Map<String, Object> map) {
+        return this.flightMapper.getFlightRiskResultList(map);
+    }
+
+    /**
+     * 首页航班风险预警数量
+     *
+     * @param map
+     * @return
+     */
+    public Map<String, Object> getFlightRiskInfoCountIndex(Map<String, Object> map) {
+        return this.flightMapper.getFlightRiskInfoCountIndex(map);
+    }
+
+    /**
+     * 查询航班风险评估列表
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    public List<Map<String, Object>> getFlightRiskResultDetailsList(Map<String, Object> map) {
+        return this.flightMapper.getFlightRiskResultDetailsList(map);
+    }
+}

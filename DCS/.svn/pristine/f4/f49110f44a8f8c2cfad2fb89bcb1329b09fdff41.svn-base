@@ -1,0 +1,40 @@
+package com.cn.hsd.rm.script;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.jdbc.ScriptRunner;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+@Controller
+@RequestMapping("/script")
+public class ScriptController {
+    
+    private static final String URL = "jdbc:mysql://112.124.101.248:3306/rm?useUnicode=true&characterEncoding=UTF-8";
+    
+    @RequestMapping("/toHandler")
+    public String toHandler(){
+        return "script/script";
+    }
+    
+    @ResponseBody
+    @RequestMapping("/handler")
+    public String exce(){
+        String flag = "success";
+        /*try {
+            Connection conn = (Connection) DriverManager.getConnection(URL, "root", "123456");
+            ScriptRunner runner = new ScriptRunner(conn);
+            runner.runScript(Resources.getResourceAsReader("restore.sql"));
+        } catch (Exception e) {
+            flag = "failure";
+            e.printStackTrace();
+        }*/
+        
+        return flag;
+    }
+}
+

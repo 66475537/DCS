@@ -1,0 +1,18 @@
+package com.cn.hsd.rm.system.mapping;
+
+import java.util.List;
+import org.springframework.stereotype.Repository;
+
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.cn.hsd.rm.system.model.User;
+
+@Repository("userMapper")
+public interface UserMapper extends BaseMapper<User>{
+
+	/**
+	 * 根据登陆名称查询用户
+	 * @param loginName
+	 * @return
+	 */
+	public List<User> findUserByLoginName(String loginName);
+}

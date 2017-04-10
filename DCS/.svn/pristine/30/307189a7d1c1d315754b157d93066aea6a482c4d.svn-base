@@ -1,0 +1,89 @@
+package com.cn.hsd.rm.formula.service;
+
+import java.util.List;
+
+import javax.script.ScriptException;
+
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiFormulaDefRule;
+import com.cn.hsd.rm.formula.model.BiQuotaDef;
+import com.cn.hsd.rm.formula.model.BiQuotaType;
+import com.cn.hsd.rm.formula.model.BiRiskFactors;
+import com.cn.hsd.rm.formula.model.BiRiskRules;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+
+public interface QuotaService {
+	/**
+	 * 查询终端因素定义分类
+	 * @param terminalType
+	 * @return
+	 */
+	public List<BiTerminalType> findBiTerminalTypeByWhere(BiTerminalType terminalType);
+
+	/**
+	 * 查询指标公式定义
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public BiFormulaDef findBiFormulaDefByID(BiFormulaDef biFormulaDef);
+	
+	/**
+	 * 计算终端因素分析的结果
+	 */
+	public void saveTerminalAnalysisResult(String fltNo,String Date)  throws NoSuchMethodException, ScriptException;
+
+	/**
+	 * 查询类别
+	 * @param object
+	 * @return
+	 */
+	public List<BiQuotaType> findQuotaType(BiQuotaType object);
+
+	/**
+	 * 查询所有可用字段
+	 * @param object
+	 * @return
+	 */
+	public List<BiQuotaDef> findQuotaDef(BiQuotaDef quotaDef);
+	
+	/**
+	 * 查询低中高取值规则
+	 * @param biRiskRules
+	 * @return
+	 */
+	public List<BiRiskRules> findBiRiskRules(BiRiskRules biRiskRules);
+
+	/**
+	 * 保存风险识别规则
+	 * @param biRiskRules
+	 */
+	public void saveBiRiskRules(BiRiskRules biRiskRules);
+
+	/**
+	 * 查询取值条件
+	 * @param biFormulaDefRule
+	 * @return
+	 */
+	public List<BiFormulaDefRule> findFormulaDefRuleByWhere(BiFormulaDefRule biFormulaDefRule);
+
+	/**
+	 * 删除biRiskRules及其了集
+	 * @param biRiskRules
+	 */
+	public void deleteBiRiskRules(BiRiskRules biRiskRules)throws Exception;
+
+	/**
+	 * 构造测试数据
+	 */
+	public void executeSQL();
+
+	/**
+	 * 查询指标
+	 * @param rf
+	 * @return
+	 */
+	public BiRiskFactors findBiRiskFactorsByWhere(BiRiskFactors rf);
+
+	
+	
+}

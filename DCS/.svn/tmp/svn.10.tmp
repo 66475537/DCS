@@ -1,0 +1,59 @@
+package com.cn.hsd.rm.flight.controller;
+
+import com.alibaba.fastjson.JSON;
+import com.cn.hsd.rm.flight.model.Flight;
+import com.cn.hsd.rm.flight.model.Pilots;
+import com.cn.hsd.rm.flight.service.FlightService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/17.
+ * Time: 16:10.
+ * To change this template use File | Settings | File Templates.
+ */
+@Controller
+@Scope(value = "prototype")
+@RequestMapping(value = "/flight")
+public class FlightController {
+    private Logger logger = LoggerFactory.getLogger(FlightController.class);
+    @Autowired
+    private FlightService flightService;
+
+    /**
+     * 查询航班编号
+     */
+    @RequestMapping(value = "/queryFlightNo.do")
+    public String queryFlightNo(ModelMap modelMap){
+        List<Flight> list = flightService.queryFlightNo();
+        modelMap.put("list",list);
+        return "list-from";
+    }
+
+    /**
+     * 根据航班id 查询机长及及机长等级
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryPilotInfo.do")
+    public String queryPilotInfo(String flightId){
+        List<Pilots> inlist = flightService.queryPilotsInThisFlight(flightId);
+        List<Pilots> notInlist = flightService.queryPilotsNotInThisFlight(flightId);
+        Map<String,List<Pilots>> map = new HashMap<String,List<Pilots>>();
+        map.put("inlist",inlist);
+        map.put("notInlist",notInlist);
+        return JSON.toJSONString(map);
+    }
+
+}

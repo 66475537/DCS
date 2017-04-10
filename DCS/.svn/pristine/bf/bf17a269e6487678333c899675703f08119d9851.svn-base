@@ -1,0 +1,34 @@
+package com.cn.hsd.rm.level.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.cn.hsd.rm.level.service.IBiRiskFactorsLevelService;
+
+@Controller
+@RequestMapping("/level")
+public class LevelController {
+    
+    @Autowired
+    private IBiRiskFactorsLevelService levelService;
+    
+    @ResponseBody
+    @RequestMapping("/handler")
+    public String handler(){
+        String flag = "success";
+        
+        try {
+            this.levelService.handler();
+        } catch (Exception e) {
+            flag = "failure";
+            e.printStackTrace();
+            
+        }
+        
+        
+        return flag;
+    }
+}
+

@@ -1,0 +1,25 @@
+package rm;
+
+import javax.script.*;
+public class Test {
+
+	public static void main(String[] args) throws ScriptException, NoSuchMethodException {
+		ScriptEngineManager manager = new ScriptEngineManager();
+		   ScriptEngine engine = manager.getEngineByName("js");
+		   String js = "function execute(数组1,args1){"
+					   		+"if(数组1==\"0\" && args1 > \"F3\" && args1 < \"F7\"){"
+					   			+"return '低';"
+					   		+"}else{"
+					   			+" return '高';"
+					   		+"}"
+						+ "}";
+		   
+		   
+		   engine.eval(js);
+		   Invocable invocable = (Invocable) engine;
+		   String result = (String) invocable.invokeFunction("execute", new String[]{"0","F6"});
+		   System.out.println(result);
+
+	}
+
+}

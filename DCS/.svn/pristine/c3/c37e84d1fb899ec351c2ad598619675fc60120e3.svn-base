@@ -1,0 +1,15 @@
+package com.cn.hsd.rm.flight.mapping;
+
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.cn.hsd.rm.flight.model.FlightPilot;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by Administrator on 2017/2/19.
+ */
+@Service
+public interface FlightPilotMapper {
+   public void deleteByFlightId(String flightId);
+
+   public void insertModel(FlightPilot flightPilot);
+}

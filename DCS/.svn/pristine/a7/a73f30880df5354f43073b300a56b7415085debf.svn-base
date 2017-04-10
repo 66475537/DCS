@@ -1,0 +1,32 @@
+package com.cn.hsd.rm.evaluate.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/22.
+ * Time: 10:57.
+ * To change this template use File | Settings | File Templates.
+ */
+@Controller
+@Scope(value = "prototype")
+@RequestMapping(value = "/evaluate")
+public class EvaluateController {
+    private Logger logger = LoggerFactory.getLogger(EvaluateController.class);
+
+    /**
+     *  跳转风险评估页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "/redirectEvaluatePage.do")
+    public String redirectEvaluatePage(){
+        logger.info("跳转评估页面");
+        return "evaluate/evaluate";
+    }
+}

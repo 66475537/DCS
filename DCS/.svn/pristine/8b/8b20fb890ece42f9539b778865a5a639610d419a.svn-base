@@ -1,0 +1,14 @@
+package com.cn.hsd.rm.factors.service;
+
+public interface IBiRiskFactorsService {
+    /**  
+     * @param fltNo 航班号
+     * @param departDate 起飞日期  
+     * @功能描述:
+     * @Author:曹颖桐
+     * @date:2017-2-17  上午11:28:27
+     * @Version:1.1.0  
+     */
+    void treeNode(String fltNo, String departDate);
+}
+

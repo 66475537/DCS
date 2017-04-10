@@ -12,6 +12,7 @@ import com.cn.intw.sync.domain.AirlineInfo;
 import com.cn.intw.sync.domain.Airport;
 import com.cn.intw.sync.domain.CityPairTime;
 import com.cn.intw.sync.service.ISyncService;
+import com.cn.intw.util.UUIDTool;
 
 @Service
 public class SyncServiceImpl implements ISyncService{
@@ -34,6 +35,7 @@ public class SyncServiceImpl implements ISyncService{
 		syncMapper.deleteAirlineInfo();
 		syncMapper.addAirlineInfoBatch(airLine);
 		
+		
 		System.out.println("......syncAirlineInfo end .........");
 	}
 
@@ -41,6 +43,10 @@ public class SyncServiceImpl implements ISyncService{
 	public void syncAirport() {
 		List<Airport> list = Airport.getAllAirPort();
 		syncMapper.deleteAirPort();
+		
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setUUID(UUIDTool.getUUID());
+		}
 		
 		syncMapper.addAirPort(list);
 		

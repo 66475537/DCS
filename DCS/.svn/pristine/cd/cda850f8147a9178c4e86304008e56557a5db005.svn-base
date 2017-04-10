@@ -1,0 +1,45 @@
+package com.cn.hsd.rm.result.model;
+
+import java.io.Serializable;
+
+public class Relationship implements Serializable {
+
+    private static final long serialVersionUID = -3810594498466150981L;
+
+    /** 子节点个数 */
+    private Integer children_num;
+
+    /** 父节点个数 */
+    private Integer parent_num = 1;
+
+    /** 兄弟几点个数 */
+    private Integer sibling_num;
+
+    public Integer getChildren_num() {
+
+        return children_num;
+    }
+
+    public void setChildren_num(Integer children_num) {
+        this.children_num = children_num;
+    }
+
+    public Integer getParent_num() {
+
+        return parent_num;
+    }
+
+    public void setParent_num(Integer parent_num) {
+        this.parent_num = parent_num;
+    }
+
+    public Integer getSibling_num() {
+
+        return sibling_num;
+    }
+
+    public void setSibling_num(Integer sibling_num) {
+        this.sibling_num = sibling_num;
+    }
+
+}

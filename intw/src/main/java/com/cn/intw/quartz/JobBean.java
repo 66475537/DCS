@@ -22,7 +22,8 @@ public class JobBean {
 	 * CityPairTime
 	 */
     public void syncCityPairTime() {
-    	System.out.println("CityPairTime");
+    	syncService.syncCityPairTime();
+    	System.out.println("syncCityPairTime end");
     }
     
     
@@ -30,14 +31,16 @@ public class JobBean {
 	 * Airport
 	 */
     public void syncAirport() {
-    	System.out.println("Airport");
+    	syncService.syncAirport();
+    	System.out.println("syncAirport end");
     }
     
     /**
 	 * AirlineInfo
 	 */
     public void syncAirlineInfo() {
-    	System.out.println("AirlineInfo");
+    	syncService.syncAirlineInfo();
+    	System.out.println("syncAirlineInfo end");
     }
 
 

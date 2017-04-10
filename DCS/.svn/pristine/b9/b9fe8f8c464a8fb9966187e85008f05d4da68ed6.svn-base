@@ -1,0 +1,21 @@
+package com.cn.hsd.rm.matrix.mapping;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cn.hsd.rm.matrix.model.Matrix;
+
+public interface MatrixMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(Matrix record);
+
+    int insertSelective(Matrix record);
+
+    Matrix selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(Matrix record);
+
+    int updateByPrimaryKey(Matrix record);
+    
+    int getCoordVal(@Param(value = "nodeId") String nodeId, @Param(value = "coord") String coord, @Param(value = "z") Integer z);
+}

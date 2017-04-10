@@ -1,0 +1,5 @@
+package com.cn.hsd.rm.formula.service;
+
+public interface QuotaService {
+
+}

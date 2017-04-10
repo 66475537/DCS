@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML>
+<%@ include file="common/common-taglibs.jsp"%>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>运行控制风险管理系统</title>
+		<link rel="stylesheet" type="text/css" href="${ctx}/zTree/css/zTreeStyle.css">
+		<script type="text/javascript" charset="utf-8"  src="${ctx}/zTree/js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" charset="utf-8"  src="${ctx}/zTree/js/jquery.ztree.core.min.js"></script>
+		
+	</head>
+	<body>
+		
+		<div class="zTreeDemoBackground left">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+		
+		<script type="text/javascript">
+			var setting = {	
+					async: {
+						enable: true,
+						url:"${ctx}/result/tree.do"
+					},
+					data: {
+						simpleData: {
+							enable: true,
+							idKey: "riskId",
+							pIdKey: "pid",
+							rootPId: 0
+						}
+					}
+			};
+			$(document).ready(function(){
+				/* $.ajax({
+					url:'${ctx}/result/tree.do',
+					success : function (data){
+						//alert(decodeURI(data));
+						alert(data);
+					}
+				}); */
+				$.fn.zTree.init($("#treeDemo"), setting);
+			});
+		</script>
+	</body>
+</html>

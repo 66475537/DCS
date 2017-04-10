@@ -1,0 +1,46 @@
+﻿.tools{
+	width: 30px;
+	height:auto;
+	position: absolute;
+	right: 0px;
+	top:120px;
+	z-index:100;
+}
+.tools > ul {
+	width: 100%;
+	height: auto;
+	padding:0;
+	padding-bottom: 5px;
+}
+.tools > ul >li {
+	width: 20px;
+	height:20px;
+	list-style: none;
+	margin:3px;
+	background: #252525;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.tools > ul > li:hover{
+	background: #484848;
+	border: 1px solid #7f7f7f;
+}
+.toolselected{
+	background: #484848;
+	border: 1px solid #7f7f7f;
+}
+.unselected{
+	background: #252525;
+	border: 0px;
+}
+div.flightpanel
+{
+    width: 364px;
+	height:323px;
+	position: absolute;
+	left: 0px;
+	bottom:10px;
+	z-index:99;
+    background-color:#ffffff;
+    display:none;
+}

@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- 图标菜单 -->
+<div class="iconmenu" id="iconmenu">
+     <nav class="iconmenu_nav">
+         <div class="top_button" id="topbutton">
+             <i class="fa fa-reorder"></i>
+             <span>系统菜单</span>
+         </div>
+         <ul>
+	         <li>
+	             <div class="top_button">
+                     <i class="fa fa-user"></i>
+                      <span>个人信息管理</span>
+                 </div>
+	         </li>
+             <li>
+                 <div class="top_button" id="home">
+                     <i class="fa fa-home"></i>
+                      <span>首页</span>
+                 </div>
+             </li>
+	         <li>
+	             <div class="top_button">
+	             	<a href="list-from.do">
+                    	<i class="fa fa-cog"></i>
+                    	<span>设置</span>
+                    </a>
+                 </div>
+	         </li>
+	         <li>
+	             <div class="top_button">
+	             	<a href="list-table.do">
+	             		<i class="fa fa-undo"></i>
+	             		<span>刷新</span>
+	             	</a>
+                 </div>
+	         </li>
+	         <li>
+         		<div class="top_button">
+         			<a href="logout.do">
+                    	<i class="fa fa-power-off"></i>
+                    	<span>注销</span>
+                    </a>
+               	</div>
+         	</li>
+         </ul>
+     </nav>
+</div>
+<!-- 图标菜单结束 -->

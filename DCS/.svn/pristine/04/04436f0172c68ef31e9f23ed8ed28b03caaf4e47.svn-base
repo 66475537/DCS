@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="common/common-taglibs.jsp"%>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>运行控制风险管理系统</title>
+		<link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
+		<style type="text/css">
+			body{
+				background-color: #dddddd;
+			}
+			.top_button > a > i {
+			    float: left;
+			    font-size: 24px;
+			    padding: 12px 22px 15px 21px;
+			    text-align: center;
+			    color: #fff;
+			}
+			.autoheight {
+				width: 100%;
+			}
+			.footer {
+			    background: none repeat scroll 0 0 white;
+			    bottom: 0;
+			    left: 0;
+			    padding: 10px 20px;
+			    right: 0;
+			}
+			.col-lg-12 {
+    			float: left;
+    			position: relative;
+			}
+			.col-lg-12 {
+				width: 100%;
+			}
+			.row {
+				padding-top: 6px;
+		        padding-right: 12px;
+		        padding-bottom: 12px;
+		        padding-left: 12px;
+			}
+			/** tables **/
+			.ibox {
+			    clear: both;
+			    margin-top: 0;
+			    padding: 0; 
+    		}
+    		.ibox-title {
+	    		-moz-border-bottom-colors: none;
+				-moz-border-left-colors: none;
+				-moz-border-right-colors: none;
+				-moz-border-top-colors: none;
+				background-color: #ffffff;
+				border-color: #e7eaec;
+				border-image: none;
+				border-style: solid solid none;
+				border-width: 3px 0 0;
+				color: inherit;
+				margin-bottom: 0;
+				padding: 15px 24px 0px;
+				min-height: 38px;
+			}
+			.ibox-content {
+			    clear: both;
+			}
+			.ibox-content {
+			    background-color: #ffffff;
+			    color: inherit;
+			    padding: 1px 20px 20px 20px;
+			    border-color: #e7eaec;
+			    border-image: none;
+			    border-style: solid solid none;
+			    border-width: 1px 0;
+    		}
+    		.table {
+			    width: 100%;
+			    max-width: 100%;
+			    margin-bottom: 20px;
+			}
+			table {
+			    background-color: transparent;
+			}
+			table {
+			    border-spacing: 0;
+			    border-collapse: collapse;
+			}
+			.table > thead:first-child > tr:first-child > th {
+			    border-top: 0;
+			}
+			.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+			    border-top: 1px dashed #e7eaec;
+			    padding: 8px;
+			    vertical-align: top;
+			}
+			.table > thead > tr > th {
+			    border-bottom: 1px solid #DDDDDD;
+			    vertical-align: bottom;
+			}
+			.table > thead > tr > th {
+			    vertical-align: bottom;
+			    border-bottom: 1px solid #ddd;
+			}
+			th {
+			    text-align: left;
+			}
+			.form-control {
+				background-color: #FFFFFF;
+				background-image: none;
+				border: 0px solid #e5e6e7;
+				border-radius: 1px;
+				color: inherit;
+				display: block;
+				padding: 6px 12px;
+				transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+				width: 110px;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<jsp:include page="left-menu.jsp"/>
+		<div class="meanbody" id="meanbody">
+			<jsp:include page="top.jsp"/>
+			<div id="autoheight" class="autoheight">
+				<div class="row">
+					<div id="collg62" class="col-lg-12" style="background-color: #fff;">
+						<div class="ibox"><!-- ibox -->
+		                    <div class="ibox-title">
+		                        <div class="ibox-tools">
+		                        	<strong>风险航班列表</strong>
+		                        </div>
+		                    </div>
+		                    <div class="ibox-content">
+		                        <table class="table">
+		                            <thead>
+			                            <tr>
+			                                <th>#</th><th>First Name</th><th>Last Name</th><th>Username</th>
+			                            </tr>
+			                            </thead>
+			                            <tbody>
+			                            <tr>
+			                                <td>1</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>2</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>3</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>4</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>5</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>6</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>7</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>8</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>9</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>10</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>11</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>12</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>13</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>14</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>15</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>16</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+			                            <tr>
+			                                <td>17</td><td>Mark</td><td>Otto</td><td>@mdo</td>
+			                            </tr>
+		                            </tbody>
+		                        </table>
+		                    </div>
+		                </div><!-- ibox -->
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+	            <div>
+	                <strong>奶嘴&nbsp;您好，欢迎回来！</strong>
+	            </div>
+        	</div>
+		</div>
+		<script src="${ctx}/js/jquery-2.1.1.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			   	var _jahDivs = $("#autoheight");
+				if (_jahDivs.length > 0) {
+					_jahDivs.css("overflow", "auto");
+					$(window).resize(function () {
+						var _addHeight = $(window).height() - $("body").outerHeight(true);
+						var _height = _jahDivs.height();
+						_jahDivs.height(_height + _addHeight - (_jahDivs.outerHeight(true) - _height) / 2-2);
+					}).resize();
+				}
+				
+				var _collg62 = $("#collg62");
+				_collg62.css("overflow", "auto");
+				_collg62.height($('#autoheight').height()-20);
+			})  
+		</script>
+	</body>
+</html>

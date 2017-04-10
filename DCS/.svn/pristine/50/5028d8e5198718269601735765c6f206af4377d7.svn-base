@@ -1,0 +1,11 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<!-- 头部 -->
+<div class="body_head">
+    <div class="body_head_nav" style="color: #def0f9">
+        <div class="body_head_logo">
+            <span class="logo img"></span>
+            <span class="logo name">运行控制风险管理系统</span>
+        </div>
+        <div class="body_head_right"><span class="logo name" id="headtime"></span></div>
+    </div>
+</div>

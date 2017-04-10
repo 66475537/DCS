@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hsd.rm.matrix.mapping.MatrixMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hsd.rm.matrix.model.Matrix">
+		<id column="ID" property="id"/>
+		<result column="X_ID" property="xId"/>
+		<result column="Y_ID" property="yId"/>
+		<result column="COORD" property="coord"/>
+		<result column="COORD_VAL" property="coordVal"/>
+		<result column="D_LEVEL" property="dLevel"/>
+		<result column="RISK_ID" property="riskId"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, X_ID, Y_ID, COORD, COORD_VAL, D_LEVEL, RISK_ID
+	</sql>
+	
+	<select id="getCoordVal" resultType="java.lang.Integer">
+		SELECT 
+			A.COORD_VAL
+		FROM matrix A 
+		WHERE A.RISK_ID = #{nodeId} 
+		AND COORD = #{coord}
+		
+		<if test="z != null ">
+			AND A.D_LEVEL = ${z}
+		</if>
+	</select>
+	
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from matrix
+		where ID = #{id,jdbcType=CHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from matrix
+		where ID = #{id,jdbcType=CHAR}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hsd.rm.matrix.model.Matrix">
+		insert into matrix (ID, X_ID,
+		Y_ID, COORD,
+		COORD_VAL, D_LEVEL, RISK_ID
+		)
+		values (#{id,jdbcType=CHAR},
+		#{xId,jdbcType=VARCHAR},
+		#{yId,jdbcType=VARCHAR},
+		#{coord,jdbcType=VARCHAR},
+		#{coordVal,jdbcType=INTEGER},
+		#{dLevel,jdbcType=SMALLINT},
+		#{riskId,jdbcType=CHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.cn.hsd.rm.matrix.model.Matrix">
+		insert into matrix
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="xId != null">
+				X_ID,
+			</if>
+			<if test="yId != null">
+				Y_ID,
+			</if>
+			<if test="coord != null">
+				COORD,
+			</if>
+			<if test="coordVal != null">
+				COORD_VAL,
+			</if>
+			<if test="dLevel != null">
+				D_LEVEL,
+			</if>
+			<if test="riskId != null">
+				RISK_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="xId != null">
+				#{xId,jdbcType=VARCHAR},
+			</if>
+			<if test="yId != null">
+				#{yId,jdbcType=VARCHAR},
+			</if>
+			<if test="coord != null">
+				#{coord,jdbcType=VARCHAR},
+			</if>
+			<if test="coordVal != null">
+				#{coordVal,jdbcType=INTEGER},
+			</if>
+			<if test="dLevel != null">
+				#{dLevel,jdbcType=SMALLINT},
+			</if>
+			<if test="riskId != null">
+				#{riskId,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cn.hsd.rm.matrix.model.Matrix">
+		update matrix
+		<set>
+			<if test="xId != null">
+				X_ID = #{xId,jdbcType=VARCHAR},
+			</if>
+			<if test="yId != null">
+				Y_ID = #{yId,jdbcType=VARCHAR},
+			</if>
+			<if test="coord != null">
+				COORD = #{coord,jdbcType=VARCHAR},
+			</if>
+			<if test="coordVal != null">
+				COORD_VAL = #{coordVal,jdbcType=INTEGER},
+			</if>
+			<if test="dLevel != null">
+				D_LEVEL = #{dLevel,jdbcType=SMALLINT},
+			</if>
+			<if test="riskId != null">
+				RISK_ID = #{riskId,jdbcType=CHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hsd.rm.matrix.model.Matrix">
+		update matrix
+		set
+		X_ID = #{xId,jdbcType=VARCHAR},
+		Y_ID = #{yId,jdbcType=VARCHAR},
+		COORD =
+		#{coord,jdbcType=VARCHAR},
+		COORD_VAL = #{coordVal,jdbcType=INTEGER},
+		D_LEVEL = #{dLevel,jdbcType=SMALLINT},
+		RISK_ID =
+		#{riskId,jdbcType=CHAR}
+		where ID = #{id,jdbcType=CHAR}
+	</update>
+</mapper>

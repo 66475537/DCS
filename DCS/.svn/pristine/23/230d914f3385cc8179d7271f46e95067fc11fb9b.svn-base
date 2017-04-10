@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Class-Path: activation-1.1.jar aopalliance-1.0.jar commons-codec-1.9.j
+ ar commons-dbcp-1.2.2.jar commons-fileupload-1.3.1.jar commons-io-2.4
+ .jar commons-lang-2.6.jar commons-logging-1.1.3.jar commons-pool-1.3.
+ jar fastjson-1.1.41.jar jackson-core-asl-1.9.13.jar jackson-mapper-as
+ l-1.9.13.jar javaee-api-7.0.jar javax.mail-1.5.0.jar jstl-1.2.jar log
+ 4j-1.2.17.jar mybatis-3.2.6.jar mybatis-spring-1.2.2.jar mysql-connec
+ tor-java-5.1.30.jar slf4j-api-1.7.7.jar slf4j-log4j12-1.7.7.jar sprin
+ g-aop-4.0.2.RELEASE.jar spring-beans-4.0.2.RELEASE.jar spring-context
+ -4.0.2.RELEASE.jar spring-context-support-4.0.2.RELEASE.jar spring-co
+ re-4.0.2.RELEASE.jar spring-expression-4.0.2.RELEASE.jar spring-jdbc-
+ 4.0.2.RELEASE.jar spring-oxm-4.0.2.RELEASE.jar spring-test-4.0.2.RELE
+ ASE.jar spring-tx-4.0.2.RELEASE.jar spring-web-4.0.2.RELEASE.jar spri
+ ng-webmvc-4.0.2.RELEASE.jar standard-1.1.2.jar
+

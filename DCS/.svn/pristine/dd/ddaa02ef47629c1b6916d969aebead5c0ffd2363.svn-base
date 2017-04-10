@@ -1,0 +1,6 @@
+package com.cn.hsd.rm.level.service;
+
+public interface IBiRiskFactorsLevelService {
+    void handler();
+}
+

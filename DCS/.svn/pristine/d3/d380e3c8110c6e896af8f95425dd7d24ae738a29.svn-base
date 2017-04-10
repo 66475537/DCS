@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="com.cn.hsd.rm.formula.mapping.QuotaMapper">
+
+
+	<insert id="save" parameterType="com.cn.hsd.rm.formula.model.BiQuotaDef">
+		insert into
+		BI_QUOTA_DEF(user_name,user_age) values(#{userName},#{age})
+	</insert>
+
+	<select id="findQuotaDefByWhere" resultType="com.cn.hsd.rm.formula.model.BiQuotaDef"
+		parameterType="com.cn.hsd.rm.formula.model.BiQuotaDef">
+		select QUOTA_DEF_ID,TABLE_NAME,FIELD_NAME,FIELD_NAME_CN,CREATE_TIME
+		from BI_QUOTA_DEF
+		<where>
+			<if test="tableName != null">
+				TABLE_NAME = #{tableName}
+			</if>
+
+		</where>
+	</select>
+
+
+	<select id="findRiskFactorsByWhere" resultType="com.cn.hsd.rm.formula.model.BiRiskFactors"
+		parameterType="com.cn.hsd.rm.formula.model.BiRiskFactors">
+		select rf.RISK_ID RISKID,rf.NAME,tt.TERMINAL_TYPE_ID TYPEID
+			FROM BI_RISK_FACTORS rf 
+			INNER JOIN bi_terminal_type_ref tt 
+			on tt.RISK_ID=rf.RISK_ID
+	</select>
+
+
+	<select id="findBiTerminalTypeByWhere" resultType="com.cn.hsd.rm.formula.model.BiTerminalType"
+		parameterType="com.cn.hsd.rm.formula.model.BiTerminalType">
+		SELECT TERMINAL_TYPE_ID TERMINALTYPEID,NAME,PID,CREATE_TIME CREATETIME FROM BI_TERMINAL_TYPE
+		<where>
+			<if test="terminalTypeId != null">
+				TERMINAL_TYPE_ID = #{terminalTypeId}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="findBiFormulaDefByID" parameterType="com.cn.hsd.rm.formula.model.BiFormulaDef">
+		SELECT bsr.FORMULA_DEF_ID FORMULADEFID,
+          FORMULA_DEF_NAME,VALUE_TABLE,VALUE_FIELD,VALUE_NAME,
+          GET_ROW_COUNT,ORDERBYS,ORDERBY_FIELD,REMARK,CREATE_TIME,UPDATE_TIME,
+          UPDATE_USER,RISK_ID, ITEM_ID, CONDITION_, FRONT,BACK
+     FROM BI_FORMULA_DEF fd 
+     INNER JOIN BI_SCREENING_RESULTS bsr 
+     ON bsr.FORMULA_DEF_ID=fd.FORMULA_DEF_ID
+     
+	</select>
+
+</mapper>  

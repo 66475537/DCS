@@ -1,0 +1,60 @@
+package com.cn.hsd.rm.level.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cn.hsd.rm.factors.mapping.BiRiskFactorsMapper;
+import com.cn.hsd.rm.level.mapping.BiRiskFactorsLevelMapper;
+import com.cn.hsd.rm.level.model.BiRiskFactorsLevel;
+import com.cn.hsd.rm.level.service.IBiRiskFactorsLevelService;
+import com.cn.hsd.rm.util.UUIDTool;
+
+@Service
+public class BiRiskFactorsLevelServiceImpl implements IBiRiskFactorsLevelService{
+
+    @Autowired
+    private BiRiskFactorsLevelMapper levelMapper;
+    
+    @Autowired
+    private BiRiskFactorsMapper riskFactorsMapper;
+    
+    @Override
+    public void handler() {
+        
+        List<String> allNodeId = this.riskFactorsMapper.getAllNodeId();
+        
+        for (String id : allNodeId) {
+            BiRiskFactorsLevel l = new BiRiskFactorsLevel();
+            l.setId(UUIDTool.getUUID());
+            l.setLevelFlag(1);
+            l.setLevelValue(Double.valueOf("1"));
+            l.setRiskId(id);
+            
+            this.levelMapper.insert(l);
+        }
+        
+        for (String id : allNodeId) {
+            BiRiskFactorsLevel l = new BiRiskFactorsLevel();
+            l.setId(UUIDTool.getUUID());
+            l.setLevelFlag(2);
+            l.setLevelValue(Double.valueOf("3"));
+            l.setRiskId(id);
+            
+            this.levelMapper.insert(l);
+        }
+        
+        for (String id : allNodeId) {
+            BiRiskFactorsLevel l = new BiRiskFactorsLevel();
+            l.setId(UUIDTool.getUUID());
+            l.setLevelFlag(3);
+            l.setLevelValue(Double.valueOf("5"));
+            l.setRiskId(id);
+            
+            this.levelMapper.insert(l);
+        }
+    }
+
+}
+

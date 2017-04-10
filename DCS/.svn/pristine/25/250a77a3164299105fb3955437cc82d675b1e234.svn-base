@@ -1,0 +1,51 @@
+package com.cn.hsd.rm.formula.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+import com.cn.hsd.rm.formula.service.QuotaService;
+
+
+/**
+ * 指标定义
+ * @author chenlin
+ *
+ */
+@Controller
+public class QuotaController {
+	
+	@Autowired
+	private QuotaService quotaService;
+	
+	private List<BiTerminalType> terminalTypeList;
+	
+	
+	/**
+	 * 跳转到管理页面
+	 * @return
+	 */
+	@RequestMapping ( "/quota/toManagePage" )
+	public String toManagePage(BiFormulaDef biFormulaDef,Map<String,Object> map){
+		//1.查询指标定义的目录结构
+		terminalTypeList = quotaService.findBiTerminalTypeByWhere(null);
+		map.put("terminalTypeList", terminalTypeList);
+		biFormulaDef = quotaService.findBiFormulaDefByID(biFormulaDef);
+		map.put("biFormulaDef", biFormulaDef);
+		//2.查询所有的终端因素
+		return "quota/quota_manager";
+	}
+
+	public List<BiTerminalType> getTerminalTypeList() {
+		return terminalTypeList;
+	}
+	public void setTerminalTypeList(List<BiTerminalType> terminalTypeList) {
+		this.terminalTypeList = terminalTypeList;
+	}
+	
+}

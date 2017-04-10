@@ -1,0 +1,240 @@
+package com.cn.hsd.rm.system.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import com.cn.hsd.rm.flight.service.FlightService;
+import com.cn.hsd.rm.util.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.cn.hsd.rm.common.constant.Constants;
+import com.cn.hsd.rm.system.model.User;
+import com.cn.hsd.rm.system.service.UserServcie;
+
+import java.util.*;
+
+@Controller
+@Scope("prototype")
+@RequestMapping
+public class LoginController {
+	
+	public static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
+	@Autowired
+	private UserServcie userServcie;
+	
+	@Autowired
+	private FlightService flightService;
+	/**
+	 * 用户退出
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/logout.do")
+	public String logout(HttpServletRequest request){
+		logger.info("logout");
+		request.getSession().removeAttribute(Constants.USER_SESSION_KEY);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/index.do")
+	public String main(Model model, HttpServletRequest request){
+		logger.info("index.do");
+		Map<String, Object> conditionMap = null;
+		Map<String, Object> resultInfoMap = null;
+		Map<String, Object> startMap = null;
+		Map<String, Object> endMap = null;
+		List<Map<String, Object>> flightRiskResultList = null;
+		try {
+			Object user = request.getSession().getAttribute(Constants.USER_SESSION_KEY);
+			if (user == null) {
+                logger.info("LoginInterceptor--->preHandle--->尚未登录，跳转登录页面");
+                return "/login";
+            }
+            //初始化时间
+			startMap = new TreeMap<String, Object>();
+			startMap.put("00", "00:00:00");
+			startMap.put("01", "01:00:00");
+			startMap.put("02", "02:00:00");
+			startMap.put("03", "03:00:00");
+			startMap.put("04", "04:00:00");
+			startMap.put("05", "05:00:00");
+			startMap.put("06", "06:00:00");
+			startMap.put("07", "07:00:00");
+			startMap.put("08", "08:00:00");
+			startMap.put("09", "09:00:00");
+			startMap.put("10", "10:00:00");
+			startMap.put("11", "11:00:00");
+			startMap.put("12", "12:00:00");
+			startMap.put("13", "13:00:00");
+			startMap.put("14", "14:00:00");
+			startMap.put("15", "15:00:00");
+			startMap.put("16", "16:00:00");
+			startMap.put("17", "17:00:00");
+			startMap.put("18", "18:00:00");
+			startMap.put("19", "19:00:00");
+			startMap.put("20", "20:00:00");
+			startMap.put("21", "21:00:00");
+			startMap.put("22", "22:00:00");
+			startMap.put("23", "23:00:00");
+			endMap = new TreeMap<String, Object>();
+			endMap.put("01", "01:00:00");
+			endMap.put("02", "02:00:00");
+			endMap.put("03", "03:00:00");
+			endMap.put("04", "04:00:00");
+			endMap.put("05", "05:00:00");
+			endMap.put("06", "06:00:00");
+			endMap.put("07", "07:00:00");
+			endMap.put("08", "08:00:00");
+			endMap.put("09", "09:00:00");
+			endMap.put("10", "10:00:00");
+			endMap.put("11", "11:00:00");
+			endMap.put("12", "12:00:00");
+			endMap.put("13", "13:00:00");
+			endMap.put("14", "14:00:00");
+			endMap.put("15", "15:00:00");
+			endMap.put("16", "16:00:00");
+			endMap.put("17", "17:00:00");
+			endMap.put("18", "18:00:00");
+			endMap.put("19", "19:00:00");
+			endMap.put("20", "20:00:00");
+			endMap.put("21", "21:00:00");
+			endMap.put("22", "22:00:00");
+			endMap.put("23", "23:00:00");
+			endMap.put("24", "23:59:59");
+			model.addAttribute("startMap", startMap);
+			model.addAttribute("endMap", endMap);
+			//业务处理
+            String currentDateTime  = DateUtil.getNowTime(DateUtil.DATE_FULL_STR);
+            String currentHour = currentDateTime.substring(11, 13);
+			String startHour = currentHour.concat(":00:00");
+			String endHour = Integer.parseInt(currentHour) >= 20 ? "23:59:59" : (Integer.parseInt(currentHour) + 4 + ":00:00");
+            String currentDate = DateUtil.getNowTime(DateUtil.DATE_SMALL_STR);
+            String timeStart = request.getParameter("timeStart");
+            String timeEnd = request.getParameter("timeEnd");
+			//设置并初始化条件Map
+			conditionMap = new HashMap<String, Object>();
+			conditionMap.put("dateValueStart", timeStart == null ? currentDate.concat(" ".concat(startHour)) : currentDate.concat(" ".concat(timeStart)));
+			conditionMap.put("dateValueEnd", timeEnd == null ? currentDate.concat(" ".concat(endHour)) : currentDate.concat(" ".concat(timeEnd)));
+			conditionMap.put("reckonDate", currentDate);
+			flightRiskResultList = this.flightService.getFlightRiskResultList(conditionMap);
+			resultInfoMap = this.flightService.getFlightRiskInfoCountIndex(conditionMap);
+			model.addAttribute("flightRiskResultList", flightRiskResultList);
+			model.addAttribute("resultInfoMap", resultInfoMap);
+			model.addAttribute("startHour", timeStart == null ? startHour : timeStart);
+			model.addAttribute("endHour", timeEnd == null ? endHour : timeEnd);
+		} catch (Exception e) {
+			logger.error("Load the home page is abnormal: \r\n" + e);
+		}
+		return "/index";
+	}
+	
+	/**
+	 * 用户登陆
+	 * @param userName
+	 * @param password
+	 * @return
+	 */
+	@RequestMapping(value = "/doLogin.do", method = RequestMethod.POST)
+	public String doLogin(Model model, HttpServletRequest request, 
+			@RequestParam(value = "userName", required = true)String userName, 
+			@RequestParam(value = "password", required = true)String password){
+		logger.info("doLogin");
+		User loginUser = null;
+		try {
+			loginUser = userServcie.findUserByLoginName(userName);
+			if (null == loginUser){
+				return "redirect:/login.jsp";
+			}
+			if(!loginUser.getPassword().equals(password)){
+				model.addAttribute("msg", "用户名或者密码错误!");
+				return "redirect:/login.jsp";
+			}
+			request.getSession().setAttribute(Constants.USER_SESSION_KEY, loginUser);
+			return "redirect:/index.jsp";
+		} catch (Exception e) {
+			return "redirect:/login.jsp";
+		}
+	}
+	
+	
+	/**
+	 * list列表
+	 *
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/list-table.do")
+	public String lisTable(Model model){
+		logger.info("lisTable");
+		Map<String, Object> conditionMap = null;
+		List<Map<String, Object>> resultMapList = null;
+		try {
+			//初始化并设置查询条件
+			conditionMap = new HashMap<String, Object>();
+			conditionMap.put("currentDate", DateUtil.getNowTime(DateUtil.DATE_SMALL_STR));
+			resultMapList = this.flightService.getFlightRiskResultDetailsList(conditionMap);
+			if (resultMapList != null && !resultMapList.isEmpty()) {
+				for (Map<String, Object> map: resultMapList) {
+					String airMembers = this.flightService.getAirMembers(map);
+					map.put("AIR_MEMBER", airMembers);
+				}
+			}
+			model.addAttribute("resultMapList", resultMapList);
+		} catch (Exception e) {
+			logger.error("" + e);
+		}
+		return "/list-table";
+	}
+	
+	/**
+	 * 监控
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/list-metrics.do")
+	public String metrics(HttpServletRequest request){
+		logger.info("metrics");
+		return "/metrics";
+	}
+	
+	
+	/**
+	 * list from 表单
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/list-from.do")
+	public String listFrom(HttpServletRequest request){
+		logger.info("listFrom");
+		return "/list-from";
+	}
+	
+	/**
+	 * 测试mybatis-plus
+	 */
+	@ResponseBody
+	@RequestMapping("/test.do")
+	public String test(){
+		
+		
+		// 初始化 影响行数
+		int result = 0;
+		// 初始化 User 对象
+		User user = new User();
+		// 插入 User (插入成功会自动回写主键到实体类)
+		user.setUserId(4l);
+		user.setLoginName("Tom");
+		user.setUserName("Tom");
+		user.setCreateTime("2017-01-20 11:11:11");
+		user.setPassword("123456");
+		//result = userMapper.insert(user);
+		return result+"";
+	}
+}

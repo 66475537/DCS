@@ -1,0 +1,29 @@
+package com.cn.hsd.rm.formula.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 系统变量
+ * @author chenlin
+ *
+ */
+public class Constans {
+	private static  Map<String,String> viewMap = new HashMap<String,String>();
+	
+	/**
+	 * 所有表对应的视图
+	 */
+	static{
+		viewMap.put("PILOTS", "VIEW_FLIGHT_PILOTS");
+	}
+	
+	/**
+	 * 根据表名取得视图的名称
+	 * @param tableName
+	 * @return
+	 */
+	public static String getViewName(String tableName){
+		return viewMap.get(tableName);
+	}
+}

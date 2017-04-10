@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="com.cn.hsd.rm.formula.mapping.QuotaMapper">
+	<insert id="save" parameterType="com.cn.hsd.rm.formula.model.BiQuotaDef">
+		insert into
+		BI_QUOTA_DEF(user_name,user_age) values(#{userName},#{age})
+	</insert>
+	
+	<insert id="saveBiResultData"  parameterType="com.cn.hsd.rm.formula.model.BiResultData">
+		INSERT INTO BI_RESULT_DATA(ID, RECKON_DATE,  FLT_NO,  RESULT, RISK_GRADE,  CREATE_TIME,
+          RISK_ID) values(#{id},#{reckonDate},#{fltNo},#{result},#{riskGrade},#{createTime},#{riskId})
+	</insert>
+	
+	<insert id="saveBiRiskRules" parameterType="com.cn.hsd.rm.formula.model.BiRiskRules">
+	INSERT INTO BI_RISK_RULES (RULES_ID,VALUE,VALUE_TYPE,
+	RELATION, MEASURES, FORMULA_DEF_ID)  values(#{rulesId},#{value},#{valueType},#{relation},#{measures},#{formulaDefId});
+	</insert>
+	
+	<insert id="updateBiRiskRules" parameterType="com.cn.hsd.rm.formula.model.BiRiskRules">
+		UPDATE BI_RISK_RULES SET VALUE,VALUE_TYPE,
+		RELATION, MEASURES, FORMULA_DEF_ID 
+		WHERE RULES_ID=#{rulesId}
+	</insert>
+	
+	<insert id="saveScreeningResults" parameterType="com.cn.hsd.rm.formula.model.BiScreeningResults">
+	   INSERT INTO BI_SCREENING_RESULTS(ITEM_ID, CONDITION_, FRONT, BACK, RULES_ID, ARG_FUN)
+	    VALUES (#{itemId},#{condition},#{front},#{back},#{rulesId},#{argFun});
+	</insert>
+	
+	<insert id="updateScreeningResults" parameterType="com.cn.hsd.rm.formula.model.BiScreeningResults">
+		UPDATE BI_SCREENING_RESULTS CONDITION_=#{condition}, FRONT=#{front}, 
+		BACK=#{back}, RULES_ID=#{rulesId}, ARG_FUN=#{rulesId} 
+		 where ITEM_ID=#{itemId} 
+	</insert>
+
+	<select id="findQuotaDefByWhere" resultType="com.cn.hsd.rm.formula.model.BiQuotaDef"
+		parameterType="com.cn.hsd.rm.formula.model.BiQuotaDef">
+		select QUOTA_DEF_ID,TABLE_NAME,FIELD_NAME,FIELD_NAME_CN,CREATE_TIME
+		from BI_QUOTA_DEF
+		<where>
+			<if test="tableName != null">
+				TABLE_NAME = #{tableName}
+			</if>
+
+		</where>
+	</select>
+
+
+	<select id="findRiskFactorsByWhere" resultType="com.cn.hsd.rm.formula.model.BiRiskFactors"
+		parameterType="com.cn.hsd.rm.formula.model.BiRiskFactors">
+		select rf.RISK_ID RISKID,rf.NAME,tt.TERMINAL_TYPE_ID TYPEID 
+		FROM BI_RISK_FACTORS rf
+		INNER JOIN bi_terminal_type_ref tt on tt.RISK_ID=rf.RISK_ID
+	</select>
+	
+	
+	<select id="findQuotaType" resultType="com.cn.hsd.rm.formula.model.BiQuotaType"
+		parameterType="com.cn.hsd.rm.formula.model.BiQuotaType">
+		select ID, TABLE_NAME tableName, TABLE_NAME_CN tableNameCN FROM  BI_QUOTA_TYPE
+		<where>
+			<if test="id != null">
+				ID = #{id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findQuotaDef" resultType="com.cn.hsd.rm.formula.model.BiQuotaDef"
+		parameterType="com.cn.hsd.rm.formula.model.BiQuotaDef">
+		 SELECT QUOTA_DEF_ID QUOTADEFID, TABLE_NAME TABLENAME, FIELD_NAME FIELDNAME,
+          FIELD_NAME_CN FIELDNAMECN, CREATE_TIME CREATETIME  FROM BI_QUOTA_DEF
+		<where>
+			<if test="quotaDefId != null">
+				QUOTA_DEF_ID = #{quotaDefId}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="findBiTerminalTypeByWhere" resultType="com.cn.hsd.rm.formula.model.BiTerminalType"
+		parameterType="com.cn.hsd.rm.formula.model.BiTerminalType">
+		SELECT TERMINAL_TYPE_ID TERMINALTYPEID,NAME,PID,CREATE_TIME CREATETIME
+		FROM BI_TERMINAL_TYPE
+		<where>
+			<if test="terminalTypeId != null">
+				TERMINAL_TYPE_ID = #{terminalTypeId}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="findBiFormulaDefByID" resultType="com.cn.hsd.rm.formula.model.BiFormulaDef"
+		parameterType="com.cn.hsd.rm.formula.model.BiFormulaDef">
+		SELECT FORMULA_DEF_ID FORMULADEFID,
+		FORMULA_DEF_NAME FORMULADEFNAME,VALUE_TABLE VALUETABLE,VALUE_FIELD VALUEFIELD,VALUE_NAME VALUENAME,
+		GET_ROW_COUNT GETROWCOUNT,ORDERBYS,ORDERBY_FIELD ORDERBYFIELD,REMARK,CREATE_TIME CREATETIME,
+		UPDATE_TIME UPDATETIME,
+		UPDATE_USER UPDATEUSER,RISK_ID RISKID
+		FROM
+		BI_FORMULA_DEF where RISK_ID=#{riskId}
+	</select>
+
+	<select id="findFormulaDefByWhere" resultType="com.cn.hsd.rm.formula.model.BiFormulaDef"
+		parameterType="com.cn.hsd.rm.formula.model.BiFormulaDef">
+		SELECT FORMULA_DEF_ID FORMULADEFID,FORMULA_DEF_NAME FORMULADEFNAME,
+		VALUE_TABLE VALUETABLE,VALUE_FIELD VALUEFIELD,
+		VALUE_NAME VALUENAME,GET_ROW_COUNT GETROWCOUNT,
+		ORDERBYS,ORDERBY_FIELD ORDERBYFIELD,
+		REMARK,CREATE_TIME CREATETIME,
+		UPDATE_TIME UPDATETIME,UPDATE_USER UPDATEUSER,b.RISK_ID RISKID
+		 FROM BI_FORMULA_DEF b 
+		<where>
+			<if test="riskId != null">
+				b.RISK_ID=#{riskId}
+			</if>
+		</where>
+	</select>
+
+	<select id="findFormulaDefRuleByWhere" parameterType="com.cn.hsd.rm.formula.model.BiFormulaDefRule"
+		resultType="com.cn.hsd.rm.formula.model.BiFormulaDefRule">
+		SELECT ID, CONDITION_ as 'CONDITION',
+		FRONT, BACK, CREATE_TIME CREATETIME, FORMULA_DEF_ID FORMULADEFID FROM BI_FORMULA_DEF_RULE b
+		<where>
+			<if test="formulaDefId != null">
+				b.FORMULA_DEF_ID=#{formulaDefId}
+			</if>
+		</where>
+	</select>
+
+	<select id="findRiskRulesByWhere" parameterType="com.cn.hsd.rm.formula.model.BiRiskRules"
+		resultType="com.cn.hsd.rm.formula.model.BiRiskRules">
+		SELECT RULES_ID RULESID,
+		VALUE, VALUE_TYPE VALUETYPE,
+		RELATION,MEASURES,FORMULA_DEF_ID FORMULADEFID
+		FROM BI_RISK_RULES
+		<where>
+			1=1 
+			<if test="formulaDefId != null">
+				and FORMULA_DEF_ID=#{formulaDefId}
+			</if>
+			<if test="rulesId != null">
+				and RULES_ID=#{rulesId}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="findScreeningResultsByWhere" parameterType="com.cn.hsd.rm.formula.model.BiScreeningResults"
+		resultType="com.cn.hsd.rm.formula.model.BiScreeningResults">
+		SELECT ITEM_ID,CONDITION_ 'CONDITION',
+		FRONT,BACK,RULES_ID,IS_SIGN isSign,NEXUS from BI_SCREENING_RESULTS
+		<where>
+			<if test="rulesId != null">
+				RULES_ID=#{rulesId}
+			</if>
+		</where>
+		order by ORDER_NUM
+	</select>
+
+
+	<select id="findBySql" parameterType="com.cn.hsd.rm.formula.model.BiFormulaDef" resultType="java.lang.String" >
+		${sql}
+	</select>
+	 
+	 
+	 
+	 <delete id="deleteBiRiskRules" parameterType="com.cn.hsd.rm.formula.model.BiRiskRules">
+		DELETE FROM BI_RISK_RULES WHERE RULES_ID=#{rulesId};
+		DELETE FROM BI_SCREENING_RESULTS WHERE RULES_ID=#{rulesId};
+	 </delete>
+	 
+	 
+	 <delete id="executeSql">
+	 	update BI_RESULT_DATA SET RISK_GRADE='高' WHERE RISK_ID='892c9850f25b11e6aff100ffd1ccb5b6' and FLT_NO in ('G54946','G54948');
+	 </delete>
+</mapper>  

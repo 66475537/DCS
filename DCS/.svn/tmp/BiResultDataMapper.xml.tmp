@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hsd.rm.result.mapping.BiResultDataMapper">
+	<resultMap id="BaseResultMap" type="com.cn.hsd.rm.result.model.BiResultData">
+		<id column="ID" property="id" />
+		<result column="RECKON_DATE" property="reckonDate" />
+		<result column="FLT_NO" property="fltNo" />
+		<result column="RESULT" property="result" />
+		<result column="RISK_GRADE" property="riskGrade" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="RISK_ID" property="riskId" />
+	</resultMap>
+	
+	<resultMap type="com.cn.hsd.rm.result.model.BiResultData" id="treeMap">
+		<result column="FLT_NO" property="fltNo" />
+		<result column="RECKON_DATE" property="reckonDate" />
+		<result column="RESULT" property="result" />
+		<result column="RISK_GRADE" property="riskGrade" />
+		
+		<!--  -->
+		<result column="RISK_ID" property="riskId" />
+		<result column="PID" property="pid"/>
+		<result column="NAME" property="name"/>
+		<result column="IS_END_NODE" property="isEndNode"/>
+		<result column="CHILD_NODE_NUMBER" property="childNodeNumber"/>
+	</resultMap>
+	
+	
+	<resultMap id="newTreeMap" type="com.cn.hsd.rm.result.model.NodeTree">
+		<result column="ID" property="id" />
+		<result column="PID" property="pid"/>
+		<result column="NAME" property="name"/>
+		<result column="TITLE" property="title" />
+		<result column="RESULT" property="result" />
+		
+		<association property="relationship" javaType="com.cn.hsd.rm.result.model.Relationship">
+			<result column="CHILD_NODE_NUMBER" property="children_num"/>
+			<result column="NUM" property="sibling_num"/>
+		</association>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, RECKON_DATE, FLT_NO, RESULT, RISK_GRADE, CREATE_TIME, RISK_ID
+	</sql>
+	
+	<update id="updateTserminalVal">
+		UPDATE bi_result_data B SET B.RISK_GRADE = #{val} WHERE B.RISK_ID IN (
+			SELECT A.RISK_ID FROM bi_risk_factors A WHERE A.IS_END_NODE = 1
+		)
+	</update>
+	
+	<select id="newTree" resultMap="newTreeMap">
+		SELECT 
+			B.RISK_ID AS ID, 
+			B.PID AS PID,
+			B.`NAME` AS NAME,
+			A.RESULT AS TITLE, 
+			A.RISK_GRADE AS RESULT,  
+			B.CHILD_NODE_NUMBER,
+			E.NUM
+		FROM bi_result_data A, bi_risk_factors B, (
+				SELECT 
+						C.RISK_ID,
+						IFNULL(D.CHILD_NODE_NUMBER - 1,0) AS NUM
+				FROM bi_risk_factors C LEFT JOIN bi_risk_factors D 
+				ON C.PID = D.RISK_ID
+			)  E
+		WHERE A.RISK_ID = B.RISK_ID
+		AND E.RISK_ID = B.RISK_ID
+		AND A.FLT_NO = #{fltNo}
+		ORDER BY ID DESC
+	</select>
+	
+	<!-- 根据航班号和要素ID获取计算结果 -->
+	<select id="getListByRiskIdsAndFltNoAndDepartDate" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM BI_RESULT_DATA T 
+		WHERE T.FLT_NO = #{fltNo}
+		AND T.RECKON_DATE = #{departDate}
+		AND T.RISK_ID IN (
+			<foreach collection="ids" item="id" separator=",">
+				#{id.riskId}
+			</foreach>
+		)
+	</select>
+	
+	<!-- 获取结果树 -->
+	<select id="getTree" resultMap="treeMap">
+		SELECT 
+			B.RISK_ID AS RISK_ID, B.PID AS PID,
+			B.`NAME` AS NAME, B.IS_END_NODE, B.CHILD_NODE_NUMBER
+		FROM bi_risk_factors B
+		ORDER BY RISK_ID DESC
+	</select>
+	
+	<delete id="deleteDataByFltNo">
+		DELETE A FROM BI_RESULT_DATA A WHERE EXISTS (
+			SELECT RISK_ID FROM BI_RISK_FACTORS B WHERE B.IS_END_NODE = 0 AND A.RISK_ID = B.RISK_ID)
+		AND A.FLT_NO = #{fltNo}
+	</delete>
+	
+	<!-- 以下为自动生成 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from bi_result_data
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from bi_result_data
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hsd.rm.result.model.BiResultData">
+		insert into bi_result_data (ID, RECKON_DATE, FLT_NO,
+		RESULT, RISK_GRADE, CREATE_TIME,
+		RISK_ID)
+		values (#{id,jdbcType=VARCHAR}, #{reckonDate,jdbcType=VARCHAR},
+		#{fltNo,jdbcType=VARCHAR},
+		#{result,jdbcType=VARCHAR}, #{riskGrade,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
+		#{riskId,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.cn.hsd.rm.result.model.BiResultData">
+		insert into bi_result_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="reckonDate != null">
+				RECKON_DATE,
+			</if>
+			<if test="fltNo != null">
+				FLT_NO,
+			</if>
+			<if test="result != null">
+				RESULT,
+			</if>
+			<if test="riskGrade != null">
+				RISK_GRADE,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="riskId != null">
+				RISK_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="reckonDate != null">
+				#{reckonDate,jdbcType=VARCHAR},
+			</if>
+			<if test="fltNo != null">
+				#{fltNo,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				#{result,jdbcType=VARCHAR},
+			</if>
+			<if test="riskGrade != null">
+				#{riskGrade,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="riskId != null">
+				#{riskId,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cn.hsd.rm.result.model.BiResultData">
+		update bi_result_data
+		<set>
+			<if test="reckonDate != null">
+				RECKON_DATE = #{reckonDate,jdbcType=VARCHAR},
+			</if>
+			<if test="fltNo != null">
+				FLT_NO = #{fltNo,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				RESULT = #{result,jdbcType=VARCHAR},
+			</if>
+			<if test="riskGrade != null">
+				RISK_GRADE = #{riskGrade,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="riskId != null">
+				RISK_ID = #{riskId,jdbcType=CHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hsd.rm.result.model.BiResultData">
+		update bi_result_data
+		set RECKON_DATE = #{reckonDate,jdbcType=VARCHAR},
+		FLT_NO = #{fltNo,jdbcType=VARCHAR},
+		RESULT = #{result,jdbcType=VARCHAR},
+		RISK_GRADE = #{riskGrade,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+		RISK_ID = #{riskId,jdbcType=CHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateRiskResultInfo">
+		update BI_RESULT_DATA SET RISK_GRADE='高' WHERE RISK_ID IN ('8fbc1ed6f73111e6a2f8507b9d4d7a23','b0009f80f73911e6a2f8507b9d4d7a23') and FLT_NO in ('G54946','G54948')
+	</update>
+	
+	<!-- 是否有限制性通告 -->
+	<update id="updateNoticeMessageRiskResultInfo">
+		update BI_RESULT_DATA SET RISK_GRADE='高' WHERE RISK_ID IN ('ac1be020f73211e6a2f8507b9d4d7a23') and FLT_NO in ('G54947')
+	</update>
+</mapper>

@@ -1,0 +1,67 @@
+package com.cn.hsd.rm.result.service.impl;
+
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cn.hsd.rm.result.mapping.BiResultDataMapper;
+import com.cn.hsd.rm.result.model.BiResultData;
+import com.cn.hsd.rm.result.model.NodeTree;
+import com.cn.hsd.rm.result.service.IBiResultDataService;
+
+@Service
+public class BiResultDataServiceImpl implements IBiResultDataService{
+
+    @Autowired
+    private BiResultDataMapper resultDataMapper; 
+    
+    @Override
+    public List<BiResultData> getTree(String fltNo) {
+        return this.resultDataMapper.getTree(fltNo);
+    }
+
+    @Override
+    public NodeTree newTree(String fltNo) {
+        List<NodeTree> newTree = this.resultDataMapper.newTree(fltNo);
+        
+        NodeTree rootTree = new NodeTree();
+        
+        for (NodeTree t : newTree) {
+            if (StringUtils.isBlank(t.getPid())) rootTree = t;
+        }
+        
+        NodeTree finalNewTree = call(rootTree, newTree);
+        
+        return finalNewTree;
+    }
+
+    /**
+     * 更新信息
+     */
+    @Override
+    public void updateRiskResultInfo() {
+        this.resultDataMapper.updateRiskResultInfo();
+    }
+
+    private NodeTree call(NodeTree rootTree, List<NodeTree> dataSource) {
+        if(null == rootTree.getChildren() || rootTree.getChildren().size() <= 0){
+            String id = rootTree.getId();
+            
+            for (NodeTree data : dataSource) {
+                if(data.getPid().equals(id)){
+                    NodeTree t = call(data, dataSource);
+                    rootTree.getChildren().add(t);
+                }
+                
+            }
+        }
+        
+        return rootTree;
+    }
+
+    
+    
+}
+

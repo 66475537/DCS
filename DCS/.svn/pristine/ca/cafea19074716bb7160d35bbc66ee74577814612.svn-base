@@ -1,0 +1,87 @@
+package com.cn.hsd.rm.flight.controller;
+
+import com.alibaba.fastjson.JSON;
+import com.cn.hsd.rm.factors.service.IBiRiskFactorsService;
+import com.cn.hsd.rm.flight.model.Flight;
+import com.cn.hsd.rm.flight.model.Pilots;
+import com.cn.hsd.rm.flight.service.FlightService;
+import com.cn.hsd.rm.formula.service.QuotaService;
+import com.cn.hsd.rm.util.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.script.ScriptException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/17.
+ * Time: 16:10.
+ * To change this template use File | Settings | File Templates.
+ */
+@Controller
+@Scope(value = "prototype")
+@RequestMapping(value = "/flight")
+public class FlightController {
+    private Logger logger = LoggerFactory.getLogger(FlightController.class);
+    @Autowired
+    private FlightService flightService;
+    @Autowired
+    private QuotaService quotaService;
+    
+    @Autowired
+    private IBiRiskFactorsService service;
+    /**
+     * 查询航班编号
+     */
+    @RequestMapping(value = "/queryFlightNo.do")
+    public String queryFlightNo(ModelMap modelMap,String fltNo){
+        List<Flight> list = flightService.queryFlightNo();
+        modelMap.put("list",list);
+        modelMap.put("fltNo", fltNo);
+        return "list-from";
+    }
+
+    /**
+     * 根据航班id 查询机长及及机长等级
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryPilotInfo.do")
+    public String queryPilotInfo(String flightId){
+        List<Pilots> inlist = flightService.queryPilotsInThisFlight(flightId);
+        List<Pilots> notInlist = flightService.queryPilotsNotInThisFlight(flightId);
+        Map<String,List<Pilots>> map = new HashMap<>();
+        map.put("inlist",inlist);
+        map.put("notInlist",notInlist);
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 修改航班，机组人员中间表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updataFlightPilot.do")
+    public String updataFlightPilot(String flightId ,String strs ,String flightNo) {
+    	String departDate = DateUtil.getNowTime(DateUtil.DATE_SMALL_STR);
+        flightService.updataFlightPilot(flightId,strs);
+        try {
+            quotaService.saveTerminalAnalysisResult( flightNo, departDate);
+            service.treeNode(flightNo, departDate);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        return "";
+
+    }
+}

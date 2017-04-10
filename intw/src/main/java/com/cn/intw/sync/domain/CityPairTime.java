@@ -61,6 +61,8 @@ public class CityPairTime {
 	private String winter_4OUT;
 	private String winter_4IN;
 	
+	private String summer_5OUT;
+	
 	
 public static List<CityPairTime> getAllAircraftInfo(){
 		
@@ -229,6 +231,16 @@ public static void main(String[] args) {
 	}
 	public void setWinter_4IN(String winter_4in) {
 		winter_4IN = winter_4in;
+	}
+
+
+	public String getSummer_5OUT() {
+		return summer_5OUT;
+	}
+
+
+	public void setSummer_5OUT(String summer_5out) {
+		summer_5OUT = summer_5out;
 	}
 	
 	

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="common/common-taglibs.jsp"%>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>风险因素 | 运行控制风险管理系统</title>
+	    <link href="${ctx}/css/bootstrap.min.css" rel="stylesheet">
+	    <link href="${ctx}/css/font-awesome.min.css" rel="stylesheet">
+	    
+	    <link href="${ctx}/css/custom.css" rel="stylesheet">
+	    <link href="${ctx}/css/animate.css" rel="stylesheet">
+	    <link href="${ctx}/css/admin/style.css" rel="stylesheet">
+	    <link href="${ctx}/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
+		<link href="${ctx}/css/calcite.css" rel="stylesheet">
+		<link href="${ctx}/css/esri.css" rel="stylesheet">
+		<link href="${ctx}/css/admin/style.css" rel="stylesheet" >
+		<!-- tree -->
+		<link rel="stylesheet" type="text/css" href="${ctx }/orgchart/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx }/orgchart/css/demo.css">
+		<link rel="stylesheet" href="${ctx }/orgchart/css/font-awesome.min.css">
+		<link rel="stylesheet" href="${ctx }/orgchart/css/jquery.orgchart.css">
+		<link rel="stylesheet" href="${ctx }/orgchart/css/style.css">
+		
+		
+	    <!-- gis -->
+	    <link rel="stylesheet" type="text/css" href="${ctx}/fonts/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="${ctx}/css/commen.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/css/perfect-scrollbar.css" />
+		<link rel="stylesheet" href="${ctx}/css/tools.css" />
+
+	    <link rel="shortcut icon" href="${ctx}/mages/ico.png">
+	    <style type="text/css">
+	    	body{
+	    		background-color: #dddddd;
+	    	}
+	    	.sidebar-collapse > ul {
+			    width: 100%;
+			    margin: 0;
+			    padding: 0;
+			    position: absolute;
+			    bottom: 0px;
+			}
+			.img {
+			    background-size: 100% 100%;
+			    margin: 10px 5px 5px 20px;
+			}
+	    </style>
+	</head>
+	<body>
+    	<div id="wrapper">
+			<jsp:include page="left-menu.jsp"/>
+        	<div id="page-wrapper" class="gray-bg" id="meanbody">
+				<!-- border-bottom -->
+				<div class="row border-bottom">
+					<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;color: #fff;">
+						<div class="navbar-header">
+					       	<div class="logo img">
+					       		<img alt="logo" height="30px" width="30px;" src="${ctx}/images/logo.png">&nbsp;
+					       		运行控制风险管理系统
+					       	</div>
+						</div>
+					   <ul class="nav navbar-top-links navbar-right">
+					   		<li style="margin-top: 16px;">
+					   			<span class="text-muted welcome-message" id="headtime" style="color: #fff;"></span>
+					       </li>
+					     </ul>
+					 </nav>
+				</div>
+				<!-- border-bottom -->
+		        <div class="wrapper wrapper-content animated fadeInRight">
+		            <div class="row">
+		            	<!-- col-lg-12 -->
+		                <div class="col-lg-6" id="leftcollg6" style="padding-right: 0px;">
+							<div id="chart-container" style="background-color: #fff;"></div>
+		                </div>
+		                <!-- gis -->
+		                <div class="col-lg-6" style="" id="rightcollg6">
+							<div class="gis-tool">
+								<div class="tools" id="tools">
+									<ul id="firsttool">
+										<li><img src="${ctx}/images/tools-01.png" style="width:100%;height:100%" alt="气象雷达图" id="radar"></li>
+										<li><img src="${ctx}/images/tools-02.png" style="width:100%;height:100%" alt="航路图" id="highline"></li>
+										<li><img src="${ctx}/images/tools-04.png" style="width:100%;height:100%" alt="机场图层" id="airport"></li>
+									</ul>
+									<ul>
+										<li><img src="${ctx}/images/tools-03.png" style="width:100%;height:100%" alt="航路热敏图" id="linedensity"></li>
+										<li><img src="${ctx}/images/tools-05.png" style="width:100%;height:100%" alt="机场热敏图" id="aircraftdensity"></li>
+									</ul>
+									<ul>
+										<li><img src="${ctx}/images/tools-09.png" style="width:100%;height:100%" alt="备份飞机" id="backaircraft"></li>
+										<li><img src="${ctx}/images/tools-10.png" style="width:100%;height:100%" alt="备份机组" id="backpliot"></li>
+									</ul>
+									<ul>
+										<li><img src="${ctx}/images/tools-11.png" style="width:100%;height:100%" alt="路径规划" id="testbtn"></li>
+										<li><img src="${ctx}/images/tools-12.png" style="width:100%;height:100%" alt="测距工具"></li>
+									</ul>
+									<ul>
+										<li><img src="${ctx}/images/tools-13.png" style="width:100%;height:100%" alt="放大"></li>
+										<li><img src="${ctx}/images/tools-14.png" style="width:100%;height:100%" alt="缩小"></li>
+									</ul>
+								</div>
+								<div class="flightpanel" id="flightdetail"><img src="${ctx}/images/tankuang-25.jpg" />
+								</div>
+							</div>
+							<div class="middle-gis" style="background-color: #FFF"  id="map"></div>
+			            </div>
+		            </div>
+        		</div>
+        		<div class="footer">
+		            <div>
+		                <strong>系统管理员&nbsp;您好，欢迎回来！</strong>
+		            </div>
+			    </div>
+        		
+        	</div>
+        </div>
+	    <!-- Mainly scripts -->
+	    <script src="${ctx}/js/jquery-2.1.1.js"></script>
+		<script src="${ctx}/js/config.js"></script>
+		<script src="${ctx}/arcgis/3.17/init.js"></script>
+		<script src="${ctx}/js/gis.js"></script>
+	    <script src="${ctx}/js/bootstrap.min.js"></script>
+	    <script src="${ctx}/js/jquery.metisMenu.js"></script>
+	    <script src="${ctx}/js/jquery.slimscroll.min.js"></script>
+	    <!-- tree -->
+	    <script type="text/javascript" src="${ctx }/orgchart/js/html2canvas.js"></script>
+		<script type="text/javascript" src="${ctx }/orgchart/js/jquery.orgchart.js"></script>
+	    <script src="${ctx}/js/inspinia.js"></script>
+	    
+	    
+	    <!-- 绿条 -->
+	    <script src="${ctx}/js/pace.min.js"></script>
+	    <!-- gis -->
+
+		<script type="text/javascript">
+			$(function(){
+				$('#leftcollg6').css('height',$(window).height()-115+"px");
+				$('#rightcollg6').css('height',$(window).height()-115+"px");
+	    
+				var yyDate = new Date();
+				yea = yyDate.getFullYear();
+				mont = yyDate.getMonth() + 1;
+				da = yyDate.getDate();
+				timer = year + "-" + month + "-" + day;
+				$("#yearmonthday").val(timer);
+				
+				
+				'use strict';
+		
+					$('#chart-container').orgchart({
+					  'data' : '${ctx}/result/newTree.do?fltNo=${fltNo}',
+					  'depth': 100,
+					  'nodeTitle': 'name',
+					  'nodeContent': 'title',
+					  'createNode': function($node, data) {
+						if(data.result == '低'){
+							$node.children(".title").css({'background': '#0092ff'});
+							$node.children(".content").css({'background': '#0092ff', 'color':'#fff'});
+						}
+						
+						if(data.result == '中'){
+							$node.children(".title").css({'background': '#fff800'});
+							$node.children(".content").css({'background': '#fff800', 'color':'#fff'});
+						}
+						
+						if(data.result == '高'){
+							$node.children(".title").css({'background': '#ff0000'});
+							$node.children(".content").css({'background': '#ff0000', 'color':'#fff'});
+						}
+						
+						if(data.name != '“人”机组风险要素（C）' && data.name != '机组经验能力' && data.name != '机组配合程度' && data.name != '机组压力程度'){
+							$node.children(".title").css({'white-space': 'normal','width':'30px','line-height':'16px','height':'190px'});
+						}
+					  }
+					});
+			});
+	    </script>
+	</body>
+</html>

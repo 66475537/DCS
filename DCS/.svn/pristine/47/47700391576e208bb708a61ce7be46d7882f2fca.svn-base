@@ -1,0 +1,25 @@
+package com.cn.hsd.rm.system.service.impl;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.cn.hsd.rm.system.mapping.UserMapper;
+import com.cn.hsd.rm.system.model.User;
+import com.cn.hsd.rm.system.service.UserServcie;
+
+@Service("userServcie")
+public class UserServcieImpl implements UserServcie {
+
+	@Autowired
+	private UserMapper userMapper;
+	
+	public User findUserByLoginName(String loginName) {
+		List<User> listUser = userMapper.findUserByLoginName(loginName);
+		if(null!=listUser && listUser.size()>0){
+			return listUser.get(0);
+		}
+		return null;
+	}
+
+	
+}

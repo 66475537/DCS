@@ -1,0 +1,67 @@
+package com.cn.hsd.rm.flight.service;
+
+import com.cn.hsd.rm.flight.model.Flight;
+import com.cn.hsd.rm.flight.model.Pilots;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by IntelliJ IDEA 2016.
+ * User: shingmoyeung.
+ * Date: 2017/2/17.
+ * Time: 16:05.
+ * To change this template use File | Settings | File Templates.
+ */
+public interface FlightService {
+    /**
+     * 首页航班风险结果列表
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    List<Map<String, Object>> getFlightRiskResultList(Map<String, Object> map);
+
+    /**
+     * 首页航班风险预警数量
+     *
+     * @param map
+     * @return
+     */
+    Map<String, Object> getFlightRiskInfoCountIndex(Map<String, Object> map);
+
+    /**
+     * 查询航班风险评估列表
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    List<Map<String, Object>> getFlightRiskResultDetailsList(Map<String, Object> map);
+
+    /**
+     * 查询航班编号
+     * @return
+     */
+    List<Flight> queryFlightNo();
+
+    /**
+     * 查询本次航班得飞行员信息
+     * @param flightId
+     * @return
+     */
+    List<Pilots> queryPilotsInThisFlight(String flightId);
+    /**
+     * 查询不是本次航班得飞行员信息
+     * @param flightId
+     * @return
+     */
+    List<Pilots> queryPilotsNotInThisFlight(String flightId);
+
+    /**
+     * 查询机组成员
+     *
+     * @param map 查询条件Map
+     * @return
+     */
+    String getAirMembers(Map<String, Object> map);
+}

@@ -1,0 +1,146 @@
+package com.cn.hsd.rm.formula.mapping;
+
+import java.util.List;
+
+import com.cn.hsd.rm.formula.model.BiFormulaDef;
+import com.cn.hsd.rm.formula.model.BiFormulaDefRule;
+import com.cn.hsd.rm.formula.model.BiQuotaDef;
+import com.cn.hsd.rm.formula.model.BiQuotaType;
+import com.cn.hsd.rm.formula.model.BiResultData;
+import com.cn.hsd.rm.formula.model.BiRiskFactors;
+import com.cn.hsd.rm.formula.model.BiRiskRules;
+import com.cn.hsd.rm.formula.model.BiScreeningResults;
+import com.cn.hsd.rm.formula.model.BiTerminalType;
+
+/**
+ * 终端因素计算
+ * @author chenlin
+ *
+ */
+public interface QuotaMapper {
+	
+	
+	public void save(BiQuotaDef quotaDef);
+	
+	/**
+	 * 查询指标模型定义
+	 * @param quotaDef
+	 * @return
+	 */
+	public List<BiQuotaDef> findQuotaDefByWhere(BiQuotaDef quotaDef);
+	
+	/**
+	 * 查询终端因素
+	 * @param riskFactors
+	 * @return
+	 */
+	public List<BiRiskFactors> findRiskFactorsByWhere(BiRiskFactors riskFactors);
+	
+	/**
+	 * 查询终端因素定义分类
+	 * @param terminalType
+	 * @return
+	 */
+	public List<BiTerminalType> findBiTerminalTypeByWhere(BiTerminalType terminalType);
+	
+	
+	/**
+	 * 查询指标公式定义
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public BiFormulaDef findBiFormulaDefByID(BiFormulaDef biFormulaDef);
+	
+	
+	/**
+	 * 查询指标公式定义的where条件
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public List<BiFormulaDefRule> findFormulaDefRuleByWhere(BiFormulaDefRule biScreeningResults);
+	
+	
+	/**
+	 * 查询指标公式定义
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public List<BiFormulaDef> findFormulaDefByWhere(BiFormulaDef biFormulaDef);
+	
+	
+	/**
+	 * 查询风险识别规则.
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public List<BiRiskRules> findRiskRulesByWhere(BiRiskRules biRiskRules);
+	
+	
+	/**
+	 * 查询指标类别
+	 * @param qt
+	 * @return
+	 */
+	public List<BiQuotaType> findQuotaType(BiQuotaType qt);
+	
+
+	/**
+	 * 查询 筛选结果.
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public List<BiScreeningResults> findScreeningResultsByWhere(BiScreeningResults biScreeningResults);
+
+	/**
+	 * 根据sql查询内容
+	 * @param biFormulaDef
+	 * @return
+	 */
+	public List<String> findBySql(BiFormulaDef biFormulaDef);
+
+	/**
+	 * 保存结果
+	 * @param biResultData
+	 */
+	public void saveBiResultData(BiResultData biResultData);
+
+	/**
+	 * 查询定义
+	 * @param quotaDef
+	 * @return
+	 */
+	public List<BiQuotaDef> findQuotaDef(BiQuotaDef quotaDef);
+
+	/**
+	 * 保存风险识别规则明细
+	 * @param biScreeningResults
+	 */
+	public void saveScreeningResults(BiScreeningResults biScreeningResults);
+
+	/**
+	 * 保存风险识别规则
+	 * @param biRiskRules
+	 */
+	public void saveBiRiskRules(BiRiskRules biRiskRules);
+
+	/**
+	 * 更新风险识别规则
+	 * @param biRiskRules
+	 */
+	public void updateBiRiskRules(BiRiskRules biRiskRules);
+
+	/**
+	 * 保存风险识别规则明细
+	 * @param biScreeningResults
+	 */
+	public void updateScreeningResults(BiScreeningResults biScreeningResults);
+
+	/**
+	 * 删除BiRiskRules
+	 * @param biRiskRules
+	 */
+	public void deleteBiRiskRules(BiRiskRules biRiskRules);
+
+
+	
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="common/common-taglibs.jsp"%>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>运行控制风险管理系统</title>
+	    <link href="${ctx}/css/bootstrap.min.css" rel="stylesheet">
+	    <link href="${ctx}/css/font-awesome.min.css" rel="stylesheet">
+	    <link href="${ctx}/css/custom.css" rel="stylesheet">
+	    <link href="${ctx}/css/animate.css" rel="stylesheet">
+	    <link href="${ctx}/css/admin/style.css" rel="stylesheet">
+	    <link href="${ctx}/css/multi-select.css" rel="stylesheet">
+	    <link href="${ctx}/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
+	    
+	    <style type="text/css">
+	    	body{
+	    		background-color: #dddddd;
+	    	}
+	    	.sidebar-collapse > ul {
+			    width: 100%;
+			    margin: 0;
+			    padding: 0;
+			    position: absolute;
+			    bottom: 0px;
+			}
+			.img {
+			    background-size: 100% 100%;
+			    margin: 10px 5px 5px 20px;
+			}
+	    </style>
+	</head>
+	<body>
+    	<div id="wrapper">
+    		<nav class="navbar-default navbar-static-side" role="navigation" id="navigation">
+		        <div class="sidebar-collapse">
+		        	<div>
+		        		<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+		        	</div>
+					<ul class="nav metismenu" id="side-menu">
+					    <li>
+					        <a href="#" style="white-space:nowrap;display: inline;">
+					        	<i class="fa fa-home"></i><abbr>首页</abbr>
+					        </a>
+					    </li>
+					    <li>
+					        <a href="#" style="white-space:nowrap;display: inline;">
+					        	<i class="fa fa-cog"></i><abbr>设置</abbr>
+					        </a>
+					    </li>
+					    <li>
+			             	<a href="list-table.do" style="white-space:nowrap;display: inline;">
+			             		<i class="fa fa-undo"></i><abbr>刷新</abbr>
+			             	</a>
+			         	</li>
+						<li>
+		         			<a href="logout.do" style="white-space:nowrap;display: inline;">
+		                    	<i class="fa fa-power-off"></i><abbr>注销</abbr>
+		                    </a>
+			         	</li>
+					</ul>
+		        </div>
+    		</nav>
+    	
+        	<div id="page-wrapper" class="gray-bg" id="meanbody">
+        		<!-- border-bottom -->
+	        	<div class="row border-bottom">
+			        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;color: #fff;">
+				        <div class="navbar-header">
+			                	<div class="logo img">
+			                		<img alt="logo" height="30px" width="30px;" src="images/logo.png">&nbsp;
+			                		<span class="logo name">运行控制风险管理系统</span>
+			                	</div>
+			                    
+				        </div>
+			            <ul class="nav navbar-top-links navbar-right">
+			                <li style="margin-top: 16px;">
+			                    <span class="text-muted welcome-message" id="headtime" style="color: #fff;"></span>
+			                </li>
+			            </ul>
+			        </nav>
+	        	</div><!-- border-bottom -->
+
+		        <div class="wrapper wrapper-content animated fadeInRight">
+		            <div class="row">
+		            <div class="col-lg-12" style="">
+		                <div class="ibox float-e-margins">
+		                    <div class="ibox-title">
+		                        <h5>Basic form <small>运行控制风险管理系统</small></h5>
+		                    </div>
+							<select id='callbacks' multiple='multiple'>
+								<option value='elem_1'>elem 1</option>
+								<option value='elem_2'>elem 2</option>
+								<option value='elem_3'>elem 3</option>
+								<option value='elem_4'>elem 4</option>
+								<option value='elem_100'>elem 100</option>
+							</select>
+		                </div>
+		            </div>
+		            </div>
+        		</div>
+        	</div>
+        </div>
+	    <!-- Mainly scripts -->
+	    <script src="${ctx}/js/jquery-2.1.1.js"></script>
+	    <script src="${ctx}/js/bootstrap.min.js"></script>
+	    <script src="${ctx}/js/jquery.metisMenu.js"></script>
+	    <script src="${ctx}/js/jquery.slimscroll.min.js"></script>
+	    <script src="${ctx}/js/inspinia.js"></script>
+	    <script src="${ctx}/js/jquery.multi-select.js"></script>
+	    <!-- 绿条 -->
+	    <script src="js/pace.min.js"></script>
+		<SCRIPT>
+            $('#callbacks').multiSelect({
+                afterSelect: function(values){
+                    //alert("Select value: "+values);
+                },
+                afterDeselect: function(values){
+                    //alert("Deselect value: "+values);
+                }
+            });
+
+		</SCRIPT>
+
+
+
+	</body>
+</html>

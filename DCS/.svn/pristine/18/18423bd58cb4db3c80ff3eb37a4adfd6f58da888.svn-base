@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hsd.rm.flight.mapping.FlightPilotMapper">
+    <insert id="insertModel" parameterType="com.cn.hsd.rm.flight.model.FlightPilot">
+
+      INSERT INTO FLIGHT_PILOT (ID, FLT_ID, PILOT_ID, CREATE_TIME) VALUES (#{id}, #{fltId}, #{pilotId}, #{createTime})
+
+    </insert>
+    <delete id="deleteByFlightId" parameterType="string">
+          DELETE FROM FLIGHT_PILOT WHERE FLT_ID = #{flightId}
+    </delete>
+</mapper>
