@@ -45,9 +45,10 @@ public class RegionData implements Serializable {
 	public RegionData() {
 	}
 
-	public RegionData(String regionId,Node node, int leval) {
+	public RegionData(String regionId,Node node,String parentId, int leval) {
 		this.regionId = regionId;
 		this.cName = node.getName();
+		this.parentRegionId = parentId;
 		this.level = leval;
 	}
 	

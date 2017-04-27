@@ -7,7 +7,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.cn.dcs.base.entity.Page;
 import com.cn.dcs.util.Logger;
 import com.cn.dcs.util.PageData;
 import com.cn.dcs.util.UuidUtil;

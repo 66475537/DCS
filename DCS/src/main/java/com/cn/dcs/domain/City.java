@@ -17,7 +17,7 @@ public class City {
 		List<RegionData> rdList = new ArrayList<RegionData>();
 		for (int i = 0; i < o.size(); i++) {
 			String id = String.format("%03d", (i+1)); 
-			rdList.add(new RegionData(id,o.get(i),0));
+			rdList.add(new RegionData(id,o.get(i),"0",0));
 			
 			rdList.addAll(readNode(o.get(i),0,id));
 			
@@ -40,7 +40,7 @@ public class City {
 		for (int i = 0; i < node.getChildRen().size(); i++) {
 			String id = parentId+String.format("%03d", (i+1)); 
 			
-			nodeList.add(new RegionData(id,node.getChildRen().get(i),leval+1));
+			nodeList.add(new RegionData(id,node.getChildRen().get(i),parentId,leval+1));
 			nodeList.addAll(readNode(node.getChildRen().get(i),leval+1,id));
 		}
 		return nodeList;
