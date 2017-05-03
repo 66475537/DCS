@@ -13,38 +13,32 @@
 						http://www.springframework.org/schema/tx 
 						http://www.springframework.org/schema/tx/spring-tx.xsd
 	">
-	
+		<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
+		<!-- 項目自定义的Realm -->
+	    <bean id="myshiroRealm" class="com.cn.dcs.base.shiro.ShiroRealm" ></bean>
+		
 		<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-			<property name="realm" ref="ShiroRealm" />
+			<property name="realm"  ref="myshiroRealm" />
+			<property name="cacheManager" ref="cacheManager"/>
 		</bean>
 		
-		<!-- 項目自定义的Realm -->
-	    <bean id="ShiroRealm" class="com.cn.dcs.base.shiro.ShiroRealm" ></bean>
+		
 		
 		<!-- Shiro Filter -->
 		<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 			<property name="securityManager" ref="securityManager" />
-			
-			<property name="loginUrl" value="/" />
-			
-			<property name="successUrl" value="/main/index" />
-			
-			<property name="unauthorizedUrl" value="/" />
-			
+			<property name="loginUrl" value="/234" />
+			<property name="successUrl" value="/home/index" />
+			<property name="unauthorizedUrl" value="/123" />
 			<property name="filterChainDefinitions">
 				<value>
-				/static/login/** 			= anon
-				/plugins/keypad/** 			= anon
-				/static/js/myjs/** 			= authc
-				/static/js/** 				= anon
-				/static/**					= anon
-				/uploadFiles/uploadImgs/** 	= anon
-	           	/code.do 					= anon
-	           	/login_login	 			= anon
-	           	/index.html					= anon
-	           	/**							= authc
+				/css/**=anon
+				/home/**=anon
+				/airport/getAllAirPortArray/**=anon
+				/collection/toCountryDataList=authc
+				/**=authc
 				</value>
 			</property>
 		</bean>
-   
+		
 </beans>

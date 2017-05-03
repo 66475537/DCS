@@ -56,7 +56,9 @@ public class BaseController {
 	 * @return
 	 */
 	public Page getPage(){
-		return new Page();
+		Page page = new Page();
+		page.setPd(getPageData());
+		return page;
 	}
 	
 	public static void logBefore(Logger logger, String interfaceName){

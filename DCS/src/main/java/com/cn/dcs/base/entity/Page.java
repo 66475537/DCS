@@ -21,7 +21,7 @@ public class Page {
 	
 	public Page(){
 		try {
-			this.showCount = Integer.parseInt(Tools.readTxtFile(Const.PAGE));
+			this.showCount = 10;
 		} catch (Exception e) {
 			this.showCount = 15;
 		}
@@ -117,9 +117,9 @@ public class Page {
 			
 			//换页函数
 			sb.append("function nextPage(page){");
-			sb.append(" top.jzts();");
-			sb.append("	if(true && document.forms[0]){\n");
-			sb.append("		var url = document.forms[0].getAttribute(\"action\");\n");
+			//sb.append(" top.jzts();");
+			sb.append("	if(true && document.forms[0]){\n ");
+			sb.append("		var url = document.forms[0].getAttribute(\"action\");\n ");
 			sb.append("		if(url.indexOf('?')>-1){url += \"&"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
 			sb.append("		else{url += \"?"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
 			sb.append("		url = url + page + \"&" +(entityOrField?"showCount":"page.showCount")+"="+showCount+"\";\n");
@@ -142,7 +142,7 @@ public class Page {
 			
 			//调整每页显示条数
 			sb.append("function changeCount(value){");
-			sb.append(" top.jzts();");
+			//sb.append(" top.jzts();");
 			sb.append("	if(true && document.forms[0]){\n");
 			sb.append("		var url = document.forms[0].getAttribute(\"action\");\n");
 			sb.append("		if(url.indexOf('?')>-1){url += \"&"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
@@ -216,6 +216,8 @@ public class Page {
 
 	public void setPd(PageData pd) {
 		this.pd = pd;
+		if(pd.get("currentPage")!=null)
+			this.currentPage = Integer.valueOf( (String)pd.get("currentPage"));
 	}
 	
 }

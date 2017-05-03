@@ -72,6 +72,22 @@ public class RegionData implements Serializable {
 		return this.regionId;
 	}
 
+	public String getcName() {
+		return cName;
+	}
+
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
+
+	public String geteName() {
+		return eName;
+	}
+
+	public void seteName(String eName) {
+		this.eName = eName;
+	}
+
 	/**
 	 * Set the PARENT_REGION_ID.
 	 * 

@@ -11,6 +11,7 @@
 	<mvc:default-servlet-handler/>
 	
 	<context:component-scan base-package="com.cn.dcs" />
+	
 
 	<!-- 对静态资源文件的访问  restful-->     
 	<mvc:resources mapping="/admin/**" location="/,/admin/" />
@@ -27,7 +28,7 @@
 	 
 	<!-- 配置SpringMVC的视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="prefix" value="/WEB-INF/view/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
@@ -45,5 +46,13 @@
 	            <value>utf-8</value>    
 	        </property> 
     </bean>  
+    
+    
+    <!-- 支持Shiro对Controller的方法级AOP安全控制 begin-->
+<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+<property name="proxyTargetClass" value="true" />
+</bean>
+<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 	
 </beans>
