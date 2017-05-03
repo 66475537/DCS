@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>第一个js GIS地图</title>
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script>
+
+    	var myserver = 'localhost';
+    </script>
+    <link rel="stylesheet" type="text/css" href="http://localhost/arcgis_js_api/library/3.17/3.17/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/arcgis_js_api/library/3.17/3.17/esri/css/esri.css" />
+    <script type="text/javascript" src="http://localhost/arcgis_js_api/library/3.17/3.17/init.js"></script>
+    <script type="text/javascript">
+    	/**
+        dojo.require("esri.map");
+        function init() {
+            var myMap = new esri.Map("mapDiv");
+           var myTiledMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://localhost:8399/arcgis/rest/services/WorldMap_Black/MapServer");
+            myMap.addLayer(myTiledMapServiceLayer);
+        }
+        dojo.addOnLoad(init);
+
+        **/
+				 
+				 var graphicLayer = new esri.layers.GraphicsLayer();//飞机layer
+				var myMapService = new esri.layers.ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer");
+        var shadowgraphMap = new esri.layers.ArcGISTiledMapServiceLayer("http://localhost:8399/arcgis/rest/services/WorldMap_Black/MapServer");
+
+				var onObj,queryObj,domClassObj;
+    var jsonArray,map, significantLayer, wartherLayer, zbaaLayer,higHweatherLayer,ariportLayer,initExtent,tb,flightPathData,clickId;
+        require([
+        "esri/map",
+        "esri/geometry/Extent",
+        "esri/layers/ArcGISDynamicMapServiceLayer",
+        "esri/toolbars/draw",
+        "esri/symbols/SimpleMarkerSymbol",
+        "esri/symbols/SimpleLineSymbol",
+        "esri/symbols/PictureFillSymbol",
+        "esri/symbols/SimpleFillSymbol",
+        "esri/symbols/CartographicLineSymbol",
+        "esri/graphic",
+        "esri/Color",
+        "dojo/dom",
+        "dojo/on",
+        'dojo/dom-class',
+        'dojo/dnd/Moveable',
+        'dojo/query',
+        "esri/dijit/BasemapToggle",
+        "dojo/domReady!"
+    ], function (Map,Extent,ArcGISDynamicMapServiceLayer, Draw, SimpleMarkerSymbol,
+                 SimpleLineSymbol, PictureFillSymbol, SimpleFillSymbol,CartographicLineSymbol,
+                 Graphic, Color, dom, on,domClass,Moveable,query) {
+
+        //初始化地图范围
+        initExtent = new Extent({
+            xmax:18308585.68528536,
+            xmin:7301653.612222906,
+            ymax:7404549.312347532,
+            ymin:1602673.1173910564,
+            "spatialReference": {"wkid": 102100}
+        });
+
+
+        //初始化地图
+        map = new esri.Map("map", {
+            //basemap: "streets",
+            wrapAround180: true,	// 如果为true，支持连续泛跨越日界线,类似与无缝滚动marquee效果
+            extent: initExtent,
+            logo: false,
+            minZoom: 3,
+            maxZoom: 18,
+            zoom:4
+        });
+
+       
+        //中文矢量图
+        map.addLayer(myMapService);
+        //影像图
+        map.addLayer(shadowgraphMap);
+        shadowgraphMap.hide();
+
+        //清除按钮事件绑定
+        on(dom.byId("clearGraphics"), "click", function(){
+            if(map){
+                map.graphics.clear();
+            }
+        });
+        //经纬度事件绑定
+        map.on("click", function(e){
+            if($('#Multipoint').attr("alt")=="on"){
+                $('.resultDiv').css('display','block');
+                var normalizedVal =  new esri.geometry.xyToLngLat(e.mapPoint.x,e.mapPoint.y);
+                $('#result').html( "<p style='margin-left: 70px;'>纬度:"+normalizedVal[1].toFixed(6)+"</p>" +
+                                   "<p style='margin-left: 70px;'>经度:"+normalizedVal[0].toFixed(6)+"</p>");
+            }
+        });
+
+
+        dojo.connect(graphicLayer, "onClick", flightPathColorChange);
+
+       
+
+       
+
+       
+
+
+        map.addLayer(graphicLayer);
+
+ 
+    });
+    
+     /*改变航班轨迹颜色*/
+    function flightPathColorChange(t) {
+    }
+    </script>
+</head>
+<body class="claro">
+    <div id="mapDiv" style="width: 900px; height: 600px; border: 1px solid #000;"></div>
+</body>
+</html>

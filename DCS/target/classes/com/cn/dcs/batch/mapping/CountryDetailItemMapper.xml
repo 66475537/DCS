@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="countryDetailItem">
+	<select id="findCountryDetailItemlistPage" parameterType="com.cn.dcs.batch.model.CountryDetailItem"
+	 resultType="com.cn.dcs.batch.model.CountryDetailItem">
+		select a.COLLECTION,a.EXPRESSION,b.ITEM_ID itemId,b.CDID cdid,r.C_NAME cName,r.E_NAME eName,
+b.COUNTRY_ID countryId,DETAIL,b.CREATE_TIME createTime,IS_IMG isImg
+ from country_detail a
+ LEFT JOIN country_detail_item b on a.CDID=b.CDID 
+ LEFT JOIN region_data r on b.COUNTRY_ID=r.REGION_ID 
+ order by b.COUNTRY_ID,CAST(b.CDID as SIGNED INTEGER)
+	</select>
+	
+	<select id="findCoutryCollectionStatuslistPage" resultType="hashmap" parameterType="com.cn.dcs.batch.model.CountryDetailItem">
+	select rd.C_NAME,rd.E_NAME,rcs.`STATUS`,rcs.UPDATE_TIME,rd.REGION_ID FROM region_data rd 
+	inner join region_colle_state rcs ON rd.REGION_ID=rcs.REGION_ID
+	</select>
+	
+</mapper>
