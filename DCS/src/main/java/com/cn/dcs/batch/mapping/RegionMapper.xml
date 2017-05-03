@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="region">
+	
+	<insert id="saveRegionDataList" parameterType="java.util.List">
+		insert into REGION_DATA(REGION_ID,PARENT_REGION_ID,LEVEL,C_NAME, E_NAME, LAT,LON,CREATE_TIME)
+		values 
+		 <foreach collection="list" item="item" index="index" separator=",">
+           (#{item.regionId},#{item.parentRegionId},#{item.level},#{item.cName},#{item.eName},#{item.lat},#{item.lon},#{item.createTime})
+        </foreach>
+		
+	</insert>
+	
+	
+	<select id="findRegionByWhere" resultType="com.cn.dcs.domain.RegionData">
+		select REGION_ID REGIONID,PARENT_REGION_ID PARENTREGIONID,LEVEL,C_NAME CNAME, E_NAME ENAME, LAT,LON,CREATE_TIME CREATETIME from REGION_DATA 
+<!-- 		where SUCCESS_FLG  is null -->
+		where 1=1  and LEVEL=#{level} 
+<!-- 		and E_NAME is null -->
+		<if test="regionId != null and regionId != ''" >
+			and REGION_ID=#{regionId}
+		</if>
+	</select>
+	
+	<update id="updateRegionEname" parameterType="com.cn.dcs.domain.RegionData">
+		update REGION_DATA set E_NAME=#{eName} where REGION_ID=#{regionId}
+	</update>
+	
+	<update id="updateRegionSuccess" parameterType="java.lang.String">
+		update REGION_DATA set SUCCESS_FLG='01' where REGION_ID=#{regionId}
+	</update>
+	
+	<select id="findCountryDetail" parameterType="com.cn.dcs.batch.model.CountryDetail"
+		resultType="com.cn.dcs.batch.model.CountryDetail">
+		select CDID,COLLECTION,EXPRESSION,TYPE from COUNTRY_DETAIL
+	</select>
+	
+	<delete id="deleteCountryDetailItem"  parameterType="com.cn.dcs.batch.model.CountryDetailItem">
+		delete from COUNTRY_DETAIL_ITEM where CDID=#{cdid} and COUNTRY_ID=#{regionId}
+	</delete>
+	
+	<insert id="saveCountryDetailItem" parameterType="com.cn.dcs.batch.model.CountryDetailItem">
+		insert into COUNTRY_DETAIL_ITEM(ITEM_ID,CDID ,COUNTRY_ID ,DETAIL,CREATE_TIME,IS_IMG)
+		values (#{itemId},#{cdid},#{regionId},#{detail},#{createTime},#{isImg})
+	</insert>
+	
+	
+	<select id="selectSeabayRef" resultType="com.cn.dcs.batch.exe.SeabayRef" parameterType="com.cn.dcs.batch.exe.SeabayRef">
+		select * from SEABAY_REF where REGION_ID=#{regionId} and airportID=#{airportID}
+	</select>
+	
+	<insert id="insertSeabayRef" parameterType="com.cn.dcs.batch.exe.SeabayRef">
+		insert into SEABAY_REF(REGION_ID,airportID,CREATE_TIME)
+		values(#{regionId},#{airportID},#{createTime});
+	</insert>
+	
+	<select id="selectSeabayNameJson" parameterType="com.cn.dcs.batch.exe.SeabayNameJson"
+	 resultType="com.cn.dcs.batch.exe.SeabayNameJson">
+	 	select * from SEABAY_AIRPORT where airportID=#{airportID} 
+	 </select>
+	
+	<insert id="insertSeabayNameJson" parameterType="com.cn.dcs.batch.exe.SeabayNameJson">
+	 	insert into SEABAY_AIRPORT(airportID ,
+		iata,name ,Airport ,AirportCn ,locality ,citycn ,cityen ,CountryName ,CountryCn ,CustomAirport ,CityCode ,Count ,LanguageCode,remark,ys ,url1 ,url2 )
+		values(
+		#{airportID},#{iata},#{name},#{Airport},#{AirportCn},#{locality},#{citycn},#{cityen},#{CountryName},#{CountryCn},#{CustomAirport},#{CityCode},#{Count},#{LanguageCode},#{remark},#{ys},#{url1},#{url2} 
+		)
+	</insert>
+	
+	<select id="selectSeabayNOJson" parameterType="com.cn.dcs.batch.exe.SeabayNOJson"
+	 resultType="com.cn.dcs.batch.exe.SeabayNOJson">
+	 	select * from SEABAY_AIRPORT_DESC where airportID=#{airportID} 
+	 </select>
+	
+	<insert id="insertSeabayNOJson" parameterType="com.cn.dcs.batch.exe.SeabayNOJson">
+		insert into SEABAY_AIRPORT_DESC(airportID ,icao ,iata ,
+	faa ,name ,Airport ,AirportCn ,locality ,citycn ,
+	cityen ,region ,cityrgcn ,cityrgen ,CountryName ,CountryCn ,
+	BankInfo ,ChargeI ,ChargeE ,CustomAirport ,CityCode ,
+	lat ,lon ,type ,usefor ,timeZone ,georegion ,countryCode2 ,
+	countryCode3 ,dmslat ,dmslon ,Continent ,LanguageCode ,remark ,url1 ,url2 , NUM_INSERT)
+		values(#{airportID} ,#{icao} ,#{iata} ,#{faa} ,
+	#{name} ,#{Airport} ,#{AirportCn} ,#{locality} ,#{citycn} ,
+	#{cityen} ,#{region} ,#{cityrgcn} ,#{cityrgen} ,#{CountryName} ,#{CountryCn} ,
+	#{BankInfo} ,#{ChargeI} ,#{ChargeE} ,#{CustomAirport} ,#{CityCode} ,
+	#{lat} ,#{lon} ,#{type} ,#{usefor} ,#{timeZone} ,#{georegion} ,#{countryCode2} ,
+	#{countryCode3} ,#{dmslat} ,#{dmslon} ,#{Continent} ,#{LanguageCode} ,#{remark} ,#{url1} ,#{url2}  ,#{NUM_INSERT})
+	</insert>
+	
+	
+	<select id="findSeabayNOJson" resultType="com.cn.dcs.batch.exe.SeabayNOJson" parameterType="com.cn.dcs.batch.exe.SeabayNOJson">
+	select airportID ,icao ,iata ,
+	faa ,name ,Airport ,AirportCn ,locality ,citycn ,
+	cityen ,region ,cityrgcn ,cityrgen ,CountryName ,CountryCn ,
+	BankInfo ,ChargeI ,ChargeE ,CustomAirport ,CityCode ,
+	lat ,lon ,type ,usefor ,timeZone ,georegion ,countryCode2 ,
+	countryCode3 ,dmslat ,dmslon ,Continent ,LanguageCode ,remark ,url1 ,url2 from SEABAY_AIRPORT_DESC 
+<!-- 	where icao!='' and AirportCn is not null and CityCode is not null and Airport!='' -->
+	</select>
+	
+	<delete id="delRegionColleState"  parameterType="hashmap">
+	delete from REGION_COLLE_STATE where REGION_ID=#{regionId}
+	</delete>
+	<insert id="saveRegionColleState" parameterType="hashmap">
+		insert into REGION_COLLE_STATE(REGION_ID,UPDATE_TIME,STATUS)
+		values (#{regionId},#{createTime},#{state})
+	</insert>
+	
+</mapper>
